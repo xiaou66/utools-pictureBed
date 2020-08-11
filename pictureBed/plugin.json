@@ -1,0 +1,32 @@
+{
+  "pluginName": "图床",
+  "description": "图床",
+  "version": "1.0.4",
+  "author": "xiaou",
+  "main": "vue/index.html",
+  "update": false,
+  "preload": "preload.js",
+  "logo": "logo.png",
+  "features": [
+    {
+      "code": "bookmark",
+      "explain": "图床",
+      "cmds": [
+        "图床",
+        "picture",
+        {
+          "type": "files",
+          "label": "上传到图床",
+          "fileType": "file",
+          "match": "/.*(jpg|png|jpeg|gif)$/i",
+          "minLength": 1,
+          "maxLength": 4
+        },
+        {
+          "type": "img",
+          "label": "上传到图床"
+        }
+      ]
+    }
+  ]
+}
