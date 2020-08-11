@@ -65,7 +65,6 @@
 <script>
 import { mapState } from 'vuex'
 import { uploadImage } from '../api/manager'
-import { dateFormat } from '../js/Date'
 import uToolsUtils from '../js/uToolsUtils'
 const defaultPictureBed = '猫盒'
 export default {
@@ -82,7 +81,9 @@ export default {
   created () {
     // eslint-disable-next-line no-undef
     utools.onPluginReady(() => {
+      // 版本检查
       uToolsUtils.isNewVersion()
+      // 数据读入
       uToolsUtils.readAll()
     })
     // eslint-disable-next-line no-undef
@@ -91,7 +92,6 @@ export default {
     })
     // eslint-disable-next-line no-undef
     utools.onPluginEnter(({ code, type, payload, optional }) => {
-      console.log('用户进入插件', code, type, payload)
       this.$store.commit('clearInvalidImage')
       console.log(payload)
       if (type === 'files') {
@@ -107,6 +107,7 @@ export default {
     })
   },
   methods: {
+    // 上传图片处理
     async uploadImageHandler (item) {
       if (!this.fileModeKey.includes(this.image.selectFileMode)) {
         this.$message.warning('该源已经下线,请选择其他源')
@@ -124,6 +125,7 @@ export default {
         this.$message.warning(result.message)
       }
     },
+    // 自动复制
     autoCopy (url) {
       if (this.configure.autoCopy.enabled) {
         switch (this.configure.autoCopy.mode) {
@@ -142,6 +144,7 @@ export default {
     settingShow () {
       this.$router.push({ name: 'aliOss' })
     },
+    // 选择模式判断
     selectModeChange (value) {
       console.log(value)
       if (value === '阿里云OSS') {
@@ -175,13 +178,15 @@ export default {
         this.uploadFilePath(paths)
       }
     },
+    // 清空
     clearImage () {
       this.$store.commit('clearImage')
     },
+    // 删除
     deleteItem (id) {
-      console.log(dateFormat('YYYY-mm-dd', new Date()))
       this.$store.commit('deleteImageItem', id)
     },
+    // 复制
     copy (text) {
       console.log(text)
       console.log(this)
@@ -189,14 +194,17 @@ export default {
         this.$message.success('复制成功')
       })
     },
+    // html 复制
     htmlCopy (url) {
       const text = `<img src="${url}"  />`
       this.copy(text)
     },
+    // MarkDown 复制
     mdCopy (url) {
       const text = `![](${url})`
       this.copy(text)
     },
+    // 插件内文件拖动复制
     fileBoxDrag (e) {
       const files = [];
       [].forEach.call(e.dataTransfer.files, function (file) {
