@@ -35,9 +35,9 @@ const routes = [
         component: () => import('../views/setting/rruu')
       },
       {
-        path: 'tudo',
-        name: 'tudo',
-        component: () => import('../views/setting/tudo')
+        path: 'Hidove',
+        name: 'Hidove',
+        component: () => import('../views/setting/Hidove')
       },
       {
         path: 'contributions',

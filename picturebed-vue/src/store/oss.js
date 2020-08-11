@@ -15,7 +15,7 @@ const oss = {
     rruu: {
       token: ''
     },
-    tudo: {
+    hidove: {
       token: ''
     }
   },

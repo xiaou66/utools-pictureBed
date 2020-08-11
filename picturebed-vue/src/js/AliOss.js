@@ -1,5 +1,4 @@
 import store from '../store/index'
-import Vue from 'vue'
 const OSS = require('ali-oss')
 export default class AliOss {
   constructor () {
@@ -21,24 +20,12 @@ export default class AliOss {
   }
 
   async uploadFile (item, id) {
-    this.client.put(item.name, item).then(res => {
+    return await this.client.put(item.name, item).then(res => {
       console.log(res)
       const url = res.url.replace('http', 'https')
-      console.log('11111')
-      console.log(url)
-      if (url) {
-        fetch(url)
-          .then(res => res.blob())
-          .then(res => {
-            store.commit('setImage', { url, id })
-          }).catch(e => {
-            store.commit('setImage', { url: res.url, id })
-          })
-      }
+      return { status: 200, url, id }
     }).catch((e) => {
-      console.log(e)
-      Vue.prototype.$message.error(e.message)
-      Vue.prototype.$message.warning('上传失败')
+      return { status: 403, message: e.message }
     })
   }
 }

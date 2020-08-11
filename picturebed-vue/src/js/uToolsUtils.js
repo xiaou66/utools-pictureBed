@@ -108,10 +108,14 @@ uToolsUtils.isNewVersion = () => {
     if (window.pluginInfo.update) {
       console.log('更新数据')
       const oldOss = read('oss')
-      const oldOsskeys = oldOss
-      const newOssKeys = store.state.oss
-      store.state.oss = { ...newOssKeys, ...oldOsskeys }
-      uToolsUtils.save('oss')
+      if (oldOss) {
+        const oldOsskeys = oldOss
+        const newOssKeys = store.state.oss
+        newOssKeys.aliOss = oldOsskeys.aliOss
+        newOssKeys.tencentOss = oldOsskeys.tencentOss
+        newOssKeys.rruu = oldOsskeys.rruu
+        uToolsUtils.save('oss')
+      }
     }
     update('version', pluginInfo.version)
     // 打开更新信息窗口

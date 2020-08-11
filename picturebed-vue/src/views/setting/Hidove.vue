@@ -2,7 +2,7 @@
   <div style="min-height: 100%">
     <a-form  :label-col="{ span: 6 }" :wrapper-col="{ span: 12 }">
       <a-form-item label="token" >
-        <a-input placeholder="请输入 token" v-model="oss.tudo.token"></a-input>
+        <a-input placeholder="请输入 token" v-model="oss.hidove.token"></a-input>
       </a-form-item>
     </a-form>
     <a-row type="flex" justify="center">
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     getToken () {
-      window.openUrl('https://images.ac.cn/')
+      window.openUrl('https://img.abcyun.co/')
     }
   }
 }

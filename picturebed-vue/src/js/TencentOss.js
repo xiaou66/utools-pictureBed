@@ -1,5 +1,4 @@
 import store from '../store/index'
-import Vue from 'vue'
 const COS = require('cos-js-sdk-v5')
 export default class TencentOss {
   constructor () {
@@ -20,18 +19,16 @@ export default class TencentOss {
 
   async uploadFile (item, id) {
     this.client.putObject({
-      Bucket: store.state.oss.tencentOss.bucket, /* 必须 */
-      Region: store.state.oss.tencentOss.region, /* 必须 */
+      Bucket: store.state.oss.tencentOss.bucket,
+      Region: store.state.oss.tencentOss.region,
       Key: item.name, /* 必须 */
       StorageClass: 'STANDARD',
       Body: item // 上传文件对象
     }, (err, data) => {
       if (err || data.statusCode !== 200) {
-        Vue.prototype.$message.error(err.error)
-        Vue.prototype.$message.warning('上传失败')
-        return
+        return { status: 403, message: err.error }
       }
-      store.commit('setImage', { url: `https://${data.Location}`, id })
+      return { status: 200, url: `https://${data.Location}`, id }
     })
   }
 }

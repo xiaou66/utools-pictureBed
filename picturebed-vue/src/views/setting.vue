@@ -20,7 +20,7 @@ export default {
       tabsData: [
         { name: '阿里OSS', router: { name: 'aliOss' } },
         { name: '腾讯OSS', router: { name: 'tencentOss' } },
-        { name: '土豆', router: { name: 'tudo' } },
+        { name: 'Hidove', router: { name: 'Hidove' } },
         { name: '如优', router: { name: 'rruu' } },
         { name: '支持', router: { name: 'contributions' } }
       ],
