@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import catbox from './catbox'
 import rruu from './rruu'
-import uploadCC from './uploadCC'
 import imgUrlOrg from './imgUrlOrg'
 import store from '../store/index'
 
@@ -22,8 +21,6 @@ export const uploadImage = async (item, id) => {
       return await rruu.uploadImage(item, id, 'sougou')
     case '如优-Postimages':
       return await rruu.uploadImage(item, id, 'postimages')
-    case 'uploadCC':
-      return await uploadCC.uploadImage(item, id)
     case 'imgUrlOrg':
       return await imgUrlOrg.uploadImage(item, id)
   }
