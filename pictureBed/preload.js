@@ -14,9 +14,13 @@ window.selectFile = () => {
 
 };
 
-window.readFile = (filePath) => {
+window.readFile = (filePath, time = false) => {
     const base64 = window.fileToBase64(filePath)
-    const fileName = path.basename(filePath)
+    let fileName = path.basename(filePath)
+    if (time) {
+        fileName = `${Date.now()}-${fileName}`
+    }
+    console.log('fileName', fileName);
     const file = dataURLtoFile(base64, fileName)
     return file
 }

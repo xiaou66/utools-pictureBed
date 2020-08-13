@@ -35,9 +35,9 @@ const routes = [
         component: () => import('../views/setting/rruu')
       },
       {
-        path: 'Hidove',
-        name: 'Hidove',
-        component: () => import('../views/setting/Hidove')
+        path: 'GitHub',
+        name: 'GitHub',
+        component: () => import('../views/setting/GitHub')
       },
       {
         path: 'contributions',

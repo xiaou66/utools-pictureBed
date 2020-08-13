@@ -15,7 +15,7 @@
               </a-select-option>
             </a-select>
           </a-col>
-          <a-col :span="8">
+          <a-col :span="12">
             <div style="display: flex;align-items: center;margin-left: 10px;">
               <a-select v-model="configure.autoCopy.mode" style="width: 100%">
                 <a-select-option value="url">
@@ -33,6 +33,13 @@
                   自动复制开关
                 </template>
                 <a-switch v-model="configure.autoCopy.enabled" style="margin-left: 10px"/>
+              </a-tooltip>
+              <div style="width: 150px;padding-left: 10px;">时间戳:</div>
+              <a-tooltip>
+                <template #title>
+                  是否增加时间戳
+                </template>
+                <a-switch v-model="configure.timeStamp" style="margin-left: 10px"/>
               </a-tooltip>
             </div>
           </a-col>
@@ -70,7 +77,7 @@ const defaultPictureBed = '猫盒'
 export default {
   data () {
     return {
-      fileModeKey: ['阿里云OSS', '腾讯云OSS',
+      fileModeKey: ['阿里云OSS', '腾讯云OSS', 'GitHub',
         '猫盒', 'imgUrlOrg',
         '如优-Postimages', '如优-阿里图床', '如优-头条', '如优-网易', '如优-掘金', '如优-搜狗']
     }
@@ -162,10 +169,17 @@ export default {
           this.$message.warning('使用如优需要在设置中需要配置token')
           this.image.selectFileMode = defaultPictureBed
         }
+      } else if (value === 'GitHub') {
+        if (!this.$store.state.oss.GitHub.token || !this.$store.state.oss.GitHub.project) {
+          this.$message.warning('使用GitHub需要在设置中需要配置token 和 仓库名')
+          this.image.selectFileMode = defaultPictureBed
+        }
       }
     },
     uploadFilePath (path) {
-      const item = window.readFile(path)
+      // github 必须有时间戳
+      const timeStamp = this.configure.timeStamp && this.selectFileMode !== 'GitHub'
+      const item = window.readFile(path, timeStamp)
       this.uploadImageHandler(item)
     },
     openFiles () {
@@ -216,7 +230,6 @@ export default {
       files.forEach(item => {
         const allowFormat = ['image/png', 'image/jpeg', 'image/gif']
         if (allowFormat.includes(item.type)) {
-          console.log(item)
           this.uploadImageHandler(item)
         } else {
           this.$message.warning('不支持该格式')

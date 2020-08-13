@@ -3,7 +3,8 @@ const configure = {
     autoCopy: {
       mode: 'url',
       enabled: false
-    }
+    },
+    timeStamp: false
   },
   mutations: {
   },

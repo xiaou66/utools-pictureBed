@@ -114,6 +114,7 @@ uToolsUtils.isNewVersion = () => {
         newOssKeys.aliOss = oldOsskeys.aliOss
         newOssKeys.tencentOss = oldOsskeys.tencentOss
         newOssKeys.rruu = oldOsskeys.rruu
+        store.state.oss = { ...oldOsskeys, ...newOssKeys }
         uToolsUtils.save('oss')
       }
     }

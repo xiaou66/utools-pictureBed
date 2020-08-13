@@ -15,8 +15,11 @@ const oss = {
     rruu: {
       token: ''
     },
-    hidove: {
-      token: ''
+    GitHub: {
+      token: '',
+      path: '',
+      project: '',
+      cdn: ''
     }
   },
   mutations: {
