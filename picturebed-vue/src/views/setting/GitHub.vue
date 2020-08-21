@@ -12,7 +12,7 @@
           <template #title>
             目录需要存在
           </template>
-          <a-input placeholder="例: /image 或 /img/images [可留空上传到跟目录]" v-model="oss.GitHub.path"></a-input>
+          <a-input placeholder="例: /image 或 /img/images [可留空上传到根目录]" v-model="oss.GitHub.path"></a-input>
         </a-tooltip>
       </a-form-item>
     </a-form>
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     getToken () {
-      window.openUrl(' https://github.com/settings/tokens/new')
+      window.openUrl('https://github.com/settings/tokens/new')
     }
   }
 }

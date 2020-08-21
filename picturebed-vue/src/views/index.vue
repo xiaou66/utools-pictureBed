@@ -78,8 +78,8 @@ export default {
   data () {
     return {
       fileModeKey: ['阿里云OSS', '腾讯云OSS', 'GitHub',
-        '猫盒', 'imgUrlOrg',
-        '如优-Postimages', '如优-阿里图床', '如优-头条', '如优-网易', '如优-掘金', '如优-搜狗']
+        '猫盒', 'imgUrlOrg', '牛图网',
+        'smMs', '如优-Postimages', '如优-阿里图床', '如优-头条', '如优-网易', '如优-掘金', '如优-搜狗']
     }
   },
   computed: {
@@ -156,22 +156,27 @@ export default {
       console.log(value)
       if (value === '阿里云OSS') {
         if (!this.$store.state.oss.aliOss.accessKeySecret) {
-          this.$message.warning('使用阿里云OSS在设置中需要配置')
+          this.$message.warning('使用 「阿里云OSS」 在设置中需要配置')
           this.image.selectFileMode = defaultPictureBed
         }
       } else if (value === '腾讯云OSS') {
         if (!this.$store.state.oss.tencentOss.secretKey) {
-          this.$message.warning('使用腾讯云OSS在设置中需要配置')
+          this.$message.warning('使用 「腾讯云OSS」 在设置中需要配置')
           this.image.selectFileMode = defaultPictureBed
         }
       } else if (value.includes('如优')) {
         if (!this.$store.state.oss.rruu.token) {
-          this.$message.warning('使用如优需要在设置中需要配置token')
+          this.$message.warning('使用 「如优」 需要在设置中需要配置 token')
           this.image.selectFileMode = defaultPictureBed
         }
       } else if (value === 'GitHub') {
         if (!this.$store.state.oss.GitHub.token || !this.$store.state.oss.GitHub.project) {
-          this.$message.warning('使用GitHub需要在设置中需要配置token 和 仓库名')
+          this.$message.warning('使用 「GitHub」 需要在设置中需要配置 token 和 仓库名')
+          this.image.selectFileMode = defaultPictureBed
+        }
+      } else if (value === 'smMs') {
+        if (!this.$store.state.oss.smMs.token) {
+          this.$message.warning('使用 「sm.ms」 需要在设置中需要配置 token')
           this.image.selectFileMode = defaultPictureBed
         }
       }

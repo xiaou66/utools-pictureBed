@@ -4,12 +4,18 @@ import rruu from './rruu'
 import imgUrlOrg from './imgUrlOrg'
 import store from '../store/index'
 import GitHub from './GitHub'
+import niupic from './niupic'
+import smMs from './smMs'
 
 export const uploadImage = async (item, id) => {
   const type = store.state.image.selectFileMode
   switch (type) {
     case '猫盒':
       return await catbox.uploadImage(item, id)
+    case '牛图网':
+      return await niupic.uploadImage(item, id)
+    case 'smMs':
+      return await smMs.uploadImage(item, id)
     case 'GitHub':
       return await GitHub.uploadImage(item, id)
     case '如优-阿里图床':

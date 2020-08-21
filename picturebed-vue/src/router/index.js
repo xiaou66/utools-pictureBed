@@ -40,6 +40,11 @@ const routes = [
         component: () => import('../views/setting/GitHub')
       },
       {
+        path: 'smMs',
+        name: 'smMs',
+        component: () => import('../views/setting/smMs')
+      },
+      {
         path: 'contributions',
         name: 'contributions',
         component: () => import('../views/setting/contributions')

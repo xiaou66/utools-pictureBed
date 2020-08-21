@@ -15,6 +15,9 @@ const oss = {
     rruu: {
       token: ''
     },
+    smMs: {
+      token: ''
+    },
     GitHub: {
       token: '',
       path: '',

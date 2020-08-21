@@ -114,13 +114,11 @@ uToolsUtils.isNewVersion = () => {
         newOssKeys.aliOss = oldOsskeys.aliOss
         newOssKeys.tencentOss = oldOsskeys.tencentOss
         newOssKeys.rruu = oldOsskeys.rruu
-        if (!newOssKeys.GitHub) {
-          newOssKeys.GitHub = {
-            token: '',
-            path: '',
-            project: '',
-            cdn: ''
-          }
+        if (oldOsskeys.GitHub) {
+          newOssKeys.GitHub = oldOsskeys.GitHub
+        }
+        if (oldOsskeys.smMs) {
+          newOssKeys.smMs = oldOsskeys.smMs
         }
         uToolsUtils.save('oss')
       }
