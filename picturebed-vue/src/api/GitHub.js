@@ -26,7 +26,7 @@ GitHub.uploadImage = (item, id) => {
           if (res.content && res.content.download_url) {
             // https://raw.githubusercontent.com/xiaou66/picture/master/1597318943475-logo.png
             // https://cdn.jsdelivr.net/gh/xiaou66/picture/master/1597318943475-logo.png
-            if (item.size >= 20 * 1024) {
+            if (item.size >= 20 * 1024 * 1024) {
               resolve({ status: 200, url: res.content.download_url, id })
             } else {
               const baseUrl = res.content.download_url.replace('/master/', '/').replace('https://raw.githubusercontent.com', '')
