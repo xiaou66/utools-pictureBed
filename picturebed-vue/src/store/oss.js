@@ -4,7 +4,8 @@ const oss = {
       region: '',
       accessKeyId: '',
       accessKeySecret: '',
-      bucket: ''
+      bucket: '',
+      uploadDirectory: ''
     },
     tencentOss: {
       secretId: '',

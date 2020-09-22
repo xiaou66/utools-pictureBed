@@ -120,6 +120,9 @@ uToolsUtils.isNewVersion = () => {
         if (oldOsskeys.smMs) {
           newOssKeys.smMs = oldOsskeys.smMs
         }
+        if (!oldOss.aliOss.uploadDirectory) {
+          newOssKeys.aliOss.uploadDirectory = ''
+        }
         uToolsUtils.save('oss')
       }
     }
