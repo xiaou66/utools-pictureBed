@@ -4,7 +4,7 @@
 module.exports = {
   publicPath: './',
   outputDir: '../pictureBed/vue',
-  productionSourceMap: true,
+  productionSourceMap: false,
   devServer: {
     proxy: {
       '/imgkr': {
