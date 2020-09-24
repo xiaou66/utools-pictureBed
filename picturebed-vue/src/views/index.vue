@@ -122,14 +122,28 @@ export default {
       }
       const id = Date.now()
       this.image.data.unshift({ id, image: '', loading: true })
-      const result = await uploadImage(item, id)
-      if (result.status === 200) {
-        const { url, id } = result
-        this.$store.commit('setImage', { url, id })
-        this.$message.success('上传成功')
-        this.autoCopy(url)
+      let result
+      if (this.image.selectFileMode === '腾讯云OSS') {
+        result = await uploadImage(item, id, (result) => {
+          if (result.status === 200) {
+            const { url, id } = result
+            this.$store.commit('setImage', { url, id })
+            this.$message.success('上传成功')
+            this.autoCopy(url)
+          } else {
+            this.$message.warning(result.message)
+          }
+        })
       } else {
-        this.$message.warning(result.message)
+        result = await uploadImage(item, id)
+        if (result.status === 200) {
+          const { url, id } = result
+          this.$store.commit('setImage', { url, id })
+          this.$message.success('上传成功')
+          this.autoCopy(url)
+        } else {
+          this.$message.warning(result.message)
+        }
       }
     },
     // 自动复制

@@ -17,7 +17,7 @@ export default class TencentOss {
     }
   }
 
-  async uploadFile (item, id) {
+  async uploadFile (item, id, callback) {
     this.client.putObject({
       Bucket: store.state.oss.tencentOss.bucket,
       Region: store.state.oss.tencentOss.region,
@@ -25,10 +25,14 @@ export default class TencentOss {
       StorageClass: 'STANDARD',
       Body: item // 上传文件对象
     }, (err, data) => {
+      console.log(err)
+      console.log(data)
       if (err || data.statusCode !== 200) {
-        return { status: 403, message: err.error }
+        // eslint-disable-next-line standard/no-callback-literal
+        callback({ status: 403, message: err.error })
       }
-      return { status: 200, url: `https://${data.Location}`, id }
+      // eslint-disable-next-line standard/no-callback-literal
+      callback({ status: 200, url: `https://${data.Location}`, id })
     })
   }
 }
