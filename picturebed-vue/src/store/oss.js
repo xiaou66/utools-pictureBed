@@ -23,7 +23,8 @@ const oss = {
       token: '',
       path: '',
       project: '',
-      cdn: ''
+      cdn: '',
+      at: false
     }
   },
   mutations: {

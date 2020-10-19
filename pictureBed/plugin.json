@@ -1,7 +1,7 @@
 {
   "pluginName": "图床",
   "description": "图床",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "author": "xiaou",
   "main": "vue/index.html",
   "update": true,

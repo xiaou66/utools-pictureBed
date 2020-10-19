@@ -29,7 +29,12 @@ GitHub.uploadImage = (item, id) => {
             if (item.size >= 20 * 1024 * 1024) {
               resolve({ status: 200, url: res.content.download_url, id })
             } else {
-              const baseUrl = res.content.download_url.replace('/master/', '/').replace('https://raw.githubusercontent.com', '')
+              let baseUrl = ''
+              if (store.state.oss.GitHub.at) {
+                baseUrl = res.content.download_url.replace('/master/', '@').replace('https://raw.githubusercontent.com', '')
+              } else {
+                baseUrl = res.content.download_url.replace('/master/', '/').replace('https://raw.githubusercontent.com', '')
+              }
               const jsdelivrUrl = `https://cdn.jsdelivr.net/gh${baseUrl}`
               resolve({ status: 200, url: jsdelivrUrl, id })
             }

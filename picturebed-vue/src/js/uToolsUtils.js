@@ -123,6 +123,9 @@ uToolsUtils.isNewVersion = () => {
         if (!oldOss.aliOss.uploadDirectory) {
           newOssKeys.aliOss.uploadDirectory = ''
         }
+        if (oldOss.GitHub.at === undefined) {
+          newOssKeys.GitHub.at = false
+        }
         uToolsUtils.save('oss')
       }
     }

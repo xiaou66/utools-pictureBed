@@ -15,6 +15,14 @@
           <a-input placeholder="例: /image 或 /img/images [可留空上传到根目录]" v-model="oss.GitHub.path"></a-input>
         </a-tooltip>
       </a-form-item>
+      <a-form-item  label="是否用@连接">
+        <a-tooltip>
+          <template #title>
+            地址有需要 @ 的可以打开
+          </template>
+          <a-switch  v-model="oss.GitHub.at"></a-switch>
+        </a-tooltip>
+      </a-form-item>
     </a-form>
     <a-row type="flex" justify="center">
       <a-tooltip>
