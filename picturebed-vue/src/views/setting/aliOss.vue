@@ -13,8 +13,8 @@
       <a-form-item label="bucket">
         <a-input placeholder="bucket" v-model="oss.aliOss.bucket"></a-input>
       </a-form-item>
-      <a-form-item label="需要设置目录">
-        <a-input placeholder="上传目录例如: abc/test" v-model="oss.aliOss.uploadDirectory"></a-input>
+      <a-form-item label="目录">
+        <a-input placeholder="上传目录例如: abc/test [可选]" v-model="oss.aliOss.uploadDirectory"></a-input>
       </a-form-item>
     </a-form>
     <a-row type="flex" justify="center">

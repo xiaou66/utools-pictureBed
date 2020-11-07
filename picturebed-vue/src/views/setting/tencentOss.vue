@@ -13,6 +13,9 @@
       <a-form-item label="bucket">
         <a-input placeholder="bucket" v-model="oss.tencentOss.bucket"></a-input>
       </a-form-item>
+      <a-form-item label="path">
+        <a-input placeholder="image/ [可留空上传到根目录]" v-model="oss.tencentOss.path"></a-input>
+      </a-form-item>
     </a-form>
     <a-row type="flex" justify="center">
       <a-button @click="getToken">怎么获取这些信息</a-button>

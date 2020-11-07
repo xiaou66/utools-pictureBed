@@ -11,7 +11,8 @@ const oss = {
       secretId: '',
       secretKey: '',
       bucket: '',
-      region: ''
+      region: '',
+      path: ''
     },
     rruu: {
       token: ''

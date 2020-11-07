@@ -21,7 +21,7 @@ export default class TencentOss {
     this.client.putObject({
       Bucket: store.state.oss.tencentOss.bucket,
       Region: store.state.oss.tencentOss.region,
-      Key: item.name, /* 必须 */
+      Key: store.state.oss.tencentOss.path + item.name, /* 必须 */
       StorageClass: 'STANDARD',
       Body: item // 上传文件对象
     }, (err, data) => {

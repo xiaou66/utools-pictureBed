@@ -5,10 +5,15 @@
         <a-input placeholder="请输入 token" v-model="oss.GitHub.token"></a-input>
       </a-form-item>
       <a-form-item label="仓库名" >
-        <a-input placeholder="例: xiaou/picture" v-model="oss.GitHub.project"></a-input>
+        <a-tooltip placement="topLeft">
+          <template #title>
+            仓库至少要存在一个文件
+          </template>
+          <a-input placeholder="例: xiaou/picture" v-model="oss.GitHub.project"></a-input>
+        </a-tooltip>
       </a-form-item>
       <a-form-item label="path" >
-        <a-tooltip>
+        <a-tooltip placement="topLeft">
           <template #title>
             目录需要存在
           </template>

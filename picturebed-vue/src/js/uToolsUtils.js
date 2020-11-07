@@ -126,6 +126,9 @@ uToolsUtils.isNewVersion = () => {
         if (oldOss.GitHub.at === undefined) {
           newOssKeys.GitHub.at = false
         }
+        if (oldOss.tencentOss.path === undefined) {
+          newOssKeys.tencentOss.path = ''
+        }
         uToolsUtils.save('oss')
       }
     }
