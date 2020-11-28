@@ -14,7 +14,13 @@
         <a-input placeholder="bucket" v-model="oss.aliOss.bucket"></a-input>
       </a-form-item>
       <a-form-item label="目录">
-        <a-input placeholder="上传目录例如: abc/test [可选]" v-model="oss.aliOss.uploadDirectory"></a-input>
+        <a-input placeholder="上传目录例如: abc/test/ {Y}:年 {M}:月 {D}:日 {H}:时 {m}:分 {s}:秒 {rand}:随机字符串 [可选]" v-model="oss.aliOss.uploadDirectory"></a-input>
+      </a-form-item>
+      <a-form-item label="自定义域名">
+        <a-input placeholder="自定义域名例如：img.example.com [可选]" v-model="oss.aliOss.domain"></a-input>
+      </a-form-item>
+      <a-form-item label="图片样式">
+        <a-input placeholder="图片样式例如：thumb [可选]" v-model="oss.aliOss.style"></a-input>
       </a-form-item>
     </a-form>
     <a-row type="flex" justify="center">

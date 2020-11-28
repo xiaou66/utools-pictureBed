@@ -5,7 +5,9 @@ const oss = {
       accessKeyId: '',
       accessKeySecret: '',
       bucket: '',
-      uploadDirectory: ''
+      uploadDirectory: '',
+      domain: '',
+      style: ''
     },
     tencentOss: {
       secretId: '',
