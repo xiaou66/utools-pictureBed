@@ -1,6 +1,7 @@
 import store from '../store/index'
 import Utils from './Utils'
 const OSS = require('ali-oss')
+const re = new RegExp('^(https|http)\\:\\/\\/(.*?)\\/')
 export default class AliOss {
   constructor () {
     this.client = undefined
@@ -41,7 +42,6 @@ export default class AliOss {
       const domain = store.state.oss.aliOss.domain
       const style = store.state.oss.aliOss.style
       if (domain) {
-        const re = new RegExp('^(https|http)\\:\\/\\/(.*?)\\/')
         response.url = response.url.replace(re, `https://${domain}/`)
       }
       if (style && response.url.search('x-oss-process=style') === -1) {
