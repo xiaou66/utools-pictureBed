@@ -120,6 +120,15 @@ uToolsUtils.isNewVersion = () => {
         if (oldOsskeys.smMs) {
           newOssKeys.smMs = oldOsskeys.smMs
         }
+        if (!oldOss.aliOss.uploadDirectory) {
+          newOssKeys.aliOss.uploadDirectory = ''
+        }
+        if (oldOss.GitHub.at === undefined) {
+          newOssKeys.GitHub.at = false
+        }
+        if (oldOss.tencentOss.path === undefined) {
+          newOssKeys.tencentOss.path = ''
+        }
         uToolsUtils.save('oss')
       }
     }

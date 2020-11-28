@@ -4,13 +4,15 @@ const oss = {
       region: '',
       accessKeyId: '',
       accessKeySecret: '',
-      bucket: ''
+      bucket: '',
+      uploadDirectory: ''
     },
     tencentOss: {
       secretId: '',
       secretKey: '',
       bucket: '',
-      region: ''
+      region: '',
+      path: ''
     },
     rruu: {
       token: ''
@@ -22,7 +24,8 @@ const oss = {
       token: '',
       path: '',
       project: '',
-      cdn: ''
+      cdn: '',
+      at: false
     }
   },
   mutations: {

@@ -20,7 +20,11 @@ export default class AliOss {
   }
 
   async uploadFile (item, id) {
-    return await this.client.put(item.name, item).then(res => {
+    // 设置阿里云对象存储上传的目录
+    const path = store.state.oss.aliOss.uploadDirectory
+    const uploadPath = path ? `${path}/${item.name}` : item.name
+    console.log(uploadPath)
+    return await this.client.put(uploadPath, item).then(res => {
       console.log(res)
       const url = res.url.replace('http', 'https')
       return { status: 200, url, id }

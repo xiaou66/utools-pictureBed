@@ -7,7 +7,7 @@ import GitHub from './GitHub'
 import niupic from './niupic'
 import smMs from './smMs'
 
-export const uploadImage = async (item, id) => {
+export const uploadImage = async (item, id, callback) => {
   const type = store.state.image.selectFileMode
   switch (type) {
     case '猫盒':
@@ -51,6 +51,6 @@ export const uploadImage = async (item, id) => {
         return { status: 403, message: '请重新配置 tencent-oss' }
       }
     }
-    return await tencentOss.uploadFile(item, id)
+    return await tencentOss.uploadFile(item, id, callback)
   }
 }
