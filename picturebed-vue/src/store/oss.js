@@ -27,6 +27,7 @@ const oss = {
       path: '',
       project: '',
       cdn: '',
+      branch: '',
       at: false
     }
   },

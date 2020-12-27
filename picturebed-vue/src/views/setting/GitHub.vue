@@ -20,12 +20,12 @@
           <a-input placeholder="例: /image 或 /img/images [可留空上传到根目录]" v-model="oss.GitHub.path"></a-input>
         </a-tooltip>
       </a-form-item>
-      <a-form-item  label="是否用@连接">
-        <a-tooltip>
+      <a-form-item label="branch" >
+        <a-tooltip placement="topLeft">
           <template #title>
-            地址有需要 @ 的可以打开
+            设置图片要上传到的分支
           </template>
-          <a-switch  v-model="oss.GitHub.at"></a-switch>
+          <a-input placeholder="[留空>>使用仓库默认分支(通常是 master)]" v-model="oss.GitHub.branch"></a-input>
         </a-tooltip>
       </a-form-item>
     </a-form>

@@ -6,7 +6,7 @@
       </div>
     </a-row>
     <a-row type="flex" justify="space-between" style="margin-top: 30px">
-      <a-col :span="16" >
+      <a-col :span="17" >
         <a-row>
           <a-col :span="8">
             <a-select v-model="image.selectFileMode" style="width: 100%" @change="selectModeChange">
@@ -45,10 +45,11 @@
           </a-col>
         </a-row>
       </a-col>
-      <a-col :span="5">
+      <a-col :span="7">
         <a-row type="flex" justify="start">
-          <a-col :span="12"> <a-button @click="settingShow">设置</a-button></a-col>
-          <a-col :span="12"><a-button @click="clearImage">清空</a-button></a-col>
+          <a-col :span="8"> <a-button @click="toNotesHandler()">笔记</a-button></a-col>
+          <a-col :span="8"> <a-button @click="settingShow">设置</a-button></a-col>
+          <a-col :span="8"><a-button @click="clearImage">清空</a-button></a-col>
         </a-row>
       </a-col>
     </a-row>
@@ -60,6 +61,7 @@
             <span @click="copy(item.image)">URL</span>
             <span @click="htmlCopy(item.image)">HTML</span>
             <span @click="mdCopy(item.image)">MD</span>
+            <span @click="toNotesHandler(item.image)">MD笔记</span>
             <span @click="deleteItem(item.id)">删除</span>
             <span>{{item.createTime}}</span>
           </div>
@@ -114,6 +116,18 @@ export default {
     })
   },
   methods: {
+    // 去 Markdown 笔记插件
+    toNotesHandler (url = '') {
+      if (window.utools) {
+        if (!url) {
+          window.utools.redirect('Markdown 笔记')
+        } else {
+          const text = `![](${url})`
+          this.copy(text)
+          window.utools.redirect('Markdown 笔记')
+        }
+      }
+    },
     // 上传图片处理
     async uploadImageHandler (item) {
       if (!this.fileModeKey.includes(this.image.selectFileMode)) {

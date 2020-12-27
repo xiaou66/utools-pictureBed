@@ -123,8 +123,11 @@ uToolsUtils.isNewVersion = () => {
         if (!oldOss.aliOss.uploadDirectory) {
           newOssKeys.aliOss.uploadDirectory = ''
         }
-        if (oldOss.GitHub.at === undefined) {
-          newOssKeys.GitHub.at = false
+        if (oldOss.GitHub.branch === undefined) {
+          newOssKeys.GitHub.branch = ''
+          if (oldOss.GitHub.at === false || oldOss.GitHub.at === true) {
+            delete newOssKeys.GitHub.at
+          }
         }
         if (oldOss.tencentOss.path === undefined) {
           newOssKeys.tencentOss.path = ''

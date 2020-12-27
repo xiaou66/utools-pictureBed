@@ -1,4 +1,5 @@
 import store from '../store/index'
+const branchReg = /ref=(.*)/
 function GitHub () {}
 GitHub.uploadImage = (item, id) => {
   console.log('g', item)
@@ -9,15 +10,20 @@ GitHub.uploadImage = (item, id) => {
     fr.onloadend = (e) => {
       const base64 = e.target.result.split(',')[1]
       console.log(base64)
+      const GitHub = store.state.oss.GitHub
       const data = {
         message: '图床',
         content: base64
       }
-      fetch(`https://api.github.com/repos/${store.state.oss.GitHub.project}/contents${store.state.oss.GitHub.path}/${fileName}`, {
+      if (GitHub.branch) {
+        data.branch = GitHub.branch
+      }
+      const requestUrl = `https://api.github.com/repos/${GitHub.project}/contents${GitHub.path}/${fileName}`
+      fetch(requestUrl, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
-          Authorization: `token ${store.state.oss.GitHub.token}`
+          Authorization: `token ${GitHub.token}`
         },
         body: JSON.stringify(data)
       })
@@ -26,16 +32,18 @@ GitHub.uploadImage = (item, id) => {
           if (res.content && res.content.download_url) {
             // https://raw.githubusercontent.com/xiaou66/picture/master/1597318943475-logo.png
             // https://cdn.jsdelivr.net/gh/xiaou66/picture/master/1597318943475-logo.png
+            // 超过 20 MB 不使用 jsdelivr cdn
             if (item.size >= 20 * 1024 * 1024) {
               resolve({ status: 200, url: res.content.download_url, id })
             } else {
+              debugger
               let baseUrl = ''
-              if (store.state.oss.GitHub.at) {
-                baseUrl = res.content.download_url.replace('/master/', '@').replace('https://raw.githubusercontent.com', '')
-              } else {
-                baseUrl = res.content.download_url.replace('/master/', '/').replace('https://raw.githubusercontent.com', '')
-              }
-              const jsdelivrUrl = `https://cdn.jsdelivr.net/gh${baseUrl}`
+              const { path, url } = res.content
+              branchReg.test(url)
+              console.log(RegExp.$1)
+              baseUrl = `${GitHub.project}@${RegExp.$1}/${path}`
+              // /xiaou66/pic/image/1609054282923-86467220_p0.png
+              const jsdelivrUrl = `https://cdn.jsdelivr.net/gh/${baseUrl}`
               resolve({ status: 200, url: jsdelivrUrl, id })
             }
           } else {
