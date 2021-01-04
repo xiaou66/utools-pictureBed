@@ -114,6 +114,12 @@ uToolsUtils.isNewVersion = () => {
         newOssKeys.aliOss = oldOsskeys.aliOss
         newOssKeys.tencentOss = oldOsskeys.tencentOss
         newOssKeys.rruu = oldOsskeys.rruu
+        if (newOssKeys.tencentOss.domain === undefined) {
+          newOssKeys.tencentOss.domain = ''
+        }
+        if (newOssKeys.tencentOss.style === undefined) {
+          newOssKeys.tencentOss.style = ''
+        }
         if (oldOsskeys.GitHub) {
           newOssKeys.GitHub = oldOsskeys.GitHub
         }

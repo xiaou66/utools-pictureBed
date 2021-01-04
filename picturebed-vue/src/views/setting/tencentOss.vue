@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-bottom: 30px;">
     <a-form  :label-col="{ span: 6 }" :wrapper-col="{ span: 12 }">
       <a-form-item label="region" >
         <a-input placeholder="region" v-model="oss.tencentOss.region"></a-input>
