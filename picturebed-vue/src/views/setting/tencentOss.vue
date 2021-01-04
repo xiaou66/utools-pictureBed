@@ -16,6 +16,12 @@
       <a-form-item label="path">
         <a-input placeholder="image/ [可留空上传到根目录]" v-model="oss.tencentOss.path"></a-input>
       </a-form-item>
+      <a-form-item label="自定义域名">
+        <a-input placeholder="自定义域名例如：img.example.com [可选]" v-model="oss.tencentOss.domain"></a-input>
+      </a-form-item>
+      <a-form-item label="图片样式">
+        <a-input placeholder="例如：thumbnail/!50p，需要域名支持数据万象 [可选]" v-model="oss.tencentOss.style"></a-input>
+      </a-form-item>
     </a-form>
     <a-row type="flex" justify="center">
       <a-button @click="getToken">怎么获取这些信息</a-button>
