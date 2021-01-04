@@ -20,9 +20,10 @@
 
 > 特别感谢 takashiki  对图床插件的更新
 
-1. 丰富腾讯云cos功能
+1. 丰富 腾讯云cos 功能
     - 增加可选选项 `自定义域名`(自有域名，需[自行配置](https://cloud.tencent.com/document/product/436/11142))
     - 增加可选选项 `图片样式`（需开启[数据万象](https://cloud.tencent.com/document/product/460/36540))
+2. 修复 牛图网 图床
 
 ### v1.1.0
 
