@@ -80,7 +80,7 @@ export default {
   data () {
     return {
       fileModeKey: ['阿里云OSS', '腾讯云OSS', 'GitHub',
-        '猫盒', 'imgUrlOrg', '牛图网',
+        '猫盒', 'imgUrlOrg',
         'smMs', '如优-Postimages', '如优-阿里图床', '如优-头条', '如优-网易', '如优-掘金', '如优-搜狗']
     }
   },

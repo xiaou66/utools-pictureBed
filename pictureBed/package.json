@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "mime-types": "^2.1.27"
+    "mime-types": "^2.1.27",
+    "node-fetch": "^2.6.1"
   }
 }

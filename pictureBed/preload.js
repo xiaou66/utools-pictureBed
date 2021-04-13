@@ -2,7 +2,9 @@ const fs = require('fs')
 const mineType = require("mime-types")
 const path = require('path');
 window.pluginInfo = JSON.parse(fs.readFileSync(path.join(__dirname, 'plugin.json')));
+const fetch = require('node-fetch');
 window.nodeFetch = fetch;
+
 window.selectFile = () => {
     return utools.showOpenDialog({
         title: "请选择要上传的图片",
