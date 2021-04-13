@@ -25,6 +25,11 @@ const routes = [
         component: () => import('../views/setting/aliOss')
       },
       {
+        path: 'imageData',
+        name: 'imageData',
+        component: () => import('../views/setting/imageData')
+      },
+      {
         path: 'tencentOss',
         name: 'tencentOss',
         component: () => import('../views/setting/tencentOss')

@@ -13,7 +13,28 @@ window.selectFile = () => {
     });
 
 };
-
+window.saveJsonFile = (text) => {
+    const path = utools.showSaveDialog({
+        title: '保存位置',
+        filters: [{ name: "Json", extensions: ['json'] }],
+        defaultPath: utools.getPath('downloads'),
+        buttonLabel: '保存'
+      });
+    if (path) {
+        fs.writeFileSync(path, text)
+    }
+}
+window.readJsonFile = () => {
+    const path = utools.showOpenDialog({ 
+        filters: [{ name: "Json", extensions: ['json'] }], 
+        properties: ['openFile'] 
+      })
+    if (path && path.length) {
+        const jsonString = fs.readFileSync(path[0]);
+        return JSON.parse(jsonString);
+    }
+    return undefined;
+}
 window.readFile = (filePath, time = false) => {
     const base64 = window.fileToBase64(filePath)
     let fileName = path.basename(filePath)
