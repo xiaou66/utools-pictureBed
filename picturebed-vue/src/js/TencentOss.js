@@ -49,7 +49,7 @@ export default class TencentOss {
         response.url = `https://${response.Location}`
       }
       if (style && response.Location.search('imageMogr2') === -1) {
-        response.url = response.Location + '?imageMogr2/' + style
+        response.url = `https://${response.Location}?imageMogr2/${style}`
       }
     }
     return response
