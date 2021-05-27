@@ -1,4 +1,6 @@
 import store from '../store/index'
+import Utils from './Utils'
+
 const COS = require('cos-js-sdk-v5')
 const re = new RegExp('^((https|http)\\:\\/\\/)?(.*?)\\/')
 export default class TencentOss {
@@ -19,10 +21,12 @@ export default class TencentOss {
   }
 
   async uploadFile (item, id, callback) {
+    const path = store.state.oss.tencentOss.path
+    const uploadPath = path ? Utils.getImageSavePath(path, item.name) : item.name
     this.client.putObject({
       Bucket: store.state.oss.tencentOss.bucket,
       Region: store.state.oss.tencentOss.region,
-      Key: store.state.oss.tencentOss.path + item.name, /* 必须 */
+      Key: uploadPath, /* 必须 */
       StorageClass: 'STANDARD',
       Body: item // 上传文件对象
     }, (err, data) => {
