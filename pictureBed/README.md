@@ -16,9 +16,14 @@
 
 ## 版本
 
-> 特别感谢 **[Tuisku-L](https://github.com/Tuisku-L)**  对图床插件的更新
+
+### v1.1.4
+> 特别感谢 **[ceynri](https://github.com/ceynri)**  对图床插件的更新
+1. 腾讯云OSS支持日期占位符解析作为路径
 
 ### v 1.1.3
+
+> 特别感谢 **[Tuisku-L](https://github.com/Tuisku-L)**  对图床插件的更新
 
 1. 修复腾讯 COS 带有图片样式参数时无法加载预览以及复制地址未携带协议的问题
 
