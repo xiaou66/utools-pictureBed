@@ -103,7 +103,7 @@ uToolsUtils.isNewVersion = () => {
   console.log(pluginInfo)
   // utools 自动更新数据处理
   if (read('version') !== pluginInfo.version) {
-    uToolsUtils.playPromptTone('update.wav')
+    // uToolsUtils.playPromptTone('update.wav')
     // 是否需要更新数据
     if (window.pluginInfo.update) {
       console.log('更新数据')
@@ -143,7 +143,7 @@ uToolsUtils.isNewVersion = () => {
     }
     update('version', pluginInfo.version)
     // 打开更新信息窗口
-    window.createUpdateWindow()
+    // window.createUpdateWindow()
     return true
   } else {
     console.log('false')

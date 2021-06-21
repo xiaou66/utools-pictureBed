@@ -35,11 +35,6 @@ const routes = [
         component: () => import('../views/setting/tencentOss')
       },
       {
-        path: 'rruu',
-        name: 'rruu',
-        component: () => import('../views/setting/rruu')
-      },
-      {
         path: 'GitHub',
         name: 'GitHub',
         component: () => import('../views/setting/GitHub')

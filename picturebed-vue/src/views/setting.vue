@@ -22,7 +22,6 @@ export default {
         { name: '腾讯OSS', router: { name: 'tencentOss' } },
         { name: 'GitHub', router: { name: 'GitHub' } },
         { name: 'sm.ms', router: { name: 'smMs' } },
-        { name: '如优', router: { name: 'rruu' } },
         { name: '数据', router: { name: 'imageData' } },
         { name: '支持', router: { name: 'contributions' } }
       ],

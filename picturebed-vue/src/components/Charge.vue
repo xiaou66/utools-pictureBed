@@ -6,7 +6,7 @@
           <div id="charge-box-inner">
             <div style="text-align: center;cursor: pointer;" >备注：图床 + 用户名</div>
             <img class="tips" src="https://gitee.com/xiaou520/xiaou520/raw/master/images/zf-logo.png">
-            <img id="qrcode" src="https://gitee.com/xiaou520/xiaou520/raw/master/images/zf.png" alt="zf.png" width="100%" @click="showNotice"  @contextmenu="close" />
+            <img id="qrcode" src="https://gitee.com/xiaou66/xiaou66/raw/master/animation/zf.png" alt="zf.png" width="100%" @click="showNotice"  @contextmenu="close" />
             <img class="tips" src="https://gitee.com/xiaou520/xiaou520/raw/master/images/zf-logo.png">
             <div style="text-align: center;cursor: pointer;">你的支持就是插件维护的动力</div>
           </div>

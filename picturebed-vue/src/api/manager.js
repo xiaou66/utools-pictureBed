@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import catbox from './catbox'
-import rruu from './rruu'
 import imgUrlOrg from './imgUrlOrg'
 import store from '../store/index'
 import GitHub from './GitHub'
 import niupic from './niupic'
 import smMs from './smMs'
+import onji from '@/api/onji'
 
 export const uploadImage = async (item, id, callback) => {
   const type = store.state.image.selectFileMode
@@ -18,20 +18,12 @@ export const uploadImage = async (item, id, callback) => {
       return await smMs.uploadImage(item, id)
     case 'GitHub':
       return await GitHub.uploadImage(item, id)
-    case '如优-阿里图床':
-      return await rruu.uploadImage(item, id, 'ali')
-    case '如优-头条':
-      return await rruu.uploadImage(item, id, 'toutiao')
-    case '如优-网易':
-      return await rruu.uploadImage(item, id, 'neteasy')
-    case '如优-掘金':
-      return await rruu.uploadImage(item, id, 'juejin')
-    case '如优-搜狗':
-      return await rruu.uploadImage(item, id, 'sougou')
-    case '如优-Postimages':
-      return await rruu.uploadImage(item, id, 'postimages')
     case 'imgUrlOrg':
       return await imgUrlOrg.uploadImage(item, id)
+  }
+  if (type.includes('映画')) {
+    const nodeName = type.split('/')[1]
+    return await onji.uploadImage(item, id, nodeName)
   }
   if (type === '阿里云OSS') {
     const aliOss = Vue.prototype.$aliOss

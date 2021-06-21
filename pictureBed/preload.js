@@ -70,15 +70,3 @@ window.dataURLtoFile = (dataurl, filename) => {
 window.openUrl = (url) => {
     utools.shellOpenExternal(url);
 };
-// 创建更新窗口
-window.createUpdateWindow = () => {
-    const optional = {
-        width: 800,
-        height: 600,
-        title: '更新说明',
-        transparent: false,
-        frame: true,
-        alwaysOnTop: true
-    }
-    const win = utools.createBrowserWindow("./README.html", optional);
-};

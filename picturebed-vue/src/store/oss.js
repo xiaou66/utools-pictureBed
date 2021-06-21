@@ -1,3 +1,4 @@
+import ossData from '@/data/oss_data.json'
 const oss = {
   state: {
     aliOss: {
@@ -34,15 +35,20 @@ const oss = {
     }
   },
   mutations: {
-    setAliOss (store, {
+    setAliOss (state, {
       region,
       accessKeyId,
       accessKeySecret,
       bucket
     }) {
-      store.aliOss = {
+      state.aliOss = {
         region, accessKeyId, accessKeySecret, bucket
       }
+    },
+    clearOssData (state, keys = []) {
+      keys.forEach(key => {
+        state[key] = ossData[key]
+      })
     }
   },
   actions: {
