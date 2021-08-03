@@ -1,10 +1,10 @@
 {
   "pluginName": "图床",
   "description": "图床",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "author": "xiaou",
   "main": "vue/index.html",
-  "update": false,
+  "update": true,
   "preload": "preload.js",
   "logo": "logo.png",
   "features": [

@@ -10,8 +10,10 @@
   "dependencies": {
     "ali-oss": "^6.9.1",
     "ant-design-vue": "^1.6.3",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "cos-js-sdk-v5": "^0.5.27",
+    "node-cache": "^5.1.2",
     "vue": "^2.6.11",
     "vue-clipboard2": "^0.3.1",
     "vue-router": "^3.2.0",
@@ -35,6 +37,7 @@
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "terser-webpack-plugin": "^3.0.6",
+    "utools-api-types": "^2.0.6",
     "vue-template-compiler": "^2.6.11"
   }
 }

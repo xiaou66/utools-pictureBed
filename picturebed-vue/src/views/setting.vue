@@ -22,8 +22,9 @@ export default {
         { name: '腾讯OSS', router: { name: 'tencentOss' } },
         { name: 'GitHub', router: { name: 'GitHub' } },
         { name: 'sm.ms', router: { name: 'smMs' } },
-        { name: '数据', router: { name: 'imageData' } },
-        { name: '支持', router: { name: 'contributions' } }
+        { name: 'onedrive', router: { name: 'onedrive' } },
+        { name: 'chevereto', router: { name: 'chevereto' } },
+        { name: '数据', router: { name: 'imageData' } }
       ],
       currentTab: '阿里OSS'
     }

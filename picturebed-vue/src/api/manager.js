@@ -6,6 +6,8 @@ import GitHub from './GitHub'
 import niupic from './niupic'
 import smMs from './smMs'
 import onji from '@/api/onji'
+import onedrive from '@/api/onedrive'
+import chevereto from '@/api/chevereto'
 
 export const uploadImage = async (item, id, callback) => {
   const type = store.state.image.selectFileMode
@@ -20,6 +22,10 @@ export const uploadImage = async (item, id, callback) => {
       return await GitHub.uploadImage(item, id)
     case 'imgUrlOrg':
       return await imgUrlOrg.uploadImage(item, id)
+    case 'onedrive':
+      return await onedrive(item, id)
+    case 'chevereto':
+      return await chevereto(item, id)
   }
   if (type.includes('映画')) {
     const nodeName = type.split('/')[1]

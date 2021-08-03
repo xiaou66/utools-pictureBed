@@ -45,9 +45,14 @@ const routes = [
         component: () => import('../views/setting/smMs')
       },
       {
-        path: 'contributions',
-        name: 'contributions',
-        component: () => import('../views/setting/contributions')
+        path: 'onedrive',
+        name: 'onedrive',
+        component: () => import('../views/setting/onedrive')
+      },
+      {
+        path: 'chevereto',
+        name: 'chevereto',
+        component: () => import('../views/setting/chevereto')
       }
     ]
   }

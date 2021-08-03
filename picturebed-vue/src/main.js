@@ -7,6 +7,7 @@ import 'ant-design-vue/dist/antd.css'
 import VueClipboard from 'vue-clipboard2'
 import AliOss from './js/AliOss'
 import TencentOss from './js/TencentOss'
+import NodeCache from 'node-cache'
 VueClipboard.config.autoSetContainer = true
 Vue.use(VueClipboard)
 Vue.config.productionTip = false
@@ -22,6 +23,7 @@ if (process.env.NODE_ENV === 'development') {
 Vue.use(Antd)
 Vue.prototype.$aliOss = new AliOss()
 Vue.prototype.$tencentOss = new TencentOss()
+Vue.prototype.$Cache = new NodeCache()
 new Vue({
   router,
   store,

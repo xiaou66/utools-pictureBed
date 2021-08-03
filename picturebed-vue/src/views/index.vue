@@ -79,11 +79,10 @@ const defaultPictureBed = '猫盒'
 export default {
   data () {
     return {
-      fileModeKey: ['阿里云OSS', '腾讯云OSS', 'GitHub',
+      fileModeKey: ['阿里云OSS', '腾讯云OSS', 'GitHub', 'onedrive', 'chevereto',
         '猫盒', 'imgUrlOrg', '牛图网', 'smMs',
         '映画/腾讯', '映画/京东', '映画/QQ', '映画/网易', '映画/头条', '映画/抖音',
-        '映画/阿里', '映画/美团', '映画/百度', '映画/携程', '映画/搜狐', '映画/快手',
-        '映画/百度', '映画/苏宁']
+        '映画/阿里', '映画/美团', '映画/百度', '映画/携程', '映画/搜狐', '映画/快手', '映画/苏宁']
     }
   },
   computed: {
@@ -204,9 +203,20 @@ export default {
           this.$message.warning('使用 「sm.ms」 需要在设置中需要配置 token')
           this.image.selectFileMode = defaultPictureBed
         }
+      } else if (value === 'onedrive') {
+        if (!this.$store.state.oss.onedrive.refreshToken) {
+          this.$message.warning('使用 「onedrive」 需要在设置中需要绑定账号')
+          this.image.selectFileMode = defaultPictureBed
+        }
+      } else if (value === 'chevereto') {
+        if (!this.$store.state.oss.chevereto.token) {
+          this.$message.warning('使用 「chevereto」 需要在设置中需要绑定账号')
+          this.image.selectFileMode = defaultPictureBed
+        }
       }
     },
     uploadFilePath (path) {
+      // const prefixs = [{ key: 'chevereto', name: 'chevereto' }]
       // github 必须有时间戳
       const timeStamp = this.configure.timeStamp && this.selectFileMode !== 'GitHub'
       const item = window.readFile(path, timeStamp)

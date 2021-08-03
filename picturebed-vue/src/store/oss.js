@@ -32,6 +32,14 @@ const oss = {
       cdn: '',
       branch: '',
       at: false
+    },
+    onedrive: {
+      refreshToken: '',
+      path: 'pic'
+    },
+    chevereto: {
+      token: '',
+      url: ''
     }
   },
   mutations: {
