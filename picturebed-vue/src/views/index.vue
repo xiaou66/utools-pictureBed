@@ -268,7 +268,7 @@ export default {
       // image/png
       // image/jpeg
       files.forEach(item => {
-        const allowFormat = ['image/png', 'image/jpeg', 'image/gif']
+        const allowFormat = ['image/png', 'image/jpeg', 'image/gif', 'image/webp']
         if (allowFormat.includes(item.type)) {
           this.uploadImageHandler(item)
         } else {
