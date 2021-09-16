@@ -26,7 +26,7 @@ Options:
   -p --port <port>             端口需要和「utools」图床插件服务端口一致 默认:4126
   -bed --bedSource <bedSource>  图床源,需要和「utools」图床插件名称一致
   -h, --help                    display help for command
-
+```
 
 ### demo
 
