@@ -1,0 +1,26 @@
+{
+  "name": "utools-picturebed-command",
+  "bin": {
+    "uploadImage": "upload.js"
+  },
+  "version": "1.0.0",
+  "description": "utools 图床命令工具",
+  "main": "index.js",
+  "scripts": {
+    "help": "node upload -h"
+  },
+  "keywords": [
+    "utools",
+    "picturebed"
+  ],
+  "author": "xiaou",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "commander": "^8.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:xiaou66/utools-pictureBed.git"
+  }
+}

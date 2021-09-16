@@ -17,6 +17,9 @@
       <a-form-item label="是否自启" >
         <a-switch v-model="configure.webService.status" @change="switchWebService"></a-switch>
       </a-form-item>
+      <a-form-item label="帮助" >
+        <a-button @click="openUrl">帮助</a-button>
+      </a-form-item>
     </a-form>
   </div>
 </template>
@@ -54,6 +57,9 @@ export default {
       if (checked && !this.serviceStatus) {
         await this.switchService()
       }
+    },
+    async openUrl () {
+      window.utools.shellOpenExternal('')
     }
   }
 }
