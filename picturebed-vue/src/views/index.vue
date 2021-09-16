@@ -95,6 +95,23 @@ export default {
       uToolsUtils.isNewVersion()
       // 数据读入
       uToolsUtils.readAll()
+      // webService 自启
+      console.log(this.configure.webService.status)
+      if (this.configure.webService.status) {
+        const port = this.configure.webService.port
+        window.startWebService(port).then(res => {
+          window.utools.showNotification(`服务自启动完成\n端口「${port}」`)
+        })
+      }
+      /**
+       * 给命令上传使用返回url
+       * @param path 文件路径
+       * @param uploadImageMode 上传图床类型
+       * @return {Promise<*>}
+       */
+      window.commandUploadImage = async (path, uploadImageMode = undefined) => {
+        return await this.uploadFilePath(path, false, uploadImageMode)
+      }
     })
     // eslint-disable-next-line no-undef
     utools.onPluginOut(() => {
@@ -129,33 +146,47 @@ export default {
         }
       }
     },
-    // 上传图片处理
-    async uploadImageHandler (item) {
-      if (!this.fileModeKey.includes(this.image.selectFileMode)) {
+    /**
+     * 上传图片处理
+     * @param item file 对象
+     * @param autoCopy 是否自动复制
+     * @param selectFileMode 选择上传图床源
+     * @return 上传成功需要返回 url
+     */
+    async uploadImageHandler (item, autoCopy = true, selectFileMode = this.image.selectFileMode) {
+      if (!this.fileModeKey.includes(selectFileMode)) {
         this.$message.warning('该源已经下线,请选择其他源')
         return
       }
       const id = Date.now()
       this.image.data.unshift({ id, image: '', loading: true })
       let result
-      if (this.image.selectFileMode === '腾讯云OSS') {
+      if (selectFileMode === '腾讯云OSS') {
         result = await uploadImage(item, id, (result) => {
           if (result.status === 200) {
             const { url, id } = result
             this.$store.commit('setImage', { url, id })
             this.$message.success('上传成功')
-            this.autoCopy(url)
+            if (autoCopy) {
+              this.autoCopy(url)
+            }
+            // 需要返回 url
+            return url
           } else {
             this.$message.warning(result.message)
           }
         })
       } else {
-        result = await uploadImage(item, id)
+        result = await uploadImage(item, id, selectFileMode)
         if (result.status === 200) {
           const { url, id } = result
           this.$store.commit('setImage', { url, id })
           this.$message.success('上传成功')
-          this.autoCopy(url)
+          if (autoCopy) {
+            this.autoCopy(url)
+          }
+          // 需要返回 url
+          return url
         } else {
           this.$message.warning(result.message)
         }
@@ -215,12 +246,12 @@ export default {
         }
       }
     },
-    uploadFilePath (path) {
+    uploadFilePath (path, autoCopy = true, selectFileMode = this.selectFileMode) {
       // const prefixs = [{ key: 'chevereto', name: 'chevereto' }]
       // github 必须有时间戳
-      const timeStamp = this.configure.timeStamp && this.selectFileMode !== 'GitHub'
+      const timeStamp = this.configure.timeStamp && selectFileMode !== 'GitHub'
       const item = window.readFile(path, timeStamp)
-      this.uploadImageHandler(item)
+      return this.uploadImageHandler(item, autoCopy, selectFileMode)
     },
     openFiles () {
       const paths = window.selectFile()
@@ -269,7 +300,7 @@ export default {
       // image/jpeg
       files.forEach(item => {
         const allowFormat = ['image/png', 'image/jpeg', 'image/gif', 'image/webp']
-        if (allowFormat.includes(item.type)) {
+        if (allowFormat.includes(item.type) || allowFormat.toString().startsWith('image')) {
           this.uploadImageHandler(item)
         } else {
           this.$message.warning('不支持该格式')

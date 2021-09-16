@@ -23,7 +23,7 @@ uToolsUtils.read = (...keys) => {
     console.log(key)
     console.log(data)
     if (data) {
-      store.state[key] = data
+      store.state[key] = { ...store.state[key], ...data }
     }
   })
 }

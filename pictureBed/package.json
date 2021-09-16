@@ -9,7 +9,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "koa": "^2.13.1",
     "mime-types": "^2.1.27",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "server-destroy": "^1.0.1"
   }
 }

@@ -4,7 +4,11 @@ const configure = {
       mode: 'url',
       enabled: false
     },
-    timeStamp: false
+    timeStamp: false,
+    webService: {
+      port: 4126,
+      status: false
+    }
   },
   mutations: {
   },

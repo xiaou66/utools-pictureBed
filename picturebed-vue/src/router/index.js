@@ -53,6 +53,11 @@ const routes = [
         path: 'chevereto',
         name: 'chevereto',
         component: () => import('../views/setting/chevereto')
+      },
+      {
+        path: 'webService',
+        name: 'webService',
+        component: () => import('../views/setting/webService')
       }
     ]
   }

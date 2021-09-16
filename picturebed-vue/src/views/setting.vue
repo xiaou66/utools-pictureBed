@@ -24,6 +24,7 @@ export default {
         { name: 'sm.ms', router: { name: 'smMs' } },
         { name: 'onedrive', router: { name: 'onedrive' } },
         { name: 'chevereto', router: { name: 'chevereto' } },
+        { name: '服务', router: { name: 'webService' } },
         { name: '数据', router: { name: 'imageData' } }
       ],
       currentTab: '阿里OSS'

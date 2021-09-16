@@ -21,16 +21,16 @@ window.saveJsonFile = (text) => {
         filters: [{ name: "Json", extensions: ['json'] }],
         defaultPath: utools.getPath('downloads'),
         buttonLabel: '保存'
-      });
+    });
     if (path) {
         fs.writeFileSync(path, text)
     }
 }
 window.readJsonFile = () => {
-    const path = utools.showOpenDialog({ 
-        filters: [{ name: "Json", extensions: ['json'] }], 
-        properties: ['openFile'] 
-      })
+    const path = utools.showOpenDialog({
+        filters: [{ name: "Json", extensions: ['json'] }],
+        properties: ['openFile']
+    })
     if (path && path.length) {
         const jsonString = fs.readFileSync(path[0]);
         return JSON.parse(jsonString);
@@ -70,3 +70,30 @@ window.dataURLtoFile = (dataurl, filename) => {
 window.openUrl = (url) => {
     utools.shellOpenExternal(url);
 };
+// service
+window.webApp = undefined;
+const Koa = require('koa');
+const enableDestroy = require('server-destroy');
+window.startWebService = async (port = 4126) => {
+    if (window.webApp) {
+        await window.stopWebService();
+    }
+    const app = new Koa();
+    app.use(async (ctx) => {
+        const { path = '', bed = undefined } = ctx.query;
+        if (!path) {
+            ctx.body = 'path?'
+            return;
+        }
+        console.log(path);
+        const url = await window.commandUploadImage(path, bed);
+        ctx.body = url || ''
+    })
+    window.webApp = app.listen(port);
+    return true;
+}
+window.stopWebService = async () => {
+    enableDestroy(window.webApp);
+    window.webApp.destroy();
+    window.webApp = undefined;
+}

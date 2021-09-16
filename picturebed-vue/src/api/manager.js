@@ -9,8 +9,8 @@ import onji from '@/api/onji'
 import onedrive from '@/api/onedrive'
 import chevereto from '@/api/chevereto'
 
-export const uploadImage = async (item, id, callback) => {
-  const type = store.state.image.selectFileMode
+export const uploadImage = async (item, id, uploadImageMode, callback) => {
+  const type = uploadImageMode || store.state.image.selectFileMode
   switch (type) {
     case '猫盒':
       return await catbox.uploadImage(item, id)
