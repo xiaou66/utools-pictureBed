@@ -2,6 +2,7 @@ import store from '../store/index'
 import Utils from '@/js/Utils'
 const branchReg = /ref=(.*)/
 function GitHub () {}
+
 GitHub.uploadImage = (item, id) => {
   return new Promise((resolve, reject) => {
     const format = store.state.oss.GitHub.format

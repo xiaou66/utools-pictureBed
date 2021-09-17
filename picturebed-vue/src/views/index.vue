@@ -15,7 +15,7 @@
               </a-select-option>
             </a-select>
           </a-col>
-          <a-col :span="12">
+          <a-col :span="8">
             <div style="display: flex;align-items: center;margin-left: 10px;">
               <a-select v-model="configure.autoCopy.mode" style="width: 100%">
                 <a-select-option value="url">
@@ -33,13 +33,6 @@
                   自动复制开关
                 </template>
                 <a-switch v-model="configure.autoCopy.enabled" style="margin-left: 10px"/>
-              </a-tooltip>
-              <div style="width: 150px;padding-left: 10px;">时间戳:</div>
-              <a-tooltip>
-                <template #title>
-                  是否增加时间戳
-                </template>
-                <a-switch v-model="configure.timeStamp" style="margin-left: 10px"/>
               </a-tooltip>
             </div>
           </a-col>
@@ -73,9 +66,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import { fileNameFormat, uploadImage } from '@/api/manager'
+import { uploadImage } from '@/api/manager'
 import uToolsUtils from '../js/uToolsUtils'
-import Utils from '@/js/Utils'
+// import Utils from '@/js/Utils'
 const defaultPictureBed = '猫盒'
 export default {
   data () {
@@ -260,16 +253,7 @@ export default {
     uploadFilePath (path, autoCopy = true, selectFileMode = this.selectFileMode) {
       // const prefixs = [{ key: 'chevereto', name: 'chevereto' }]
       // github 必须有时间戳
-      const timeStamp = this.configure.timeStamp && selectFileMode !== 'GitHub'
-      const item = window.readFile(path, timeStamp, (fileName) => {
-        const path = require('path')
-        const fileNameFormats = fileNameFormat(selectFileMode) || ''
-        if (fileNameFormats) {
-          return ''
-        }
-        const format = path.basename(fileNameFormats)
-        return Utils.getImageSavePath(format, fileName)
-      })
+      const item = window.readFile(path, undefined)
       return this.uploadImageHandler(item, autoCopy, selectFileMode)
     },
     openFiles () {

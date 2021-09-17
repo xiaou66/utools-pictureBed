@@ -2,6 +2,7 @@ const path = require('path')
 function Utils () {}
 
 Utils.getImageSavePath = (formatPath, fileName) => {
+  console.log(fileName)
   debugger
   /**
    * 允许格式化的关键词
@@ -15,9 +16,9 @@ Utils.getImageSavePath = (formatPath, fileName) => {
     Y: date.getFullYear().toString(),
     M: (date.getMonth() + 1).toString(),
     D: date.getDate().toString(),
-    H: date.getHours().toString(),
-    m: date.getMinutes().toString(),
-    s: date.getSeconds().toString(),
+    H: date.getHours().toString().padStart(2, '0'),
+    m: date.getMinutes().toString().padStart(2, '0'),
+    s: date.getSeconds().toString().padStart(2, '0'),
     ms: date.getMilliseconds().toString(),
     rand: Math.random().toString(36).slice(-10),
     since_millisecond: Date.now(),
@@ -36,5 +37,4 @@ Utils.getImageSavePath = (formatPath, fileName) => {
   }
   return formatPath + fileName
 }
-console.log(Utils.getImageSavePath('{rand}-', 'aaa.png'))
-// export default Utils
+export default Utils
