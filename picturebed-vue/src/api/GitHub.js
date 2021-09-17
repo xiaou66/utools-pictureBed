@@ -1,9 +1,11 @@
 import store from '../store/index'
+import Utils from '@/js/Utils'
 const branchReg = /ref=(.*)/
 function GitHub () {}
 GitHub.uploadImage = (item, id) => {
   return new Promise((resolve, reject) => {
-    const fileName = `${Date.now()}-${item.name}`
+    const format = store.state.oss.GitHub.format
+    const fileName = format ? Utils.getImageSavePath(format, item.name) : `${Date.now()}-${item.name}`
     const fr = new FileReader()
     fr.readAsDataURL(item)
     fr.onloadend = (e) => {

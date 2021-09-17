@@ -28,6 +28,15 @@
           <a-input placeholder="[留空>>使用仓库默认分支(通常是 master)]" v-model="oss.GitHub.branch"></a-input>
         </a-tooltip>
       </a-form-item>
+      <a-form-item label="文件格式" >
+        <a-tooltip placement="topLeft">
+          <template #title>
+            配置后需要保持文件唯一性如果不唯一则将会上传失败
+            {Y}:年 {M}:月 {D}:日 {H}:时 {m}:分 {s}:秒 {ms}: 毫秒{rand}:随机字符串{filename}:文件名称{suffix}:文件后缀{since_millisecond}毫秒时间戳{since_second}秒时间戳
+          </template>
+          <a-input placeholder="" v-model="oss.GitHub.format"></a-input>
+        </a-tooltip>
+      </a-form-item>
     </a-form>
     <a-row type="flex" justify="center">
       <a-tooltip>

@@ -10,7 +10,13 @@ import onedrive from '@/api/onedrive'
 import chevereto from '@/api/chevereto'
 import Hello from '@/api/Hello'
 import Upyun from '@/api/upyun'
-
+export const fileNameFormat = (uploadImageMode) => {
+  const type = uploadImageMode || store.state.image.selectFileMode
+  // const { } = store.state.oss
+  switch (type) {
+  }
+  return ''
+}
 export const uploadImage = async (item, id, uploadImageMode, callback) => {
   const type = uploadImageMode || store.state.image.selectFileMode
   switch (type) {

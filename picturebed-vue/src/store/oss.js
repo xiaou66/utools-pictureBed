@@ -31,6 +31,7 @@ const oss = {
       project: '',
       cdn: '',
       branch: '',
+      format: '',
       at: false
     },
     onedrive: {

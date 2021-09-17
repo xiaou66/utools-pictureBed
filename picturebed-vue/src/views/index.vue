@@ -73,8 +73,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import { uploadImage } from '@/api/manager'
+import { fileNameFormat, uploadImage } from '@/api/manager'
 import uToolsUtils from '../js/uToolsUtils'
+import Utils from '@/js/Utils'
 const defaultPictureBed = '猫盒'
 export default {
   data () {
@@ -260,7 +261,15 @@ export default {
       // const prefixs = [{ key: 'chevereto', name: 'chevereto' }]
       // github 必须有时间戳
       const timeStamp = this.configure.timeStamp && selectFileMode !== 'GitHub'
-      const item = window.readFile(path, timeStamp)
+      const item = window.readFile(path, timeStamp, (fileName) => {
+        const path = require('path')
+        const fileNameFormats = fileNameFormat(selectFileMode) || ''
+        if (fileNameFormats) {
+          return ''
+        }
+        const format = path.basename(fileNameFormats)
+        return Utils.getImageSavePath(format, fileName)
+      })
       return this.uploadImageHandler(item, autoCopy, selectFileMode)
     },
     openFiles () {

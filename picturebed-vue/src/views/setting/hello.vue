@@ -2,10 +2,10 @@
   <div>
     <div style="min-height: 100%">
       <a-form  :label-col="{ span: 6 }" :wrapper-col="{ span: 12 }">
-        <a-form-item label="用户名或邮箱" >
+        <a-form-item label="用户名或邮箱" required>
           <a-input placeholder="请输入 用户名或邮箱" v-model="oss.Hello.username"></a-input>
         </a-form-item>
-        <a-form-item label="密码" >
+        <a-form-item label="密码" required>
           <a-input-password placeholder="请输入密码" v-model="oss.Hello.password"></a-input-password>
         </a-form-item>
       </a-form>

@@ -37,14 +37,19 @@ window.readJsonFile = () => {
     }
     return undefined;
 }
-window.readFile = (filePath, time = false) => {
+window.readFile = (filePath, time = false, callback = undefined) => {
+    debugger
     const base64 = window.fileToBase64(filePath)
-    let fileName = path.basename(filePath)
-    if (time) {
-        fileName = `${Date.now()}-${fileName}`
+    const fileName = path.basename(filePath)
+    let filename = ''
+    if (callback) {
+        filename = callback(fileName)
     }
-    console.log('fileName', fileName);
-    const file = dataURLtoFile(base64, fileName)
+    if (!filename && time) {
+        filename = `${Date.now()}-${fileName}`
+    }
+    console.log('fileName', filename);
+    const file = dataURLtoFile(base64, filename)
     return file
 }
 fileToBase64 = filePath => {
