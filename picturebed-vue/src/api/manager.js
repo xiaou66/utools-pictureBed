@@ -8,6 +8,8 @@ import smMs from './smMs'
 import onji from '@/api/onji'
 import onedrive from '@/api/onedrive'
 import chevereto from '@/api/chevereto'
+import Hello from '@/api/Hello'
+import Upyun from '@/api/upyun'
 
 export const uploadImage = async (item, id, uploadImageMode, callback) => {
   const type = uploadImageMode || store.state.image.selectFileMode
@@ -26,6 +28,10 @@ export const uploadImage = async (item, id, uploadImageMode, callback) => {
       return await onedrive(item, id)
     case 'chevereto':
       return await chevereto(item, id)
+    case 'Hello':
+      return await Hello.uploadImage(item, id)
+    case '又拍云':
+      return await Upyun.uploadImage(item, id)
   }
   if (type.includes('映画')) {
     const nodeName = type.split('/')[1]

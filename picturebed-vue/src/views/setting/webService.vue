@@ -2,7 +2,12 @@
   <div>
     <a-form  :label-col="{ span: 6 }" :wrapper-col="{ span: 12 }">
       <a-form-item label="端口" >
-        <a-input placeholder="端口" v-model="configure.webService.port"></a-input>
+        <a-tooltip placement="topLeft">
+          <template #title>
+            如果服务已经启动需要手动重启
+          </template>
+          <a-input-number v-model="configure.webService.port" :min="1000" :max="65535"/>
+        </a-tooltip>
       </a-form-item>
       <a-form-item label="服务状态">
         <a-tooltip placement="topLeft">
@@ -15,7 +20,12 @@
         </a-tooltip>
       </a-form-item>
       <a-form-item label="是否自启" >
-        <a-switch v-model="configure.webService.status" @change="switchWebService"></a-switch>
+        <a-tooltip>
+          <template #title>
+            在加载插件时启动服务
+          </template>
+          <a-switch v-model="configure.webService.status" @change="switchWebService"></a-switch>
+        </a-tooltip>
       </a-form-item>
       <a-form-item label="帮助" >
         <a-button @click="openUrl">帮助</a-button>
@@ -59,7 +69,7 @@ export default {
       }
     },
     async openUrl () {
-      window.utools.shellOpenExternal('')
+      window.utools.shellOpenExternal('https://www.yuque.com/sbxm2a/ogaua2/py29hq#DwHZ8')
     }
   }
 }

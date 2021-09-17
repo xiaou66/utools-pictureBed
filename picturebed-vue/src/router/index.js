@@ -45,6 +45,16 @@ const routes = [
         component: () => import('../views/setting/smMs')
       },
       {
+        path: 'hello',
+        name: 'hello',
+        component: () => import('../views/setting/hello')
+      },
+      {
+        path: 'upyun',
+        name: 'upyun',
+        component: () => import('../views/setting/upyun')
+      },
+      {
         path: 'onedrive',
         name: 'onedrive',
         component: () => import('../views/setting/onedrive')

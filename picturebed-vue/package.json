@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "cos-js-sdk-v5": "^0.5.27",
+    "crypto": "^1.0.1",
     "node-cache": "^5.1.2",
     "vue": "^2.6.11",
     "vue-clipboard2": "^0.3.1",

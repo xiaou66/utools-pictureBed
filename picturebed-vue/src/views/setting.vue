@@ -20,10 +20,12 @@ export default {
       tabsData: [
         { name: '阿里OSS', router: { name: 'aliOss' } },
         { name: '腾讯OSS', router: { name: 'tencentOss' } },
+        { name: '又拍云', router: { name: 'upyun' } },
         { name: 'GitHub', router: { name: 'GitHub' } },
-        { name: 'sm.ms', router: { name: 'smMs' } },
         { name: 'onedrive', router: { name: 'onedrive' } },
         { name: 'chevereto', router: { name: 'chevereto' } },
+        { name: 'sm.ms', router: { name: 'smMs' } },
+        { name: 'hello', router: { name: 'hello' } },
         { name: '服务', router: { name: 'webService' } },
         { name: '数据', router: { name: 'imageData' } }
       ],

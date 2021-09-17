@@ -7,7 +7,7 @@
       <a-form-item label="仓库名" >
         <a-tooltip placement="topLeft">
           <template #title>
-            仓库至少要存在一个文件
+            仓库至少要存在一个文件例:「xiaou/picture」
           </template>
           <a-input placeholder="例: xiaou/picture" v-model="oss.GitHub.project"></a-input>
         </a-tooltip>

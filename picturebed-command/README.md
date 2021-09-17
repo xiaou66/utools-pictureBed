@@ -32,9 +32,10 @@ Options:
 
 ```
 uploadImage D:\桌面\demo.png
-uploadImage D:\桌面\demo.png --bed 猫盒
-uploadImage D:\桌面\demo.png --bed GitHub
-uploadImage D:\桌面\demo.png --bed onedrive
+uploadImage D:\桌面\demo.png -bed GitHub
+uploadImage D:\桌面\demo.png -bed onedrive
+uploadImage D:\桌面\demo.png -bed onedrive
+uploadImage D:\桌面\demo.png -p 4126 -bed 猫盒
 ```
 
 ### Typora配置

@@ -40,6 +40,19 @@ const oss = {
     chevereto: {
       token: '',
       url: ''
+    },
+    Hello: {
+      username: '',
+      password: ''
+    },
+    upyun: {
+      // 服务名称
+      bucketName: '',
+      // 操作员
+      username: '',
+      password: '',
+      path: '',
+      host: ''
     }
   },
   mutations: {

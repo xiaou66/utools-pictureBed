@@ -3,7 +3,7 @@
   "bin": {
     "uploadImage": "upload.js"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "utools 图床命令工具",
   "main": "index.js",
   "scripts": {

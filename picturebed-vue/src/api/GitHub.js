@@ -2,7 +2,6 @@ import store from '../store/index'
 const branchReg = /ref=(.*)/
 function GitHub () {}
 GitHub.uploadImage = (item, id) => {
-  console.log('g', item)
   return new Promise((resolve, reject) => {
     const fileName = `${Date.now()}-${item.name}`
     const fr = new FileReader()

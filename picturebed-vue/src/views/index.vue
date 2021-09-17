@@ -73,15 +73,15 @@
 
 <script>
 import { mapState } from 'vuex'
-import { uploadImage } from '../api/manager'
+import { uploadImage } from '@/api/manager'
 import uToolsUtils from '../js/uToolsUtils'
 const defaultPictureBed = '猫盒'
 export default {
   data () {
     return {
-      fileModeKey: ['阿里云OSS', '腾讯云OSS', 'GitHub', 'onedrive', 'chevereto',
+      fileModeKey: ['阿里云OSS', '腾讯云OSS', 'GitHub', 'onedrive', 'chevereto', '又拍云', 'Hello',
         '猫盒', 'imgUrlOrg', '牛图网', 'smMs',
-        '映画/腾讯', '映画/京东', '映画/QQ', '映画/网易', '映画/头条', '映画/抖音',
+        '映画/腾讯', '映画/京东', '映画/网易', '映画/头条', '映画/抖音',
         '映画/阿里', '映画/美团', '映画/百度', '映画/携程', '映画/搜狐', '映画/快手', '映画/苏宁']
     }
   },
@@ -244,6 +244,16 @@ export default {
           this.$message.warning('使用 「chevereto」 需要在设置中需要绑定账号')
           this.image.selectFileMode = defaultPictureBed
         }
+      } else if (value === '又拍云') {
+        if (!this.$store.state.oss.upyun.password) {
+          this.$message.warning('使用 「又拍云」 需要在设置中需要绑定账号')
+          this.image.selectFileMode = defaultPictureBed
+        }
+      } else if (value === 'Hello') {
+        if (!this.$store.state.oss.Hello.password) {
+          this.$message.warning('使用 「Hello」 需要在设置中需要绑定账号')
+          this.image.selectFileMode = defaultPictureBed
+        }
       }
     },
     uploadFilePath (path, autoCopy = true, selectFileMode = this.selectFileMode) {
@@ -265,7 +275,16 @@ export default {
     },
     // 清空
     clearImage () {
-      this.$store.commit('clearImage')
+      this.$confirm({
+        title: '二次确定',
+        content: '确定要清空吗',
+        okText: '确定',
+        okType: 'danger',
+        cancelText: '取消',
+        onOk: () => {
+          this.$store.commit('clearImage')
+        }
+      })
     },
     // 删除
     deleteItem (id) {
