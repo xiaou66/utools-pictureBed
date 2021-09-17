@@ -117,9 +117,16 @@ export default {
       console.log(payload)
       if (type === 'files') {
         console.log(payload)
-        payload.forEach(file => {
-          this.uploadFilePath(file.path)
-        })
+        if (payload.length === 1) {
+          this.uploadFilePath(payload[0].path)
+        } else {
+          let i = 0
+          payload.forEach(file => {
+            setTimeout(() => {
+              this.uploadFilePath(file.path)
+            }, i++ * 500)
+          })
+        }
       } else if (type === 'img') {
         /data:image\/(.*?);/.test(payload)
         const item = window.dataURLtoFile(payload, `${Date.now()}.${RegExp.$1}`)

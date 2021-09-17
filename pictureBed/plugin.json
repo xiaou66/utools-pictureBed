@@ -20,7 +20,7 @@
           "fileType": "file",
           "match": "/.*(jpg|png|jpeg|gif)$/i",
           "minLength": 1,
-          "maxLength": 4
+          "maxLength": 10
         },
         {
           "type": "img",
