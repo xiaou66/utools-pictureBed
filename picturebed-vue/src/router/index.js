@@ -40,6 +40,16 @@ const routes = [
         component: () => import('../views/setting/GitHub')
       },
       {
+        path: 'Gitee',
+        name: 'Gitee',
+        component: () => import('../views/setting/Gitee')
+      },
+      {
+        path: 'QiNiu',
+        name: 'QiNiu',
+        component: () => import('../views/setting/QiNiu')
+      },
+      {
         path: 'smMs',
         name: 'smMs',
         component: () => import('../views/setting/smMs')

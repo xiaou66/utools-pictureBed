@@ -19,9 +19,6 @@ const oss = {
       domain: '',
       style: ''
     },
-    rruu: {
-      token: ''
-    },
     smMs: {
       token: ''
     },
@@ -31,7 +28,6 @@ const oss = {
       project: '',
       cdn: '',
       branch: '',
-      format: '',
       at: false
     },
     onedrive: {
@@ -52,6 +48,19 @@ const oss = {
       // 操作员
       username: '',
       password: '',
+      path: '',
+      host: ''
+    },
+    Gitee: {
+      accessToken: '',
+      owner: '',
+      repo: '',
+      path: ''
+    },
+    Qiniu: {
+      accessKey: '',
+      secretKey: '',
+      bucket: '',
       path: '',
       host: ''
     }

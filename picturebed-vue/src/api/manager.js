@@ -10,6 +10,8 @@ import onedrive from '@/api/onedrive'
 import chevereto from '@/api/chevereto'
 import Hello from '@/api/Hello'
 import Upyun from '@/api/upyun'
+import Gitee from '@/api/Gitee'
+import QiNiu from '@/api/QiNiu'
 export const fileNameFormat = (uploadImageMode) => {
   const type = uploadImageMode || store.state.image.selectFileMode
   // const { } = store.state.oss
@@ -24,20 +26,24 @@ export const uploadImage = async (item, id, uploadImageMode, callback) => {
       return await catbox.uploadImage(item, id)
     case '牛图网':
       return await niupic.uploadImage(item, id)
-    case 'smMs':
-      return await smMs.uploadImage(item, id)
     case 'GitHub':
       return await GitHub.uploadImage(item, id)
-    case 'imgUrlOrg':
-      return await imgUrlOrg.uploadImage(item, id)
     case 'onedrive':
       return await onedrive(item, id)
+    case 'Gitee':
+      return await Gitee.uploadImage(item, id)
+    case '又拍云':
+      return await Upyun.uploadImage(item, id)
+    case '千牛云':
+      return await QiNiu.uploadImage(item, id)
+    case 'smMs':
+      return await smMs.uploadImage(item, id)
+    case 'imgUrlOrg':
+      return await imgUrlOrg.uploadImage(item, id)
     case 'chevereto':
       return await chevereto(item, id)
     case 'Hello':
       return await Hello.uploadImage(item, id)
-    case '又拍云':
-      return await Upyun.uploadImage(item, id)
   }
   if (type.includes('映画')) {
     const nodeName = type.split('/')[1]

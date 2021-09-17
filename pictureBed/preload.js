@@ -3,6 +3,7 @@ const mineType = require("mime-types")
 const path = require('path');
 window.pluginInfo = JSON.parse(fs.readFileSync(path.join(__dirname, 'plugin.json')));
 const fetch = require('node-fetch');
+window.qiniu = require('qiniu');
 window.nodeFetch = fetch;
 
 window.selectFile = () => {

@@ -2,30 +2,29 @@ import store from '../store/index'
 import Utils from '@/js/Utils'
 const branchReg = /ref=(.*)/
 function GitHub () {}
-
+const Path = require('path')
 GitHub.uploadImage = (item, id) => {
   return new Promise((resolve, reject) => {
-    const format = store.state.oss.GitHub.format
-    const fileName = format ? Utils.getImageSavePath(format, item.name) : `${Date.now()}-${item.name}`
+    const { path, project, token, branch } = store.state.oss.GitHub
+    const fileName = Utils.getImageSavePath(path, item.name, { timestamp: true })
     const fr = new FileReader()
     fr.readAsDataURL(item)
     fr.onloadend = (e) => {
       const base64 = e.target.result.split(',')[1]
-      console.log(base64)
-      const GitHub = store.state.oss.GitHub
       const data = {
         message: '图床',
         content: base64
       }
-      if (GitHub.branch) {
-        data.branch = GitHub.branch
+      if (branch) {
+        data.branch = branch
       }
-      const requestUrl = `https://api.github.com/repos/${GitHub.project}/contents${GitHub.path}/${fileName}`
+      const baseUrl = `api.github.com/repos/${project}/contents/`
+      const requestUrl = `https://${Path.join(baseUrl, fileName)}`
       fetch(requestUrl, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
-          Authorization: `token ${GitHub.token}`
+          Authorization: `token ${token}`
         },
         body: JSON.stringify(data)
       })
@@ -43,7 +42,7 @@ GitHub.uploadImage = (item, id) => {
               const { path, url } = res.content
               branchReg.test(url)
               console.log(RegExp.$1)
-              baseUrl = `${GitHub.project}@${RegExp.$1}/${path}`
+              baseUrl = `${project}@${RegExp.$1}/${path}`
               // /xiaou66/pic/image/1609054282923-86467220_p0.png
               const jsdelivrUrl = `https://cdn.jsdelivr.net/gh/${baseUrl}`
               resolve({ status: 200, url: jsdelivrUrl, id })
