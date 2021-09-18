@@ -5,9 +5,11 @@
       title="设置"
       @back="() => this.$router.replace({name: 'index'})"
     />
-    <a-tabs v-model="currentTab" @change="tabsChange"  style="padding: 10px 15px">
+    <a-tabs v-model="currentTab" @change="tabsChange"  style="padding: 10px 15px; box-sizing: border-box;">
       <a-tab-pane :tab="item.name" v-for="item in tabsData" :key="item.name">
-        <router-view style="max-height: 85vh"></router-view>
+        <div>
+          <router-view style="max-height: calc(100vh - 146px);overflow-y: auto"></router-view>
+        </div>
       </a-tab-pane>
     </a-tabs>
   </div>

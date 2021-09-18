@@ -39,8 +39,7 @@ export default {
   },
   methods: {
     getToken () {
-      window.openUrl('https://www.aliyun.com/product/oss')
-      window.openUrl('https://help.aliyun.com/document_detail/64097.html')
+      window.openUrl('https://www.yuque.com/sbxm2a/ogaua2/py29hq')
     }
   }
 }

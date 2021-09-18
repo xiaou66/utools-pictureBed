@@ -55,8 +55,8 @@ export default {
   },
   methods: {
     getToken () {
-      window.openUrl('https://www.aliyun.com/product/oss')
-      window.openUrl('https://help.aliyun.com/document_detail/64097.html')
+      window.openUrl('https://portal.qiniu.com/kodo/bucket')
+      window.openUrl('https://portal.qiniu.com/user/key')
     }
   }
 }
