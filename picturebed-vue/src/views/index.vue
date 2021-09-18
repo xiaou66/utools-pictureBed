@@ -46,21 +46,23 @@
         </a-row>
       </a-col>
     </a-row>
-    <a-row type="flex" justify="start" style="padding-top: 10px;">
-      <a-col v-for="(item,index) in image.data" :key="index" style="padding: 15px" class="item">
-        <a-spin tip="Loading..." :spinning="item.loading">
-          <img style="border-radius: 10px"  :src="item.image"  width="200px">
-          <div class="options" v-if="!item.loading">
-            <span @click="copy(item.image)">URL</span>
-            <span @click="htmlCopy(item.image)">HTML</span>
-            <span @click="mdCopy(item.image)">MD</span>
-            <span @click="toNotesHandler(item.image)">MD笔记</span>
-            <span @click="deleteItem(item.id)">删除</span>
-            <span>{{item.createTime}}</span>
-          </div>
-        </a-spin>
-      </a-col>
-    </a-row>
+    <div class="pictureBox">
+      <div v-for="item in image.data" :key="item.id" class="item">
+          <a-spin tip="Loading..." :spinning="item.loading">
+            <div style="width: 180px; height: 180px;display: flex;align-items: center">
+              <img style="border-radius: 10px"  :src="item.image" width="180px">
+            </div>
+            <div class="options" v-if="!item.loading">
+              <span @click="copy(item.image)">URL</span>
+              <span @click="htmlCopy(item.image)">HTML</span>
+              <span @click="mdCopy(item.image)">MD</span>
+              <span @click="toNotesHandler(item.image)">MD笔记</span>
+              <span @click="deleteItem(item.id)">删除</span>
+              <span>{{item.createTime}}</span>
+            </div>
+          </a-spin>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -324,21 +326,22 @@ export default {
      box-shadow: 0 3px 12px #FFC6CB;
    }
   }
-  .item {
-    position: relative;
-    width: 200px;
-    min-height: 100px;
-    margin: 0 10px;
-    &:hover .options {
+  .pictureBox {
+    margin-top: 10px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns:repeat(auto-fit, 180px);
+    justify-content: center;
+    .item:hover .options {
       display: block !important;
     }
     .options {
       display: none;
       position: absolute;
       top: 50%;
-      /*left: 50%;*/
+      //left: 50%;
+      //width: 160px;
       transform: translate(0,-50%);
-      width: 200px;
       background: rgba(0,0,0,.4);
       border-radius: 10px;
       text-align: center;
@@ -359,4 +362,39 @@ export default {
       }
     }
   }
+  //.item {
+  //  position: relative;
+  //  width: 100%;
+  //  min-height: 100px;
+  //  margin: 0 10px;
+  //  &:hover .options {
+  //    display: block !important;
+  //  }
+  //  .options {
+  //    display: none;
+  //    position: absolute;
+  //    top: 50%;
+  //    /*left: 50%;*/
+  //    transform: translate(0,-50%);
+  //    width: 200px;
+  //    background: rgba(0,0,0,.4);
+  //    border-radius: 10px;
+  //    text-align: center;
+  //    color: white;
+  //    font-size: 14px;
+  //    cursor: pointer;
+  //    overflow: hidden;
+  //    span {
+  //      display: inline-block;
+  //      width: 100%;
+  //      border-bottom: 1px dashed #ccc;
+  //      &:last-child {
+  //        border-bottom: none;
+  //      }
+  //      &:hover{
+  //        background: rgba(0,0,0,.5);
+  //      }
+  //    }
+  //  }
+  //}
 </style>
