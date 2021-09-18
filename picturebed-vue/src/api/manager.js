@@ -19,7 +19,36 @@ export const fileNameFormat = (uploadImageMode) => {
   }
   return ''
 }
-export const uploadImage = async (item, id, uploadImageMode, callback) => {
+export const usableSource = (uploadImageMode) => {
+  const type = uploadImageMode || store.state.image.selectFileMode
+  switch (type) {
+    case '阿里云OSS':
+      return store.state.oss.aliOss.accessKeySecret
+    case '腾讯云OSS':
+      return store.state.oss.tencentOss.secretKey
+    case '七牛云':
+      return store.state.oss.Qiniu.accessKey && store.state.oss.Qiniu.secretKey
+    case 'GitHub':
+      return store.state.oss.GitHub.token && store.state.oss.GitHub.project
+    case 'Gitee':
+      return store.state.oss.Gitee.accessToken && store.state.oss.Gitee.owner
+    case 'smMs':
+      return store.state.oss.smMs.token
+    case 'onedrive':
+      return store.state.oss.onedrive.refreshToken
+    case 'chevereto':
+      return store.state.oss.chevereto.token
+    case '又拍云':
+      return store.state.oss.upyun.password && store.state.oss.upyun.username
+    case 'Hello':
+      return store.state.oss.Hello.password
+  }
+  return true
+}
+export const uploadImage = async (item, id, uploadImageMode, {
+  callback,
+  path = ''
+} = {}) => {
   const type = uploadImageMode || store.state.image.selectFileMode
   switch (type) {
     case '猫盒':
@@ -35,7 +64,7 @@ export const uploadImage = async (item, id, uploadImageMode, callback) => {
     case '又拍云':
       return await Upyun.uploadImage(item, id)
     case '千牛云':
-      return await QiNiu.uploadImage(item, id)
+      return await QiNiu.uploadImage(item, id, path)
     case 'smMs':
       return await smMs.uploadImage(item, id)
     case 'imgUrlOrg':

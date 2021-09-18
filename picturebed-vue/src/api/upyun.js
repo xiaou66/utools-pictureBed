@@ -1,5 +1,5 @@
 import store from '../store/index'
-import crypto from 'crypto'
+const crypto = require('crypto')
 function Upyun () {}
 function getToken (bucketName) {
   const { username, password, path } = store.state.oss.upyun

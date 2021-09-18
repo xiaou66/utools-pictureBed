@@ -12,6 +12,17 @@
       <a-form-item label="bucket">
         <a-input placeholder="bucket" v-model="oss.Qiniu.bucket"></a-input>
       </a-form-item>
+      <a-form-item label="区域">
+        <a-select v-model="oss.Qiniu.zone">
+          <a-select-option value="Zone_z0">华东</a-select-option>
+          <a-select-option value="Zone_z1">华北</a-select-option>
+          <a-select-option value="Zone_z2">华南</a-select-option>
+          <a-select-option value="Zone_na0">北美</a-select-option>
+        </a-select>
+      </a-form-item>
+      <a-form-item label="使用cdn加速">
+        <a-switch v-model="oss.Qiniu.cdn"></a-switch>
+      </a-form-item>
       <a-form-item label="path">
         <a-tooltip placement="topLeft">
           <template #title>

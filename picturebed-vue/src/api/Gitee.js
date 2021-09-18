@@ -4,7 +4,6 @@ function Gitee () {}
 Gitee.uploadImage = (item, id) => {
   return new Promise((resolve, reject) => {
     const { accessToken, owner, repo, path } = store.state.oss.Gitee
-    console.log(item.path)
     const newPath = Utils.getImageSavePath(path, item.name, { timestamp: true })
     const fr = new FileReader()
     fr.readAsDataURL(item)

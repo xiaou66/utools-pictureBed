@@ -66,9 +66,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import { uploadImage } from '@/api/manager'
+import { uploadImage, usableSource } from '@/api/manager'
 import uToolsUtils from '../js/uToolsUtils'
-// import Utils from '@/js/Utils'
 const defaultPictureBed = '猫盒'
 export default {
   data () {
@@ -107,6 +106,7 @@ export default {
       window.commandUploadImage = async (path, uploadImageMode = undefined) => {
         return await this.uploadFilePath(path, false, uploadImageMode)
       }
+      console.log('fileModeKey', this.fileModeKey)
     })
     // eslint-disable-next-line no-undef
     utools.onPluginOut(() => {
@@ -135,6 +135,12 @@ export default {
       }
     })
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      // 不显示未配置的图床
+      vm.fileModeKey = vm.fileModeKey.filter(value => usableSource(value))
+    })
+  },
   methods: {
     // 去 Markdown 笔记插件
     toNotesHandler (url = '') {
@@ -153,9 +159,14 @@ export default {
      * @param item file 对象
      * @param autoCopy 是否自动复制
      * @param selectFileMode 选择上传图床源
+     * @param path
      * @return 上传成功需要返回 url
      */
-    async uploadImageHandler (item, autoCopy = true, selectFileMode = this.image.selectFileMode) {
+    async uploadImageHandler (item, autoCopy = true, selectFileMode = this.image.selectFileMode, path = '') {
+      if (!path) {
+        path = item.path
+      }
+      this.fileModeKey.filter(value => usableSource(value))
       if (!this.fileModeKey.includes(selectFileMode)) {
         this.$message.warning('该源已经下线,请选择其他源')
         return
@@ -164,22 +175,24 @@ export default {
       this.image.data.unshift({ id, image: '', loading: true })
       let result
       if (selectFileMode === '腾讯云OSS') {
-        result = await uploadImage(item, id, (result) => {
-          if (result.status === 200) {
-            const { url, id } = result
-            this.$store.commit('setImage', { url, id })
-            this.$message.success('上传成功')
-            if (autoCopy) {
-              this.autoCopy(url)
+        result = await uploadImage(item, id, selectFileMode, {
+          callback: (result) => {
+            if (result.status === 200) {
+              const { url, id } = result
+              this.$store.commit('setImage', { url, id })
+              this.$message.success('上传成功')
+              if (autoCopy) {
+                this.autoCopy(url)
+              }
+              // 需要返回 url
+              return url
+            } else {
+              this.$message.warning(result.message)
             }
-            // 需要返回 url
-            return url
-          } else {
-            this.$message.warning(result.message)
           }
         })
       } else {
-        result = await uploadImage(item, id, selectFileMode)
+        result = await uploadImage(item, id, selectFileMode, { path })
         if (result.status === 200) {
           const { url, id } = result
           this.$store.commit('setImage', { url, id })
@@ -216,53 +229,16 @@ export default {
     // 选择模式判断
     selectModeChange (value) {
       console.log(value)
-      if (value === '阿里云OSS') {
-        if (!this.$store.state.oss.aliOss.accessKeySecret) {
-          this.$message.warning('使用 「阿里云OSS」 在设置中需要配置')
-          this.image.selectFileMode = defaultPictureBed
-        }
-      } else if (value === '腾讯云OSS') {
-        if (!this.$store.state.oss.tencentOss.secretKey) {
-          this.$message.warning('使用 「腾讯云OSS」 在设置中需要配置')
-          this.image.selectFileMode = defaultPictureBed
-        }
-      } else if (value === 'GitHub') {
-        if (!this.$store.state.oss.GitHub.token || !this.$store.state.oss.GitHub.project) {
-          this.$message.warning('使用 「GitHub」 需要在设置中需要配置 token 和 仓库名')
-          this.image.selectFileMode = defaultPictureBed
-        }
-      } else if (value === 'smMs') {
-        if (!this.$store.state.oss.smMs.token) {
-          this.$message.warning('使用 「sm.ms」 需要在设置中需要配置 token')
-          this.image.selectFileMode = defaultPictureBed
-        }
-      } else if (value === 'onedrive') {
-        if (!this.$store.state.oss.onedrive.refreshToken) {
-          this.$message.warning('使用 「onedrive」 需要在设置中需要绑定账号')
-          this.image.selectFileMode = defaultPictureBed
-        }
-      } else if (value === 'chevereto') {
-        if (!this.$store.state.oss.chevereto.token) {
-          this.$message.warning('使用 「chevereto」 需要在设置中需要绑定账号')
-          this.image.selectFileMode = defaultPictureBed
-        }
-      } else if (value === '又拍云') {
-        if (!this.$store.state.oss.upyun.password) {
-          this.$message.warning('使用 「又拍云」 需要在设置中需要绑定账号')
-          this.image.selectFileMode = defaultPictureBed
-        }
-      } else if (value === 'Hello') {
-        if (!this.$store.state.oss.Hello.password) {
-          this.$message.warning('使用 「Hello」 需要在设置中需要绑定账号')
-          this.image.selectFileMode = defaultPictureBed
-        }
+      if (!usableSource(value)) {
+        this.$message.warning(`使用 「${value}」 在设置中需要配置`)
+        this.image.selectFileMode = defaultPictureBed
       }
     },
     uploadFilePath (path, autoCopy = true, selectFileMode = this.selectFileMode) {
       // const prefixs = [{ key: 'chevereto', name: 'chevereto' }]
       // github 必须有时间戳
       const item = window.readFile(path, undefined)
-      return this.uploadImageHandler(item, autoCopy, selectFileMode)
+      return this.uploadImageHandler(item, autoCopy, selectFileMode, path)
     },
     openFiles () {
       const paths = window.selectFile()

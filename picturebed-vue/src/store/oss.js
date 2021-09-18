@@ -62,7 +62,9 @@ const oss = {
       secretKey: '',
       bucket: '',
       path: '',
-      host: ''
+      host: '',
+      zone: 'Zone_z0',
+      cdn: false
     }
   },
   mutations: {
