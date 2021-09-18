@@ -63,7 +63,7 @@ export const uploadImage = async (item, id, uploadImageMode, {
       return await Gitee.uploadImage(item, id)
     case '又拍云':
       return await Upyun.uploadImage(item, id)
-    case '千牛云':
+    case '七牛云':
       return await QiNiu.uploadImage(item, id, path)
     case 'smMs':
       return await smMs.uploadImage(item, id)
