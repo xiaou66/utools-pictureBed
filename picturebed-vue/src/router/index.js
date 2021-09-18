@@ -78,6 +78,11 @@ const routes = [
         path: 'webService',
         name: 'webService',
         component: () => import('../views/setting/webService')
+      },
+      {
+        path: 'watermark',
+        name: 'watermark',
+        component: () => import('../views/setting/watermark')
       }
     ]
   }

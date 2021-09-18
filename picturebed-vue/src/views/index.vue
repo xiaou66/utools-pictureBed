@@ -74,7 +74,7 @@ const defaultPictureBed = '猫盒'
 export default {
   data () {
     return {
-      fileModeKey: ['阿里云OSS', '腾讯云OSS', '千牛云', '又拍云',
+      fileModeKey: ['阿里云OSS', '腾讯云OSS', '七牛云', '又拍云',
         'GitHub', 'Gitee', 'onedrive', 'chevereto', 'Hello',
         '猫盒', 'imgUrlOrg', '牛图网', 'smMs',
         '映画/腾讯', '映画/京东', '映画/网易', '映画/头条', '映画/抖音',
@@ -140,10 +140,64 @@ export default {
   beforeRouteEnter (to, from, next) {
     next(vm => {
       // 不显示未配置的图床
-      vm.fileModeKey = vm.fileModeKey.filter(value => usableSource(value))
+      setTimeout(() => {
+        vm.fileModeKey = vm.fileModeKey.filter(value => usableSource(value))
+      }, 1000)
     })
   },
   methods: {
+    // 增加水印
+    addWatermark (file, filePath) {
+      return new Promise((resolve, reject) => {
+        const img = new Image()
+        const _URL = window.URL || window.webkitURL
+        img.src = _URL.createObjectURL(file)
+        img.onload = () => {
+          const canvas = document.createElement('canvas')
+          // const canvas = document.getElementById('canvas')
+          canvas.width = img.width
+          canvas.height = img.height
+          const context = canvas.getContext('2d')
+          context.drawImage(img, 0, 0)
+          const watermarkImgBase64 = this.configure.watermark.image
+          console.log(this.configure.watermark)
+          if (!watermarkImgBase64) {
+            this.$message.warning('未设置水印图片')
+            resolve(file)
+          }
+          const watermarkImg = new Image()
+          watermarkImg.src = watermarkImgBase64
+          watermarkImg.onload = () => {
+            const position = this.configure.watermark.position
+            switch (position) {
+              case 'topLeft':
+                context.drawImage(watermarkImg, 0, 0)
+                break
+              case 'bottomLeft':
+                context.drawImage(watermarkImg, 0, img.height - watermarkImg.height)
+                break
+              case 'topRight':
+                context.drawImage(watermarkImg, img.width - watermarkImg.width, 0)
+                break
+              case 'bottomRight':
+                context.drawImage(watermarkImg, img.width - watermarkImg.width, img.height - watermarkImg.height)
+                break
+              case 'centerCenter':
+                context.drawImage(watermarkImg, img.width / 2 - (watermarkImg.width / 2), img.height / 2 - (watermarkImg.height / 2))
+                break
+              case 'topCenter':
+                context.drawImage(watermarkImg, img.height / 2 - (watermarkImg.height / 2), 0)
+                break
+              case 'bottomCenter':
+                context.drawImage(watermarkImg, img.width / 2 - (watermarkImg.width / 2), img.height - watermarkImg.height)
+                break
+            }
+            const base64 = canvas.toDataURL(window.getMineTypeByPath(filePath))
+            resolve(window.dataURLtoFile(base64, file.name))
+          }
+        }
+      })
+    },
     // 去 Markdown 笔记插件
     toNotesHandler (url = '') {
       if (window.utools) {
@@ -167,6 +221,10 @@ export default {
     async uploadImageHandler (item, autoCopy = true, selectFileMode = this.image.selectFileMode, path = '') {
       if (!path) {
         path = item.path
+      }
+      if (this.configure.watermark.status) {
+        item = await this.addWatermark(item, path)
+        debugger
       }
       this.fileModeKey.filter(value => usableSource(value))
       if (!this.fileModeKey.includes(selectFileMode)) {
@@ -362,39 +420,4 @@ export default {
       }
     }
   }
-  //.item {
-  //  position: relative;
-  //  width: 100%;
-  //  min-height: 100px;
-  //  margin: 0 10px;
-  //  &:hover .options {
-  //    display: block !important;
-  //  }
-  //  .options {
-  //    display: none;
-  //    position: absolute;
-  //    top: 50%;
-  //    /*left: 50%;*/
-  //    transform: translate(0,-50%);
-  //    width: 200px;
-  //    background: rgba(0,0,0,.4);
-  //    border-radius: 10px;
-  //    text-align: center;
-  //    color: white;
-  //    font-size: 14px;
-  //    cursor: pointer;
-  //    overflow: hidden;
-  //    span {
-  //      display: inline-block;
-  //      width: 100%;
-  //      border-bottom: 1px dashed #ccc;
-  //      &:last-child {
-  //        border-bottom: none;
-  //      }
-  //      &:hover{
-  //        background: rgba(0,0,0,.5);
-  //      }
-  //    }
-  //  }
-  //}
 </style>

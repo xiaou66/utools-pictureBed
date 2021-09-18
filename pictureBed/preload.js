@@ -60,6 +60,13 @@ fileToBase64 = filePath => {
     console.log(base64);
     return base64;
 };
+window.getMineTypeByPath = (filePath) => {
+    try {
+        return mineType.lookup(filePath);
+    } catch (e) {
+        return 'image/png'
+    }
+}
 window.dataURLtoFile = (dataurl, filename) => {
     var arr = dataurl.split(","),
         mime = arr[0].match(/:(.*?);/)[1],
@@ -101,4 +108,14 @@ window.stopWebService = async () => {
     enableDestroy(window.webApp);
     window.webApp.destroy();
     window.webApp = undefined;
+}
+window.openWatermarkImage = () => {
+    const path = window.utools.showOpenDialog({
+        filters: [{ name: 'png', extensions: ['png'] }],
+        properties: ['openFile']
+    })
+    if (path && path.length) {
+        return fileToBase64(path[0])
+    }
+    return ''
 }

@@ -28,6 +28,7 @@ export default {
         { name: 'chevereto', router: { name: 'chevereto' } },
         { name: 'sm.ms', router: { name: 'smMs' } },
         { name: 'hello', router: { name: 'hello' } },
+        { name: '水印', router: { name: 'watermark' } },
         { name: '服务', router: { name: 'webService' } },
         { name: '数据', router: { name: 'imageData' } }
       ],
