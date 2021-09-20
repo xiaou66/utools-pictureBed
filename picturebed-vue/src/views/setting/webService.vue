@@ -67,7 +67,9 @@ export default {
         await window.stopWebService()
         this.$message.success('服务停止成功')
       }
-      this.getServiceStatus()
+      setTimeout(() => {
+        this.getServiceStatus()
+      }, 200)
     },
     async switchWebService (checked) {
       if (checked && !this.serviceStatus) {
