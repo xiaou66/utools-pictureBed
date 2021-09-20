@@ -5,7 +5,7 @@
       title="设置"
       @back="() => this.$router.replace({name: 'index'})"
     />
-    <a-tabs v-model="currentTab" @change="tabsChange"  style="padding: 10px 15px; box-sizing: border-box;">
+    <a-tabs v-model="currentTab" @change="tabsChange" :tab-bar-style="{padding: 0}"  style="padding: 10px 15px; box-sizing: border-box;">
       <a-tab-pane :tab="item.name" v-for="item in tabsData" :key="item.name">
         <div>
           <router-view style="max-height: calc(100vh - 146px);overflow-y: auto"></router-view>
@@ -30,7 +30,7 @@ export default {
         { name: 'chevereto', router: { name: 'chevereto' } },
         { name: 'sm.ms', router: { name: 'smMs' } },
         { name: 'hello', router: { name: 'hello' } },
-        { name: '水印', router: { name: 'watermark' } },
+        { name: '通用', router: { name: 'general' } },
         { name: '服务', router: { name: 'webService' } },
         { name: '数据', router: { name: 'imageData' } }
       ],
@@ -45,7 +45,5 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-
 </style>

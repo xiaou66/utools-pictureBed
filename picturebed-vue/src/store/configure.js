@@ -15,6 +15,10 @@ const configure = {
       status: false,
       position: 'topLeft',
       image: ''
+    },
+    customUrl: {
+      hide1: 'MD笔记',
+      value1: ''
     }
   },
   mutations: {

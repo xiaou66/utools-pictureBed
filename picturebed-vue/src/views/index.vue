@@ -27,6 +27,9 @@
                 <a-select-option value="html">
                   html
                 </a-select-option>
+                <a-select-option value="custom" v-if="configure.customUrl.value1">
+                  自定义
+                </a-select-option>
               </a-select>
               <a-tooltip>
                 <template #title>
@@ -53,10 +56,11 @@
               <img style="border-radius: 10px"  :src="item.image" width="180px">
             </div>
             <div class="options" v-if="!item.loading">
-              <span @click="copy(item.image)">URL</span>
-              <span @click="htmlCopy(item.image)">HTML</span>
-              <span @click="mdCopy(item.image)">MD</span>
-              <span @click="toNotesHandler(item.image)">MD笔记</span>
+              <span @click="copy(item.image)" v-if="copyValueOptionsDisplay('URL')">URL</span>
+              <span @click="htmlCopy(item.image)"  v-if="copyValueOptionsDisplay('HTML')">HTML</span>
+              <span @click="mdCopy(item.image)"  v-if="copyValueOptionsDisplay('MD')">MD</span>
+              <span @click="toNotesHandler(item.image)"  v-if="copyValueOptionsDisplay('MD笔记')">MD笔记</span>
+              <span @click="customCopy(item.image)"  v-if="configure.customUrl.value1">自定义</span>
               <span @click="deleteItem(item.id)">删除</span>
               <span>{{item.createTime}}</span>
             </div>
@@ -96,7 +100,11 @@ export default {
       if (this.configure.webService.status) {
         const port = this.configure.webService.port
         window.startWebService(port).then(res => {
-          window.utools.showNotification(`服务自启动完成\n端口「${port}」`)
+          if (res) {
+            window.utools.showNotification(`服务自启动完成\n端口「${port}」`)
+          } else {
+            window.utools.showNotification(`服务自启动失败\n请检查端口「${port}」是否被占用`)
+          }
         })
       }
       /**
@@ -106,7 +114,13 @@ export default {
        * @return {Promise<*>}
        */
       window.commandUploadImage = async (path, uploadImageMode = undefined) => {
-        return await this.uploadFilePath(path, false, uploadImageMode)
+        // 命令模式下指定图床不区分大小写
+        if (uploadImageMode) {
+          const index = this.fileModeKey
+            .findIndex(item => item.toLocaleUpperCase() === uploadImageMode.toString().toLocaleUpperCase())
+          uploadImageMode = this.fileModeKey[index]
+        }
+        return await this.uploadFilePath(path, false, uploadImageMode, { tips: false })
       }
       console.log('fileModeKey', this.fileModeKey)
     })
@@ -142,10 +156,19 @@ export default {
       // 不显示未配置的图床
       setTimeout(() => {
         vm.fileModeKey = vm.fileModeKey.filter(value => usableSource(value))
+        if (vm.configure.autoCopy.mode === 'custom' && !vm.configure.customUrl.value1) {
+          vm.configure.autoCopy.mode = 'url'
+        }
       }, 1000)
     })
   },
   methods: {
+    copyValueOptionsDisplay (value) {
+      if (this.configure.customUrl.value1) {
+        return this.configure.customUrl.hide1 !== value
+      }
+      return true
+    },
     // 增加水印
     addWatermark (file, filePath) {
       return new Promise((resolve, reject) => {
@@ -216,9 +239,10 @@ export default {
      * @param autoCopy 是否自动复制
      * @param selectFileMode 选择上传图床源
      * @param path
+     * @param tips 是否提示上传状态
      * @return 上传成功需要返回 url
      */
-    async uploadImageHandler (item, autoCopy = true, selectFileMode = this.image.selectFileMode, path = '') {
+    async uploadImageHandler (item, autoCopy = true, selectFileMode = this.image.selectFileMode, path = '', { tips = true } = {}) {
       if (!path) {
         path = item.path
       }
@@ -255,14 +279,18 @@ export default {
         if (result.status === 200) {
           const { url, id } = result
           this.$store.commit('setImage', { url, id })
-          this.$message.success('上传成功')
+          if (tips) {
+            this.$message.success('上传成功')
+          }
           if (autoCopy) {
             this.autoCopy(url)
           }
           // 需要返回 url
           return url
         } else {
-          this.$message.warning(result.message)
+          if (tips) {
+            this.$message.warning(result.message)
+          }
         }
       }
     },
@@ -279,6 +307,9 @@ export default {
           case 'html':
             this.htmlCopy(url)
             break
+          case 'custom':
+            this.customCopy(url)
+            break
         }
       }
     },
@@ -293,11 +324,11 @@ export default {
         this.image.selectFileMode = defaultPictureBed
       }
     },
-    uploadFilePath (path, autoCopy = true, selectFileMode = this.selectFileMode) {
+    uploadFilePath (path, autoCopy = true, selectFileMode = this.selectFileMode, { tips = true } = {}) {
       // const prefixs = [{ key: 'chevereto', name: 'chevereto' }]
       // github 必须有时间戳
       const item = window.readFile(path, undefined)
-      return this.uploadImageHandler(item, autoCopy, selectFileMode, path)
+      return this.uploadImageHandler(item, autoCopy, selectFileMode, path, { tips })
     },
     openFiles () {
       const paths = window.selectFile()
@@ -333,6 +364,11 @@ export default {
       this.$copyText(text).then(() => {
         this.$message.success('复制成功')
       })
+    },
+    // 自定义复制
+    customCopy (url) {
+      const text = this.configure.customUrl.value1.replace('{url}', url)
+      this.copy(text)
     },
     // html 复制
     htmlCopy (url) {

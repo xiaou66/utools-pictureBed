@@ -55,8 +55,14 @@ export default {
     },
     async switchService () {
       if (!this.serviceStatus) {
-        await window.startWebService(this.configure.webService.port)
-        this.$message.success('服务启动成功🎉')
+        const { port } = this.configure.webService
+        window.startWebService(port).then(res => {
+          if (res) {
+            this.$message.success('服务启动成功🎉')
+          } else {
+            this.$message.success(`服务启动失败,检查「${port}」是否被占用`)
+          }
+        })
       } else {
         await window.stopWebService()
         this.$message.success('服务停止成功')

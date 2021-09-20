@@ -85,23 +85,32 @@ window.openUrl = (url) => {
 window.webApp = undefined;
 const Koa = require('koa');
 const enableDestroy = require('server-destroy');
+const net = require('net');
 window.startWebService = async (port = 4126) => {
-    if (window.webApp) {
-        await window.stopWebService();
-    }
-    const app = new Koa();
-    app.use(async (ctx) => {
-        const { path = '', bed = undefined } = ctx.query;
-        if (!path) {
-            ctx.body = 'path?'
-            return;
+    try {
+        await portUsed(port)
+        if (window.webApp) {
+            await window.stopWebService();
         }
-        console.log(path);
-        const url = await window.commandUploadImage(path, bed);
-        ctx.body = url || ''
-    })
-    window.webApp = app.listen(port);
-    return true;
+        const app = new Koa();
+        app.use(async (ctx) => {
+            const { path = '', bed = undefined } = ctx.query;
+            if (!path) {
+                ctx.body = 'path?'
+                return;
+            }
+            console.log(path);
+            const url = await window.commandUploadImage(path, bed);
+            ctx.body = url || ''
+        })
+        window.webApp = app.listen(port, (e) => {
+            console.log('e', e);
+        });
+        return true;
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
 }
 window.stopWebService = async () => {
     enableDestroy(window.webApp);
@@ -117,4 +126,19 @@ window.openWatermarkImage = () => {
         return fileToBase64(path[0])
     }
     return ''
+}
+// 判断端口是否被占用
+function portUsed(port) {
+    return new Promise((resolve, reject) => {
+        let server = net.createServer().listen(port);
+        server.on('listening', function () {
+            server.close();
+            resolve(port);
+        });
+        server.on('error', function (err) {
+            if (err.code == 'EADDRINUSE') {
+                reject(err);
+            }
+        });
+    });
 }
