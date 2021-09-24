@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 20px">
+  <div style="padding: 20px;max-height: 100vh;overflow-y: auto;">
     <a-row   type="flex" justify="center">
       <div @click="openFiles" id="file-area" @dragenter.prevent @drop.prevent.stop="fileBoxDrag"  @dragover.prevent @dragleave.prevent>
         <a-icon type="cloud-upload" />
@@ -52,8 +52,8 @@
     <div class="pictureBox">
       <div v-for="item in image.data" :key="item.id" class="item">
           <a-spin tip="Loading..." :spinning="item.loading">
-            <div style="width: 180px; height: 180px;display: flex;align-items: center">
-              <img style="border-radius: 10px"  :src="item.image" width="180px">
+            <div style="width: 180px;display: flex;justify-content: center">
+              <img style="border-radius: 10px; height: auto;max-height: 180px;max-width: 180px" :src="item.image">
             </div>
             <div class="options" v-if="!item.loading">
               <span @click="copy(item.image)" v-if="copyValueOptionsDisplay('URL')">URL</span>
@@ -62,11 +62,21 @@
               <span @click="toNotesHandler(item.image)"  v-if="copyValueOptionsDisplay('MD笔记')">MD笔记</span>
               <span @click="customCopy(item.image)"  v-if="configure.customUrl.value1">自定义</span>
               <span @click="deleteItem(item.id)">删除</span>
+              <span @click="openPicturePreview(item)">查看</span>
               <span>{{item.createTime}}</span>
             </div>
           </a-spin>
       </div>
     </div>
+    <a-modal v-model="picturePreview.visible" :footer="null"
+             :bodyStyle="{padding: 0}"
+             :dialog-style="{ top: '20px' }"
+             width="80vw">
+      <template #closeIcon></template>
+      <div id="picturePreview">
+        <img style="max-width: 100%;height: auto" :src="picturePreview.src"/>
+      </div>
+    </a-modal>
   </div>
 </template>
 
@@ -82,7 +92,11 @@ export default {
         'GitHub', 'Gitee', 'onedrive', 'chevereto', 'Hello',
         '猫盒', 'imgUrlOrg', '牛图网', 'smMs',
         '映画/腾讯', '映画/京东', '映画/网易', '映画/头条',
-        '映画/阿里', '映画/美团', '映画/百度', '映画/携程', '映画/搜狐', '映画/快手', '映画/苏宁']
+        '映画/阿里', '映画/美团', '映画/百度', '映画/携程', '映画/搜狐', '映画/快手', '映画/苏宁'],
+      picturePreview: {
+        visible: false,
+        src: ''
+      }
     }
   },
   computed: {
@@ -163,6 +177,12 @@ export default {
     })
   },
   methods: {
+    openPicturePreview ({ image }) {
+      this.picturePreview = {
+        visible: true,
+        src: image
+      }
+    },
     copyValueOptionsDisplay (value) {
       if (this.configure.customUrl.value1) {
         return this.configure.customUrl.hide1 !== value
@@ -428,6 +448,19 @@ export default {
     .item:hover .options {
       display: block !important;
     }
+    .item {
+      max-height: 180px;
+      min-width: 180px;
+      min-height: 180px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+      }
+    }
     .options {
       display: none;
       position: absolute;
@@ -454,5 +487,13 @@ export default {
         }
       }
     }
+  }
+  #picturePreview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 100%;
+    overflow-y: auto;
   }
 </style>
