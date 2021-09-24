@@ -70,11 +70,11 @@
     </div>
     <a-modal v-model="picturePreview.visible" :footer="null"
              :bodyStyle="{padding: 0}"
-             :dialog-style="{ top: '20px' }"
-             width="80vw">
+             :dialog-style="{ top: '10px' }"
+             width="98vh">
       <template #closeIcon></template>
       <div id="picturePreview">
-        <img style="max-width: 100%;height: auto" :src="picturePreview.src"/>
+        <img  :src="picturePreview.src"/>
       </div>
     </a-modal>
   </div>
@@ -489,11 +489,18 @@ export default {
     }
   }
   #picturePreview {
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh;
+    height: 93vh;
     width: 100%;
     overflow-y: auto;
+    img {
+      max-width: 100%;
+      max-height: 92vh;
+      height: auto;
+      overflow-y: auto;
+    }
   }
 </style>
