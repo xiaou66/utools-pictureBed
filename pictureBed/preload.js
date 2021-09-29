@@ -4,7 +4,16 @@ const path = require('path');
 window.pluginInfo = JSON.parse(fs.readFileSync(path.join(__dirname, 'plugin.json')));
 window.qiniu = require('qiniu');
 
-
+const mineMap = {
+    "image/bmp": "bmp",
+    "image/gif": "gif",
+    "image/heic": "heic",
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/svg+xml": "svg",
+    "image/webp": "webp",
+    "image/x-icon": "ico"
+}
 window.selectFile = () => {
     return utools.showOpenDialog({
         title: "请选择要上传的图片",
@@ -86,6 +95,32 @@ window.webApp = undefined;
 const Koa = require('koa');
 const enableDestroy = require('server-destroy');
 const net = require('net');
+function paresPostData(ctx) {
+    return new Promise((resolve, reject) => {
+        try {
+            let postData = ''
+            ctx.req.addListener('data', (data) => {
+                postData += data
+            })
+            ctx.req.on('end', () => {
+                resolve(parseData(postData))
+            })
+
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+function parseData(queryStr) {
+    let queryData = {}
+    let queryList = queryStr.split('&')
+    for (let [index, queryItem] of queryList.entries()) {
+        let itemList = queryItem.split('=')
+        queryData[itemList[0]] = decodeURIComponent(itemList[1])
+    }
+    return queryData
+}
+
 window.startWebService = async (port = 4126) => {
     try {
         await portUsed(port)
@@ -94,6 +129,20 @@ window.startWebService = async (port = 4126) => {
         }
         const app = new Koa();
         app.use(async (ctx) => {
+            if (ctx.url === '/' && ctx.method === 'POST') {
+                // post 处理
+                let { base64 = '', path = '', bed = undefined, fileName = '', autoCopy = false } = await paresPostData(ctx);
+                let [src, type, b] = base64.match(/^data:(image\/.+);base64,(.*)/)
+                fileName = fileName ? fileName : Date.now() + '.' + mineMap[type];
+                if (!base64 && !path) {
+                    ctx.body = '? base64 || path'
+                    return;
+                }
+                console.log(window.uploadImageByBase64);
+                const url = base64 ? await window.uploadImageByBase64(base64, fileName, bed, autoCopy) : await window.commandUploadImage(path, bed);
+                ctx.body = url || '';
+                return;
+            }
             const { path = '', bed = undefined } = ctx.query;
             if (!path) {
                 ctx.body = 'path?'

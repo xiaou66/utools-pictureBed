@@ -136,6 +136,11 @@ export default {
         }
         return await this.uploadFilePath(path, false, uploadImageMode, { tips: false })
       }
+      window.uploadImageByBase64 = async (base64, fileName, uploadImageMode = undefined, autoCopy = false) => {
+        const file = window.dataURLtoFile(base64, fileName)
+        const url = await this.uploadImageHandler(file, autoCopy, uploadImageMode, '', { tips: false })
+        return url
+      }
       console.log('fileModeKey', this.fileModeKey)
     })
     // eslint-disable-next-line no-undef
@@ -263,6 +268,7 @@ export default {
      * @return 上传成功需要返回 url
      */
     async uploadImageHandler (item, autoCopy = true, selectFileMode = this.image.selectFileMode, path = '', { tips = true } = {}) {
+      window.tips = tips
       if (!path) {
         path = item.path
       }
@@ -382,7 +388,9 @@ export default {
       console.log(text)
       console.log(this)
       this.$copyText(text).then(() => {
-        this.$message.success('复制成功')
+        if (window.tips) {
+          this.$message.success('复制成功')
+        }
       })
     },
     // 自定义复制
