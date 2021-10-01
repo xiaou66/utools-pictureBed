@@ -56,11 +56,11 @@
               <img style="border-radius: 10px; height: auto;max-height: 180px;max-width: 180px" :src="item.image">
             </div>
             <div class="options" v-if="!item.loading">
-              <span @click="copy(item.image)" v-if="copyValueOptionsDisplay('URL')">URL</span>
-              <span @click="htmlCopy(item.image)"  v-if="copyValueOptionsDisplay('HTML')">HTML</span>
-              <span @click="mdCopy(item.image)"  v-if="copyValueOptionsDisplay('MD')">MD</span>
-              <span @click="toNotesHandler(item.image)"  v-if="copyValueOptionsDisplay('MD笔记')">MD笔记</span>
-              <span @click="customCopy(item.image)"  v-if="configure.customUrl.value1">自定义</span>
+              <span @click="() => {tips = true;copy(item.image)}" v-if="copyValueOptionsDisplay('URL')">URL</span>
+              <span @click="() => {tips = true;htmlCopy(item.image)}"  v-if="copyValueOptionsDisplay('HTML')">HTML</span>
+              <span @click="() => {tips = true;mdCopy(item.image)}"  v-if="copyValueOptionsDisplay('MD')">MD</span>
+              <span @click="() => toNotesHandler(item.image)"  v-if="copyValueOptionsDisplay('MD笔记')">MD笔记</span>
+              <span @click="() => {tips = true;customCopy(item.image)}"  v-if="configure.customUrl.value1">自定义</span>
               <span @click="deleteItem(item.id)">删除</span>
               <span @click="openPicturePreview(item)">查看</span>
               <span>{{item.createTime}}</span>
@@ -88,6 +88,7 @@ const defaultPictureBed = '猫盒'
 export default {
   data () {
     return {
+      tips: true,
       fileModeKey: ['阿里云OSS', '腾讯云OSS', '七牛云', '又拍云',
         'GitHub', 'Gitee', 'onedrive', 'chevereto', 'Hello',
         '猫盒', 'imgUrlOrg', '牛图网', 'smMs',
@@ -268,7 +269,7 @@ export default {
      * @return 上传成功需要返回 url
      */
     async uploadImageHandler (item, autoCopy = true, selectFileMode = this.image.selectFileMode, path = '', { tips = true } = {}) {
-      window.tips = tips
+      this.tips = tips
       if (!path) {
         path = item.path
       }
@@ -388,7 +389,7 @@ export default {
       console.log(text)
       console.log(this)
       this.$copyText(text).then(() => {
-        if (window.tips) {
+        if (this.tips) {
           this.$message.success('复制成功')
         }
       })
