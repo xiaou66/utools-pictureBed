@@ -56,7 +56,7 @@
               <img style="border-radius: 10px; height: auto;max-height: 180px;max-width: 180px" :src="item.image">
             </div>
             <div class="options" v-if="!item.loading">
-              <span @click="() => {tips = true;copy(item.image)}" v-if="copyValueOptionsDisplay('URL')">URL</span>
+              <span @click="() => {tips = true;copy(encodeURI(item.image))}" v-if="copyValueOptionsDisplay('URL')">URL</span>
               <span @click="() => {tips = true;htmlCopy(item.image)}"  v-if="copyValueOptionsDisplay('HTML')">HTML</span>
               <span @click="() => {tips = true;mdCopy(item.image)}"  v-if="copyValueOptionsDisplay('MD')">MD</span>
               <span @click="() => toNotesHandler(item.image)"  v-if="copyValueOptionsDisplay('MD笔记')">MD笔记</span>
@@ -326,6 +326,7 @@ export default {
       if (this.configure.autoCopy.enabled) {
         switch (this.configure.autoCopy.mode) {
           case 'url':
+            url = encodeURI(url)
             this.copy(url)
             break
           case 'md':
@@ -396,16 +397,19 @@ export default {
     },
     // 自定义复制
     customCopy (url) {
+      url = encodeURI(url)
       const text = this.configure.customUrl.value1.replace('{url}', url)
       this.copy(text)
     },
     // html 复制
     htmlCopy (url) {
+      url = encodeURI(url)
       const text = `<img src="${url}"  />`
       this.copy(text)
     },
     // MarkDown 复制
     mdCopy (url) {
+      url = encodeURI(url)
       const text = `![](${url})`
       this.copy(text)
     },
