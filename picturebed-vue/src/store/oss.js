@@ -65,6 +65,9 @@ const oss = {
       host: '',
       zone: 'Zone_z0',
       cdn: false
+    },
+    catbox: {
+      userhash: ''
     }
   },
   mutations: {

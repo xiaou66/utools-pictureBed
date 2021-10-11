@@ -83,6 +83,11 @@ const routes = [
         path: 'general',
         name: 'general',
         component: () => import('../views/setting/general')
+      },
+      {
+        path: 'catbox',
+        name: 'catbox',
+        component: () => import('../views/setting/catbox')
       }
     ]
   }

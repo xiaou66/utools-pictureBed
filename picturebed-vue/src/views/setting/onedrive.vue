@@ -52,12 +52,19 @@ export default {
         .wait('pre', 10 * 60 * 1000)
         .evaluate(() => {
           return JSON.parse(document.querySelector('pre').textContent)
-        }).hide()
+        })
+        .clearCookies()
+        .hide()
         .run({})
+      window.utools.clearUBrowserCache()
       if (res && res.length) {
         const { status, message, data } = res[0]
         if (status !== 200) {
           this.$message.warning(message)
+          return
+        }
+        if (!data.refresh_token) {
+          this.$message.success('授权失败')
           return
         }
         this.oss.onedrive.refreshToken = data.refresh_token

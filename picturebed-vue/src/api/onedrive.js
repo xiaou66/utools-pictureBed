@@ -82,6 +82,52 @@ async function getToken () {
       return ''
     })
 }
+async function getBusinessImageUrl (url) {
+  const res = await window.utools.ubrowser.goto(url)
+    .wait('#appRoot')
+    .evaluate(() => {
+      document.cookie = ''
+      localStorage.clear()
+      indexedDB.deleteDatabase('ODSP_DB')
+      indexedDB.deleteDatabase('Route.Config')
+      return document.getElementsByTagName('html')[0].outerHTML
+    }).clearCookies().hide().run({ show: false })
+  console.log(res[0])
+  if (res && res.length) {
+    const html = res[0]
+    const [mediaBaseUrlOri] = html.match(/mediaBaseUrl".+?\.ms/)
+    const mediaBaseUrl = 'https://' + mediaBaseUrlOri.split('u002f')[2] + '/'
+
+    // const [mediaBaseUrlSecondaryOri] = html.match(/'mediaBaseUrlSecondary".+?\.ms'/)
+    // const mediaBaseUrlSecondary = 'https://' + mediaBaseUrlSecondaryOri[0].split('u002f')[2] + '/'
+
+    const [providerOri] = html.match(/\?provider.+&i/)
+    const provider = providerOri.split('=')[1].split('&')[0]
+
+    const [fileTypeOri] = html.match(/%2E.[a-z|A-Z]+&/)
+    const fileType = fileTypeOri.split('&')[0].split('2E')[1]
+    //
+    const [callerStackOri] = html.match(/callerStack" : ".+[a-z|A-Z]/)
+    const callerStack = callerStackOri.split('"')[2]
+    //
+    const [currentFolderSpItemUrlOri] = html.match(/CurrentFolderSpItemUrl.+/)
+    const currentFolderSpItemUrl = currentFolderSpItemUrlOri.split('"')[2]
+    const [accessTokenOri] = html.match(/driveAccessToken":"access_token.+","/)
+    const accessToken = accessTokenOri.split('"')[2].split('=')[1]
+    const transformUrl = mediaBaseUrl + 'transform/thumbnail?provider=' + provider +
+      '&inputFormat=' + fileType + '&cs=' + callerStack + '&docid=' + currentFolderSpItemUrl +
+      '&access_token=' + accessToken + '&width=1000000000000&height=1000000000000&encodeFailures=1&action=Access'
+    // console.log(mediaBaseUrl)
+    // console.log(mediaBaseUrlSecondary)
+    // console.log(provider)
+    // console.log(fileType)
+    // console.log(callerStack)
+    // console.log(currentFolderSpItemUrl)
+    // console.log(accessToken)
+    return transformUrl
+  }
+  return ''
+}
 export default async (item, id) => {
   const directory = store.state.oss.onedrive.path
   const uploadPath = directory ? Utils.getImageSavePath(directory, item.name) : 'pic' + item.name
@@ -103,6 +149,14 @@ export default async (item, id) => {
     return { status: 403, message: '上传失败' }
   }
   const { data } = await getShareId(uploadResponse.data.id, token)
-  const url = genShareUrl(data.shareId)
+  let url = ''
+  if (data.shareId) {
+    url = genShareUrl(data.shareId)
+  } else if (data.link && data.link.webUrl) {
+    url = await getBusinessImageUrl(data.link.webUrl)
+  }
+  if (!url) {
+    return { status: 403, message: '上传失败' }
+  }
   return { status: 200, url: url, id }
 }
