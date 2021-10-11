@@ -3,7 +3,7 @@
   "description": "图床",
   "version": "1.3.0",
   "author": "xiaou",
-  "main": "http://localhost:4444/index.html",
+  "main": "vue/index.html",
   "update": true,
   "preload": "preload.js",
   "logo": "logo.png",
