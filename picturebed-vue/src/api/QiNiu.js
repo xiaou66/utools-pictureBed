@@ -30,20 +30,44 @@ QiNiu.uploadImage = async (item, id, path) => {
     const putExtra = new qiniu.form_up.PutExtra()
     const key = Utils.getImageSavePath(store.state.oss.Qiniu.path, name)
     // 文件上传
-    console.log('path', path)
-    formUploader.putFile(uploadToken, key, path, putExtra, function (respErr,
-      respBody, respInfo) {
-      if (respErr) {
-        throw respErr
+    if (!path) {
+      const ext = name.substr(name.lastIndexOf('.') + 1)
+      path = window.utools.getPath('temp') + '/' + 'utools-pictureBed-temp-QiNiu' + '.' + ext
+      const fr = new FileReader()
+      fr.readAsDataURL(item)
+      fr.onloadend = (e) => {
+        const base64 = e.target.result.split(',')[1]
+        window.saveTempFile(base64, path)
+        formUploader.putFile(uploadToken, key, path, putExtra, function (respErr,
+          respBody, respInfo) {
+          if (respErr) {
+            throw respErr
+          }
+          if (respInfo.statusCode === 200) {
+            resolve({ status: 200, url: `${host}/${respBody.key}`, id })
+          } else {
+            console.log(respInfo.statusCode)
+            console.log(respBody)
+            resolve({ status: 403, message: respBody.error })
+          }
+        })
       }
-      if (respInfo.statusCode === 200) {
-        resolve({ status: 200, url: `${host}/${respBody.key}`, id })
-      } else {
-        console.log(respInfo.statusCode)
-        console.log(respBody)
-        resolve({ status: 403, message: respBody.error })
-      }
-    })
+      // window.saveTempFile(path)
+    } else {
+      formUploader.putFile(uploadToken, key, path, putExtra, function (respErr,
+        respBody, respInfo) {
+        if (respErr) {
+          throw respErr
+        }
+        if (respInfo.statusCode === 200) {
+          resolve({ status: 200, url: `${host}/${respBody.key}`, id })
+        } else {
+          console.log(respInfo.statusCode)
+          console.log(respBody)
+          resolve({ status: 403, message: respBody.error })
+        }
+      })
+    }
   })
 }
 export default QiNiu

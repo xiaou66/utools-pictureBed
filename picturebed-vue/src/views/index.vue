@@ -138,6 +138,11 @@ export default {
         return await this.uploadFilePath(path, false, uploadImageMode, { tips: false })
       }
       window.uploadImageByBase64 = async (base64, fileName, uploadImageMode = undefined, autoCopy = false) => {
+        if (uploadImageMode) {
+          const index = this.fileModeKey
+            .findIndex(item => item.toLocaleUpperCase() === uploadImageMode.toString().toLocaleUpperCase())
+          uploadImageMode = this.fileModeKey[index]
+        }
         const file = window.dataURLtoFile(base64, fileName)
         const url = await this.uploadImageHandler(file, autoCopy, uploadImageMode, '', { tips: false })
         return url

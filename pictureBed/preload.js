@@ -120,7 +120,10 @@ function parseData(queryStr) {
     }
     return queryData
 }
-
+window.saveTempFile = (base64_URL, path) => {
+    const base64 = base64_URL.replace(/^data:image\/\w+;base64,/, "");
+    fs.writeFileSync(path, base64, 'base64');
+}
 window.startWebService = async (port = 4126) => {
     try {
         await portUsed(port)
