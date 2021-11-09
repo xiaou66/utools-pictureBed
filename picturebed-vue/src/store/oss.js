@@ -68,6 +68,10 @@ const oss = {
     },
     catbox: {
       userhash: ''
+    },
+    lskyPro: {
+      servicePath: '',
+      token: ''
     }
   },
   mutations: {

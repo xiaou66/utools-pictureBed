@@ -12,6 +12,7 @@ import Hello from '@/api/Hello'
 import Upyun from '@/api/upyun'
 import Gitee from '@/api/Gitee'
 import QiNiu from '@/api/QiNiu'
+import LskyPro from '@/api/LskyPro'
 export const fileNameFormat = (uploadImageMode) => {
   const type = uploadImageMode || store.state.image.selectFileMode
   // const { } = store.state.oss
@@ -42,6 +43,8 @@ export const usableSource = (uploadImageMode) => {
       return store.state.oss.upyun.password && store.state.oss.upyun.username
     case 'Hello':
       return store.state.oss.Hello.password
+    case 'LskyPro':
+      return store.state.oss.lskyPro.servicePath
   }
   return true
 }
@@ -73,6 +76,8 @@ export const uploadImage = async (item, id, uploadImageMode, {
       return await chevereto(item, id)
     case 'Hello':
       return await Hello.uploadImage(item, id)
+    case 'LskyPro':
+      return await LskyPro.uploadImage(item, id)
   }
   if (type.includes('映画')) {
     const nodeName = type.split('/')[1]

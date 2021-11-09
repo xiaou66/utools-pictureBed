@@ -28,6 +28,7 @@ export default {
         { name: 'Gitee', router: { name: 'Gitee' } },
         { name: 'onedrive', router: { name: 'onedrive' } },
         { name: 'chevereto', router: { name: 'chevereto' } },
+        { name: 'LskyPro', router: { name: 'LskyPro' } },
         { name: 'sm.ms', router: { name: 'smMs' } },
         { name: 'hello', router: { name: 'hello' } },
         { name: '猫盒', router: { name: 'catbox' } },

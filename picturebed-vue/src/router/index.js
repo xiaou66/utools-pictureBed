@@ -85,6 +85,11 @@ const routes = [
         component: () => import('../views/setting/general')
       },
       {
+        path: 'LskyPro',
+        name: 'LskyPro',
+        component: () => import('../views/setting/LskyPro')
+      },
+      {
         path: 'catbox',
         name: 'catbox',
         component: () => import('../views/setting/catbox')

@@ -90,7 +90,7 @@ export default {
     return {
       tips: true,
       fileModeKey: ['阿里云OSS', '腾讯云OSS', '七牛云', '又拍云',
-        'GitHub', 'Gitee', 'onedrive', 'chevereto', 'Hello',
+        'GitHub', 'Gitee', 'onedrive', 'chevereto', 'LskyPro', 'Hello',
         '猫盒', 'imgUrlOrg', '牛图网', 'smMs',
         '映画/腾讯', '映画/京东', '映画/网易', '映画/头条',
         '映画/阿里', '映画/美团', '映画/百度', '映画/携程', '映画/搜狐', '映画/快手', '映画/苏宁'],
