@@ -106,39 +106,39 @@ uToolsUtils.isNewVersion = () => {
     // 是否需要更新数据
     if (window.pluginInfo.update) {
       console.log('更新数据')
-      const oldOss = read('oss')
-      if (oldOss) {
-        const oldOsskeys = oldOss
-        const newOssKeys = store.state.oss
-        newOssKeys.aliOss = oldOsskeys.aliOss
-        newOssKeys.tencentOss = oldOsskeys.tencentOss
-        newOssKeys.rruu = oldOsskeys.rruu
-        if (newOssKeys.tencentOss.domain === undefined) {
-          newOssKeys.tencentOss.domain = ''
-        }
-        if (newOssKeys.tencentOss.style === undefined) {
-          newOssKeys.tencentOss.style = ''
-        }
-        if (oldOsskeys.GitHub) {
-          newOssKeys.GitHub = oldOsskeys.GitHub
-        }
-        if (oldOsskeys.smMs) {
-          newOssKeys.smMs = oldOsskeys.smMs
-        }
-        if (!oldOss.aliOss.uploadDirectory) {
-          newOssKeys.aliOss.uploadDirectory = ''
-        }
-        if (oldOss.GitHub.branch === undefined) {
-          newOssKeys.GitHub.branch = ''
-          if (oldOss.GitHub.at === false || oldOss.GitHub.at === true) {
-            delete newOssKeys.GitHub.at
-          }
-        }
-        if (oldOss.tencentOss.path === undefined) {
-          newOssKeys.tencentOss.path = ''
-        }
-        uToolsUtils.save('oss')
-      }
+      // const oldOss = read('oss')
+      // if (oldOss) {
+      //   const oldOsskeys = oldOss
+      //   const newOssKeys = store.state.oss
+      //   newOssKeys.aliOss = oldOsskeys.aliOss
+      //   newOssKeys.tencentOss = oldOsskeys.tencentOss
+      //   newOssKeys.rruu = oldOsskeys.rruu
+      //   if (newOssKeys.tencentOss.domain === undefined) {
+      //     newOssKeys.tencentOss.domain = ''
+      //   }
+      //   if (newOssKeys.tencentOss.style === undefined) {
+      //     newOssKeys.tencentOss.style = ''
+      //   }
+      //   if (oldOsskeys.GitHub) {
+      //     newOssKeys.GitHub = oldOsskeys.GitHub
+      //   }
+      //   if (oldOsskeys.smMs) {
+      //     newOssKeys.smMs = oldOsskeys.smMs
+      //   }
+      //   if (!oldOss.aliOss.uploadDirectory) {
+      //     newOssKeys.aliOss.uploadDirectory = ''
+      //   }
+      //   if (oldOss.GitHub.branch === undefined) {
+      //     newOssKeys.GitHub.branch = ''
+      //     if (oldOss.GitHub.at === false || oldOss.GitHub.at === true) {
+      //       delete newOssKeys.GitHub.at
+      //     }
+      //   }
+      //   if (oldOss.tencentOss.path === undefined) {
+      //     newOssKeys.tencentOss.path = ''
+      //   }
+      //   uToolsUtils.save('oss')
+      // }
     }
     update('version', pluginInfo.version)
     // 打开更新信息窗口

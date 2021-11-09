@@ -7,7 +7,7 @@
   "development": {
     "main": "http://localhost:4444/index.html"
   },
-  "update": true,
+  "update": false,
   "preload": "preload.js",
   "logo": "logo.png",
   "features": [
