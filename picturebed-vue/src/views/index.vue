@@ -84,6 +84,10 @@
 import { mapState } from 'vuex'
 import { uploadImage, usableSource } from '@/api/manager'
 import uToolsUtils from '../js/uToolsUtils'
+import {
+  enable as enableDarkMode,
+  disable as disableDarkMode
+} from 'darkreader'
 const defaultPictureBed = '猫盒'
 export default {
   data () {
@@ -153,9 +157,16 @@ export default {
     utools.onPluginOut(() => {
       window.saveALL()
     })
-    // eslint-disable-next-line no-undef
-    utools.onPluginEnter(({ code, type, payload, optional }) => {
+    // 进入插件
+    window.utools.onPluginEnter(({ code, type, payload, optional }) => {
       this.$store.commit('clearInvalidImage')
+      if (window.utools.isDarkColors()) {
+        enableDarkMode({
+          darkSchemeBackgroundColor: '#303133'
+        })
+      } else {
+        disableDarkMode()
+      }
       console.log(payload)
       if (type === 'files') {
         console.log(payload)
