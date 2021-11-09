@@ -20,10 +20,9 @@ uToolsUtils.readAll = () => {
 uToolsUtils.read = (...keys) => {
   keys.map((key) => {
     const data = read(key)
-    console.log(key)
-    console.log(data)
     if (data) {
       store.state[key] = { ...store.state[key], ...data }
+      console.log(key, store.state[key])
     }
   })
 }

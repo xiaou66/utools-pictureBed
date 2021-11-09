@@ -1,7 +1,25 @@
 <template>
   <div>
     <a-row>
-      <a-button @click="savePictureData">导出图片数据</a-button>
+      <div style="display: flex; align-items: center">
+        <a-button @click="savePictureData">导出图片数据</a-button>
+        <div v-if="configure.dataSavePath" style="padding-left: 10px;">上一次导出位置「{{configure.dataSavePath}}」</div>
+      </div>
+    </a-row>
+    <a-row style="margin-top: 10px;display: flex; align-items: center;" v-if="configure.dataSavePath">
+      <div style="padding-left: 54px;">自动保存</div>
+      <div style="padding-left: 10px;">
+        <a-switch checked-children="开" un-checked-children="关"
+                  v-model="configure.autoSave.enable" @change="autoSaveChange"/>
+      </div>
+      <div style="padding-left: 12px;">
+        <a-tooltip placement="topLeft">
+          <template #title>间隔时间, 按下回车生效</template>
+          <a-input-number v-model="configure.autoSave.interval" :min="2" :max="120" @pressEnter="autoSaveChange"/>
+        </a-tooltip>
+        <span style="padding-left: 4px;">分钟</span>
+      </div>
+      <div style="padding-left: 10px;">{{configure.autoSave.prevSaveTime || '无保存记录'}}</div>
     </a-row>
     <a-row style="margin-top: 10px">
       <a-button @click="readPictureData">导入图片数据</a-button>
@@ -49,11 +67,18 @@ export default {
     }
   },
   computed: {
-    ...mapState(['image'])
+    ...mapState(['image', 'configure'])
   },
   methods: {
+    autoSaveChange () {
+      window.startAutoSaveData()
+    },
     savePictureData () {
-      window.saveJsonFile(JSON.stringify(this.image.data))
+      const { dataSavePath = undefined } = this.configure
+      const path = window.saveJsonFile(JSON.stringify(this.image.data), dataSavePath)
+      if (path) {
+        this.configure.dataSavePath = path
+      }
     },
     readPictureData () {
       const data = window.readJsonFile()

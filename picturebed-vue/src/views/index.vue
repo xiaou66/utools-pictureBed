@@ -88,6 +88,7 @@ import {
   enable as enableDarkMode,
   disable as disableDarkMode
 } from 'darkreader'
+import Utils from '@/js/Utils'
 const defaultPictureBed = '猫盒'
 export default {
   data () {
@@ -115,7 +116,6 @@ export default {
       // 数据读入
       uToolsUtils.readAll()
       // webService 自启
-      console.log(this.configure.webService.status)
       if (this.configure.webService.status) {
         const port = this.configure.webService.port
         window.startWebService(port).then(res => {
@@ -126,6 +126,23 @@ export default {
           }
         })
       }
+      // 自动保存
+      window.startAutoSaveData = () => {
+        const { enable = false, interval = 10 } = this.configure.autoSave
+        if (window.autoSaveTimer) {
+          console.log('清理', window.autoSaveTimer)
+          clearInterval(window.autoSaveTimer)
+        }
+        if (enable) {
+          console.log('启动自动保存')
+          window.autoSaveTimer = setInterval(() => {
+            window.saveJsonFile(JSON.stringify(this.image.data), this.configure.dataSavePath, true)
+            this.configure.autoSave.prevSaveTime = Utils.getImageSavePath('{Y}-{M}-{D} {H}:{m}:{s}', '')
+            console.log('保存')
+          }, interval * 1000 * 60)
+        }
+      }
+      window.startAutoSaveData()
       /**
        * 给命令上传使用返回url
        * @param path 文件路径

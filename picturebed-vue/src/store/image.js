@@ -1,4 +1,4 @@
-import { dateFormat } from '../js/Date'
+import { dateFormat } from '@/js/Date'
 const image = {
   state: {
     selectFileMode: '猫盒',

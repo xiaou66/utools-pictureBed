@@ -1,5 +1,11 @@
 const configure = {
   state: {
+    dataSavePath: '',
+    autoSave: {
+      enable: false,
+      interval: 10,
+      prevSaveTime: ''
+    },
     autoCopy: {
       mode: 'url',
       enabled: false
