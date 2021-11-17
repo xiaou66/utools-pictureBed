@@ -217,7 +217,7 @@ export default {
   },
   methods: {
     chineseHandler (text) {
-      return /[\\u4E00-\\u9FFF]+/.test(text) ? encodeURI(text) : text
+      return /[\u4E00-\u9FFF]+/.test(text) ? encodeURI(text) : text
     },
     openPicturePreview ({ image }) {
       this.picturePreview = {
