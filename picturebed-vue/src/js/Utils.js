@@ -1,3 +1,4 @@
+import imageCompression from 'browser-image-compression'
 const path = require('path')
 function Utils () {}
 
@@ -38,7 +39,11 @@ Utils.getImageSavePath = (formatPath, fileName, { timestamp = false } = {}) => {
     filename,
     suffix: suffix.replace('.', '')
   }
-  const rewrite = formatPath.includes('filename')
+  const noFilename = formatPath.includes('{no_filename}')
+  const rewrite = formatPath.includes('filename') || noFilename
+  if (noFilename) {
+    formatPath = formatPath.replace('{no_filename}', '')
+  }
   for (const key of enableKeywords) {
     if (option[key]) {
       formatPath = formatPath.replace(new RegExp('\\{' + key + '\\}', 'g'), option[key])
@@ -48,5 +53,32 @@ Utils.getImageSavePath = (formatPath, fileName, { timestamp = false } = {}) => {
     return formatPath
   }
   return formatPath + fileName
+}
+// Utils.compressImage = (file, quality) => {
+//   return new Promise((resolve) => {
+//     debugger
+//     // eslint-disable-next-line no-new
+//     new Compressor(file, {
+//       quality,
+//       success: (newFile) => {
+//         resolve(newFile)
+//       },
+//       error: (error) => {
+//         console.log(error)
+//         resolve(file)
+//       }
+//     })
+//   })
+// }
+Utils.compressImage = async (file, maxSizeMB) => {
+  try {
+    console.log('压缩')
+    return await imageCompression(file, {
+      maxSizeMB: 1,
+      useWebWorker: true
+    })
+  } catch (e) {
+    return file
+  }
 }
 export default Utils

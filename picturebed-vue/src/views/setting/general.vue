@@ -30,6 +30,45 @@
         </div>
       </a-form-item>
       <a-divider orientation="left" style="margin: 0;">
+        压缩图片
+      </a-divider>
+      <a-form-item label="压缩图片">
+        <a-tooltip placement="topLeft">
+          <template  #title>
+            除「七牛云」其他都支持
+          </template>
+          <a-switch  v-model="configure.compress.status"></a-switch>
+        </a-tooltip>
+      </a-form-item>
+      <a-form-item label="压缩图片">
+        <a-tooltip placement="topLeft">
+          <template  #title>
+            压缩后最大大小
+          </template>
+          <a-input-number v-model="configure.compress.maxSizeMB" style="margin-right: 10px;"></a-input-number>MB
+        </a-tooltip>
+      </a-form-item>
+      <a-form-item label="图片大小">
+        <a-tooltip placement="topLeft">
+          <template #title>
+            图片大小 >=MB 进行压缩
+          </template>
+          <a-input-number v-model="configure.compress.size" style="margin-right: 10px;"></a-input-number>MB
+        </a-tooltip>
+      </a-form-item>
+      <a-form-item label="图床排除">
+        <a-tooltip placement="topLeft">
+          <template #title>
+            排除图床:哪一些图床不进行压缩
+          </template>
+          <a-select mode="multiple" v-model="configure.compress.exclude">
+            <a-select-option v-for="(item) in fileModeKey" :key="item">
+              {{ item }}
+            </a-select-option>
+          </a-select>
+        </a-tooltip>
+      </a-form-item>
+      <a-divider orientation="left" style="margin: 0;">
         自定义复制格式
       </a-divider>
       <a-form-item label="自定义复制格式" style="margin: 5px;">
@@ -52,8 +91,13 @@
 
 <script>
 import { mapState } from 'vuex'
-
+import Pictures from '@/data/Pictures.json'
 export default {
+  data () {
+    return {
+      fileModeKey: Pictures.fileModeKey
+    }
+  },
   computed: {
     ...mapState(['configure'])
   },

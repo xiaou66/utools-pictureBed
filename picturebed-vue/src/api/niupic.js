@@ -2,7 +2,7 @@ function niupic () {}
 niupic.uploadImage = async (item, id) => {
   const formData = new FormData()
   formData.append('file', item)
-  return await fetch('https://www.niupic.com/api/upload', {
+  return await fetch('https://niupic.com/api/upload', {
     method: 'POST',
     body: formData
   }).then(res => res.json())

@@ -89,16 +89,13 @@ import {
   disable as disableDarkMode
 } from 'darkreader'
 import Utils from '@/js/Utils'
+import Pictures from '@/data/Pictures.json'
 const defaultPictureBed = '猫盒'
 export default {
   data () {
     return {
       tips: true,
-      fileModeKey: ['阿里云OSS', '腾讯云OSS', '七牛云', '又拍云',
-        'GitHub', 'Gitee', 'onedrive', 'chevereto', 'LskyPro', 'Hello',
-        '猫盒', 'imgUrlOrg', '牛图网', 'smMs',
-        '映画/腾讯', '映画/京东', '映画/网易', '映画/头条',
-        '映画/阿里', '映画/美团', '映画/百度', '映画/携程', '映画/搜狐', '映画/快手', '映画/苏宁'],
+      fileModeKey: Pictures.fileModeKey,
       picturePreview: {
         visible: false,
         src: ''
@@ -308,6 +305,12 @@ export default {
       this.tips = tips
       if (!path) {
         path = item.path
+      }
+      // 压缩
+      if (item && this.configure.compress.status &&
+        !this.configure.compress.exclude.includes(selectFileMode) &&
+        (item.size / 1024 / 1024) >= this.configure.compress.size) {
+        item = await Utils.compressImage(item, this.configure.compress.maxSizeMB)
       }
       if (this.configure.watermark.status && selectFileMode !== '七牛云') {
         item = await this.addWatermark(item, path)

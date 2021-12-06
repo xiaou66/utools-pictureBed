@@ -2005,6 +2005,14 @@ brorand@^1.0.1:
   resolved "https://registry.npm.taobao.org/brorand/download/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
   integrity sha1-EsJe/kCkXjwyPrhnWgoM5XsiNx8=
 
+browser-image-compression@^1.0.17:
+  version "1.0.17"
+  resolved "https://registry.npmmirror.com/browser-image-compression/download/browser-image-compression-1.0.17.tgz#5b97bb65297dadfee123be6c40ecb355c4758cf2"
+  integrity sha512-TMDh3gyNlVA5Vvn0D0AdWr33s2ftIeokHK406z8cYlLJ4ANAq1x6eMaSzqedDoZwUGyTVB+0rhNVaSFgM3YAZg==
+  dependencies:
+    core-js "^3.16.1"
+    uzip "0.20201231.0"
+
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
   version "1.2.0"
   resolved "https://registry.npm.taobao.org/browserify-aes/download/browserify-aes-1.2.0.tgz#326734642f403dabc3003209853bb70ad428ef48"
@@ -2769,6 +2777,11 @@ core-js@^2.4.0:
   version "2.6.11"
   resolved "https://registry.npm.taobao.org/core-js/download/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha1-OIMUafmSK97Y7iHJ3EaYXgOZMIw=
+
+core-js@^3.16.1:
+  version "3.19.1"
+  resolved "https://registry.npmmirror.com/core-js/download/core-js-3.19.1.tgz#f6f173cae23e73a7d88fa23b6e9da329276c6641"
+  integrity sha1-9vFzyuI+c6fYj6I7bp2jKSdsZkE=
 
 core-js@^3.6.5:
   version "3.6.5"
@@ -9012,6 +9025,11 @@ uuid@^3.3.2, uuid@^3.4.0:
   version "3.4.0"
   resolved "https://registry.npm.taobao.org/uuid/download/uuid-3.4.0.tgz?cache=0&sync_timestamp=1592944180280&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fuuid%2Fdownload%2Fuuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha1-sj5DWK+oogL+ehAK8fX4g/AgB+4=
+
+uzip@0.20201231.0:
+  version "0.20201231.0"
+  resolved "https://registry.npm.taobao.org/uzip/download/uzip-0.20201231.0.tgz#9e64b065b9a8ebf26eb7583fe8e77e1d9a15ed14"
+  integrity sha1-nmSwZbmo6/Jut1g/6Od+HZoV7RQ=
 
 v8-compile-cache@^2.0.3:
   version "2.1.1"
