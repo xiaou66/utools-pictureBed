@@ -3,17 +3,17 @@ export default async (item, id) => {
   const { token, url } = store.state.oss.chevereto
   const fromData = new FormData()
   fromData.append('key', token)
-  fromData.append('format', 'json')
+  fromData.append('format', 'txt')
   fromData.append('source', item)
   return await fetch(`${url}api/1/upload`, {
     method: 'POST',
     body: fromData
-  }).then(res => res.json())
+  }).then(res => res.text())
     .then(res => {
-      if (res.status_code !== 200) {
-        return { code: 403, message: res.error.message }
+      if (!res.startsWith('http')) {
+        return { code: 403, message: res }
       }
-      return { status: 200, url: res.image.display_url, id }
+      return { status: 200, url: res, id }
     }).catch(() => {
       return { code: 403, message: '上传失败' }
     })
