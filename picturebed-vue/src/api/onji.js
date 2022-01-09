@@ -24,7 +24,7 @@ onji.uploadImage = async (item, id, nodeName) => {
   const formData = new FormData()
   formData.append('image', item)
   formData.append('file_id', 0)
-  return await fetch(`https://pic.onji.cn/apis/${node.path}.php`, {
+  return await fetch(`https:/pic.ihcloud.net/api12/${node.path}.php`, {
     method: 'POST',
     body: formData
   }).then(res => res.json())
