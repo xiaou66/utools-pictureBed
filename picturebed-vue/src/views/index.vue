@@ -82,6 +82,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import Bobolink from 'bobolink'
 import { uploadImage, usableSource } from '@/api/manager'
 import uToolsUtils from '../js/uToolsUtils'
 import {
@@ -112,6 +113,12 @@ export default {
       uToolsUtils.isNewVersion()
       // 数据读入
       uToolsUtils.readAll()
+      // 任务队列初始化
+      this.uploadTaskQueue = new Bobolink({
+        scheduleMode: Bobolink.SCHEDULE_MODE_FREQUENCY,
+        countPerTimeScale: 0.5,
+        concurrency: 1
+      })
       // webService 自启
       if (this.configure.webService.status) {
         const port = this.configure.webService.port
@@ -322,9 +329,9 @@ export default {
       }
       const id = Date.now()
       this.image.data.unshift({ id, image: '', loading: true })
-      let result
+      // eslint-disable-next-line no-unused-vars
       if (selectFileMode === '腾讯云OSS') {
-        result = await uploadImage(item, id, selectFileMode, {
+        await uploadImage(item, id, selectFileMode, {
           callback: (result) => {
             if (result.status === 200) {
               const { url, id } = result
@@ -341,7 +348,8 @@ export default {
           }
         })
       } else {
-        result = await uploadImage(item, id, selectFileMode, { path })
+        const { res: result = { status: 400, message: '未知错误' } } =
+          await this.uploadTaskQueue.put(() => uploadImage(item, id, selectFileMode, { path }))
         if (result.status === 200) {
           const { url, id } = result
           this.$store.commit('setImage', { url, id })

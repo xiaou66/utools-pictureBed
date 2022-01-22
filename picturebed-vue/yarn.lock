@@ -1931,6 +1931,11 @@ bn.js@^5.1.1:
   resolved "https://registry.npm.taobao.org/bn.js/download/bn.js-5.1.2.tgz#c9686902d3c9a27729f43ab10f9d79c2004da7b0"
   integrity sha1-yWhpAtPJoncp9DqxD515wgBNp7A=
 
+bobolink@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmmirror.com/bobolink/download/bobolink-3.0.0.tgz#815296e9a384c8b8c40b545de23919888fa28cf5"
+  integrity sha1-gVKW6aOEyLjEC1Rd4jkZiI+ijPU=
+
 body-parser@1.19.0:
   version "1.19.0"
   resolved "https://registry.npm.taobao.org/body-parser/download/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
