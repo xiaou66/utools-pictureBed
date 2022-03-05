@@ -69,7 +69,7 @@ export const uploadImage = async (item, id, uploadImageMode, {
     case '七牛云':
       return await QiNiu.uploadImage(item, id, path)
     case 'smMs':
-      return await smMs.uploadImage(item, id)
+      return await smMs.uploadImage(item, id, path)
     case 'imgUrlOrg':
       return await imgUrlOrg.uploadImage(item, id)
     case 'chevereto':

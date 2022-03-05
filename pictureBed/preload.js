@@ -3,7 +3,6 @@ const mineType = require("mime-types")
 const path = require('path');
 window.pluginInfo = JSON.parse(fs.readFileSync(path.join(__dirname, 'plugin.json')));
 window.qiniu = require('qiniu');
-
 const mineMap = {
     "image/bmp": "bmp",
     "image/gif": "gif",

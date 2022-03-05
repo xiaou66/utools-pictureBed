@@ -83,6 +83,7 @@
 <script>
 import { mapState } from 'vuex'
 import Bobolink from 'bobolink'
+import { nanoid } from 'nanoid'
 import { uploadImage, usableSource } from '@/api/manager'
 import uToolsUtils from '../js/uToolsUtils'
 import {
@@ -97,6 +98,11 @@ export default {
     return {
       tips: true,
       fileModeKey: Pictures.fileModeKey,
+      uploadTaskQueue: new Bobolink({
+        scheduleMode: Bobolink.SCHEDULE_MODE_FREQUENCY,
+        countPerTimeScale: 1,
+        concurrency: 1
+      }),
       picturePreview: {
         visible: false,
         src: ''
@@ -113,12 +119,6 @@ export default {
       uToolsUtils.isNewVersion()
       // 数据读入
       uToolsUtils.readAll()
-      // 任务队列初始化
-      this.uploadTaskQueue = new Bobolink({
-        scheduleMode: Bobolink.SCHEDULE_MODE_FREQUENCY,
-        countPerTimeScale: 0.5,
-        concurrency: 1
-      })
       // webService 自启
       if (this.configure.webService.status) {
         const port = this.configure.webService.port
@@ -327,7 +327,7 @@ export default {
         this.$message.warning('该源已经下线,请选择其他源')
         return
       }
-      const id = Date.now()
+      const id = nanoid() + '/' + Date.now()
       this.image.data.unshift({ id, image: '', loading: true })
       // eslint-disable-next-line no-unused-vars
       if (selectFileMode === '腾讯云OSS') {
@@ -348,6 +348,7 @@ export default {
           }
         })
       } else {
+        console.log('queue', this.uploadTaskQueue)
         const { res: result = { status: 400, message: '未知错误' } } =
           await this.uploadTaskQueue.put(() => uploadImage(item, id, selectFileMode, { path }))
         if (result.status === 200) {

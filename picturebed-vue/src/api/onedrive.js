@@ -129,6 +129,7 @@ async function getBusinessImageUrl (url) {
   return ''
 }
 export default async (item, id) => {
+  debugger
   const directory = store.state.oss.onedrive.path
   const uploadPath = directory ? Utils.getImageSavePath(directory, item.name) : 'pic' + item.name
   const fullPath = uploadPath
