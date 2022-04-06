@@ -53,7 +53,7 @@
       <div v-for="item in image.data" :key="item.id" class="item">
           <a-spin tip="Loading..." :spinning="item.loading">
             <div style="width: 180px;display: flex;justify-content: center">
-              <img style="border-radius: 10px; height: auto;max-height: 180px;max-width: 180px" :src="item.image">
+              <img style="border-radius: 10px; height: auto;max-height: 180px;max-width: 180px" v-lazy="item.image">
             </div>
             <div class="options" v-if="!item.loading">
               <span @click="() => {tips = true;copy(chineseHandler(item.image))}" v-if="copyValueOptionsDisplay('URL')">URL</span>

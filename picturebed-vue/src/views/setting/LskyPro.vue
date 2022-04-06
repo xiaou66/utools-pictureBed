@@ -1,11 +1,14 @@
 <template>
   <div style="min-height: 100%">
     <a-form  :label-col="{ span: 6 }" :wrapper-col="{ span: 12 }">
-      <a-form-item label="服务地址" >
+      <a-form-item label="服务地址" require>
         <a-input placeholder="https://pic.iqy.ink" v-model="oss.lskyPro.servicePath"></a-input>
       </a-form-item>
-      <a-form-item label="token" >
+      <a-form-item label="token" require>
         <a-input placeholder="请输入 API token" v-model="oss.lskyPro.token"></a-input>
+      </a-form-item>
+      <a-form-item label="存储策略" >
+        <a-input placeholder="请输入" v-model="oss.lskyPro.strategyId"></a-input>
       </a-form-item>
     </a-form>
     <a-row type="flex" justify="center">

@@ -71,7 +71,8 @@ const oss = {
     },
     lskyPro: {
       servicePath: '',
-      token: ''
+      token: '',
+      strategyId: ''
     }
   },
   mutations: {
