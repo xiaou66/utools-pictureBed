@@ -60,6 +60,11 @@ const routes = [
         component: () => import('../views/setting/hello')
       },
       {
+        path: 'imgUrlOrg',
+        name: 'imgUrlOrg',
+        component: () => import('../views/setting/imgUrlOrg')
+      },
+      {
         path: 'upyun',
         name: 'upyun',
         component: () => import('../views/setting/upyun')

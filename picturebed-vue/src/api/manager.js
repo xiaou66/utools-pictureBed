@@ -45,6 +45,8 @@ export const usableSource = (uploadImageMode) => {
       return store.state.oss.Hello.password
     case 'LskyPro':
       return store.state.oss.lskyPro.servicePath
+    case 'imgUrlOrg':
+      return store.state.oss.imgUrlOrg.uid && store.state.oss.imgUrlOrg.token
   }
   return true
 }
