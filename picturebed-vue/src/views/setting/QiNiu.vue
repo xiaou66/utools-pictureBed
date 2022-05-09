@@ -18,6 +18,8 @@
           <a-select-option value="Zone_z1">华北</a-select-option>
           <a-select-option value="Zone_z2">华南</a-select-option>
           <a-select-option value="Zone_na0">北美</a-select-option>
+          <a-select-option value="Zone_as0">东南亚</a-select-option>
+          <a-select-option value="Zone_cn-east-2">华东-浙江2</a-select-option>
         </a-select>
       </a-form-item>
       <a-form-item label="使用cdn加速">
