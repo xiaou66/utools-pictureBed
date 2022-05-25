@@ -22,6 +22,15 @@ const image = {
     },
     clearImage (state) {
       state.data = []
+    },
+    picUrlGitHubFix (state) {
+      state.data = state.data.map(item => {
+        console.log(item.image)
+        if (item.image && item.image.toString().startsWith('https://cdn.jsdelivr.net')) {
+          item.image = item.image.replace('https://cdn.jsdelivr.net', 'https://fastly.jsdelivr.net')
+        }
+        return item
+      })
     }
   },
   actions: {

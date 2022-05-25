@@ -31,6 +31,9 @@
       </a-form-item>
     </a-form>
     <a-row type="flex" justify="center">
+      <a-button @click="fixHostHandler">修复</a-button>
+    </a-row>
+    <a-row type="flex" justify="center">
       <a-tooltip>
         <template #title>
           主要需要 repo权限 具体权限自行设置
@@ -50,6 +53,10 @@ export default {
   methods: {
     getToken () {
       window.openUrl('https://github.com/settings/tokens/new')
+    },
+    fixHostHandler () {
+      this.$store.commit('picUrlGitHubFix')
+      this.$message.success('修复完成, 需要重启插件')
     }
   }
 }

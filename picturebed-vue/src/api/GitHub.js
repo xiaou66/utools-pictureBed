@@ -44,7 +44,7 @@ GitHub.uploadImage = (item, id) => {
               console.log(RegExp.$1)
               baseUrl = `${project}@${RegExp.$1}/${path}`
               // /xiaou66/pic/image/1609054282923-86467220_p0.png
-              const jsdelivrUrl = `https://cdn.jsdelivr.net/gh/${baseUrl}`
+              const jsdelivrUrl = `https://fastly.jsdelivr.net/gh/${baseUrl}`
               resolve({ status: 200, url: jsdelivrUrl, id })
             }
           } else {
