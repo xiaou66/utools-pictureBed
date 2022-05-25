@@ -30,7 +30,7 @@
         </a-tooltip>
       </a-form-item>
     </a-form>
-    <a-row type="flex" justify="center">
+    <a-row type="flex" justify="center" style="margin-bottom: 10px">
       <a-button @click="fixHostHandler">修复</a-button>
     </a-row>
     <a-row type="flex" justify="center">
