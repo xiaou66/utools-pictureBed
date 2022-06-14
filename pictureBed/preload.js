@@ -201,3 +201,5 @@ function portUsed(port) {
         });
     });
 }
+
+window.onPluginReady = utools.onPluginReady ? utools.onPluginReady : (callback) => { callback() };

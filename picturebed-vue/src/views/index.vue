@@ -114,7 +114,7 @@ export default {
   },
   created () {
     // eslint-disable-next-line no-undef
-    utools.onPluginReady(() => {
+    window.onPluginReady(() => {
       // 版本检查
       uToolsUtils.isNewVersion()
       // 数据读入
