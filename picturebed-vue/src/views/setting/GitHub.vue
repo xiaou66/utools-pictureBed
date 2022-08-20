@@ -29,6 +29,15 @@
           <a-input placeholder="[留空>>使用仓库默认分支(通常是 master)]" v-model="oss.GitHub.branch"></a-input>
         </a-tooltip>
       </a-form-item>
+      <a-form-item label="格式化路径">
+        <a-tooltip placement="topLeft">
+          <template #title>
+            高级设置 {branch} 分支 {uploadPath} 上传后路径 {project} 仓库名称
+            例子: https://fastly.jsdelivr.net/gh/{project}@{branch}/{uploadPath}
+          </template>
+          <a-input placeholder="" v-model="oss.GitHub.formatPath" />
+        </a-tooltip>
+      </a-form-item>
     </a-form>
     <a-row type="flex" justify="center" style="margin-bottom: 10px">
       <a-button @click="fixHostHandler">修复</a-button>

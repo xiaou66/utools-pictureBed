@@ -101,7 +101,8 @@ export default {
       uploadTaskQueue: new Bobolink({
         scheduleMode: Bobolink.SCHEDULE_MODE_FREQUENCY,
         countPerTimeScale: 1,
-        concurrency: 1
+        concurrency: 1,
+        timeout: 10 * 1000 * 60
       }),
       picturePreview: {
         visible: false,

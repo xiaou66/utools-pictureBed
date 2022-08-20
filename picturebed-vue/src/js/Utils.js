@@ -70,6 +70,14 @@ Utils.getImageSavePath = (formatPath, fileName, { timestamp = false } = {}) => {
 //     })
 //   })
 // }
+Utils.formatPath = (formatPath, params) => {
+  for (const key in params) {
+    if (params[key]) {
+      formatPath = formatPath.replace(new RegExp('\\{' + key + '\\}', 'g'), params[key])
+    }
+  }
+  return formatPath
+}
 Utils.compressImage = async (file, maxSizeMB) => {
   try {
     console.log('压缩')

@@ -28,6 +28,7 @@ const oss = {
       project: '',
       cdn: '',
       branch: '',
+      formatPath: '',
       at: false
     },
     onedrive: {
