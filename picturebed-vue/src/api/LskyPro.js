@@ -7,7 +7,9 @@ LskyPro.uploadImage = async (item, id) => {
   }
   const formData = new FormData()
   formData.append('file', item)
-  formData.append('strategy_id', strategyId)
+  if (strategyId) {
+    formData.append('strategy_id', strategyId)
+  }
   return await fetch(servicePath + '/api/v1/upload', {
     method: 'POST',
     body: formData,
