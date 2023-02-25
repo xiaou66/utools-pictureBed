@@ -14,12 +14,13 @@
       </a-form-item>
       <a-form-item label="区域">
         <a-select v-model="oss.Qiniu.zone">
-          <a-select-option value="Zone_z0">华东</a-select-option>
-          <a-select-option value="Zone_z1">华北</a-select-option>
-          <a-select-option value="Zone_z2">华南</a-select-option>
-          <a-select-option value="Zone_na0">北美</a-select-option>
-          <a-select-option value="Zone_as0">东南亚</a-select-option>
+          <a-select-option value="Zone_z0">华东-浙江</a-select-option>
+          <a-select-option value="Zone_z1">华北-河北</a-select-option>
+          <a-select-option value="Zone_z2">华南-广东</a-select-option>
+          <a-select-option value="Zone_na0">北美-洛杉矶</a-select-option>
+          <a-select-option value="Zone_as0">亚太-新加坡(原东南亚)</a-select-option>
           <a-select-option value="Zone_cn-east-2">华东-浙江2</a-select-option>
+          <a-select-option value="Zone_ap-northeast-1">亚太-首尔</a-select-option>
         </a-select>
       </a-form-item>
       <a-form-item label="使用cdn加速">

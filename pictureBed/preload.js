@@ -4,6 +4,7 @@ const path = require('path');
 const nodeFetch = require('node-fetch');
 window.pluginInfo = JSON.parse(fs.readFileSync(path.join(__dirname, 'plugin.json')));
 window.qiniu = require('qiniu');
+window.qiniu.zone.
 window.nodeFetch = nodeFetch;
 const mineMap = {
     "image/bmp": "bmp",
