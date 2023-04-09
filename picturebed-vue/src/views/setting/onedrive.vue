@@ -48,7 +48,7 @@ export default {
       this.oss.onedrive.refreshToken = ''
     },
     async authorization () {
-      const res = await window.utools.ubrowser.goto('https://xiaou.icu/music/microsoftGraph/auth')
+      const res = await window.utools.ubrowser.goto('https://utools.on-u.cn/music/microsoftGraph/auth')
         .wait('pre', 10 * 60 * 1000)
         .evaluate(() => {
           return JSON.parse(document.querySelector('pre').textContent)

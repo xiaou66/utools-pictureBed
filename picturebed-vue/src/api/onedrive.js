@@ -66,7 +66,7 @@ async function getToken () {
   if (token) {
     return token
   }
-  return await service.post('https://xiaou.icu/music/microsoftGraph/auth/refresh_token', {
+  return await service.post('https://utools.on-u.cn/music/microsoftGraph/auth/refresh_token', {
     refresh_token: store.state.oss.onedrive.refreshToken
   })
     .then(res => {
