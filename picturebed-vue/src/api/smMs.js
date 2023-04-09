@@ -4,7 +4,7 @@ smMs.uploadImage = async (item, id) => {
   const formData = new FormData()
   formData.append('smfile', item)
   formData.append('format', 'json')
-  return await fetch('https://sm.ms/api/v2/upload', {
+  return await fetch('https://smms.app/api/v2/upload', {
     method: 'POST',
     headers: {
       Authorization: `Basic ${store.state.oss.smMs.token}`
