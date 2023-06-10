@@ -1,17 +1,18 @@
 <template>
   <div style="padding: 20px;max-height: 100vh;overflow-y: auto;">
-    <a-row   type="flex" justify="center">
-      <div @click="openFiles" id="file-area" @dragenter.prevent @drop.prevent.stop="fileBoxDrag"  @dragover.prevent @dragleave.prevent>
-        <a-icon type="cloud-upload" />
+    <a-row type="flex" justify="center">
+      <div @click="openFiles" id="file-area" @dragenter.prevent @drop.prevent.stop="fileBoxDrag" @dragover.prevent
+           @dragleave.prevent>
+        <a-icon type="cloud-upload"/>
       </div>
     </a-row>
     <a-row type="flex" justify="space-between" style="margin-top: 30px">
-      <a-col :span="17" >
+      <a-col :span="17">
         <a-row>
           <a-col :span="8">
             <a-select v-model="image.selectFileMode" style="width: 100%" @change="selectModeChange">
               <a-select-option :value="item" v-for="(item,index) in fileModeKey" :key="index">
-                {{item}}
+                {{ item }}
               </a-select-option>
             </a-select>
           </a-col>
@@ -43,29 +44,35 @@
       </a-col>
       <a-col :span="7">
         <a-row type="flex" justify="start">
-          <a-col :span="8"> <a-button @click="toNotesHandler()">笔记</a-button></a-col>
-          <a-col :span="8"> <a-button @click="settingShow">设置</a-button></a-col>
-          <a-col :span="8"><a-button @click="clearImage">清空</a-button></a-col>
+          <a-col :span="8">
+            <a-button @click="toNotesHandler()">笔记</a-button>
+          </a-col>
+          <a-col :span="8">
+            <a-button @click="settingShow">设置</a-button>
+          </a-col>
+          <a-col :span="8">
+            <a-button @click="clearImage">清空</a-button>
+          </a-col>
         </a-row>
       </a-col>
     </a-row>
     <div class="pictureBox">
       <div v-for="item in image.data" :key="item.id" class="item">
-          <a-spin tip="Loading..." :spinning="item.loading">
-            <div style="width: 180px;display: flex;justify-content: center">
-              <img style="border-radius: 10px; height: auto;max-height: 180px;max-width: 180px" v-lazy="item.image">
-            </div>
-            <div class="options" v-if="!item.loading">
-              <span @click="() => {tips = true;copy(chineseHandler(item.image))}" v-if="copyValueOptionsDisplay('URL')">URL</span>
-              <span @click="() => {tips = true;htmlCopy(item.image)}"  v-if="copyValueOptionsDisplay('HTML')">HTML</span>
-              <span @click="() => {tips = true;mdCopy(item.image)}"  v-if="copyValueOptionsDisplay('MD')">MD</span>
-              <span @click="() => toNotesHandler(item.image)"  v-if="copyValueOptionsDisplay('MD笔记')">MD笔记</span>
-              <span @click="() => {tips = true;customCopy(item.image)}"  v-if="configure.customUrl.value1">自定义</span>
-              <span @click="deleteItem(item.id)">删除</span>
-              <span @click="openPicturePreview(item)">查看</span>
-              <span>{{item.createTime}}</span>
-            </div>
-          </a-spin>
+        <a-spin tip="Loading..." :spinning="item.loading">
+          <div style="width: 180px;display: flex;justify-content: center">
+            <img style="border-radius: 10px; height: auto;max-height: 180px;max-width: 180px" v-lazy="item.image">
+          </div>
+          <div class="options" v-if="!item.loading">
+            <span @click="() => {tips = true;copy(chineseHandler(item.image))}" v-if="copyValueOptionsDisplay('URL')">URL</span>
+            <span @click="() => {tips = true;htmlCopy(item.image)}" v-if="copyValueOptionsDisplay('HTML')">HTML</span>
+            <span @click="() => {tips = true;mdCopy(item.image)}" v-if="copyValueOptionsDisplay('MD')">MD</span>
+            <span @click="() => toNotesHandler(item.image)" v-if="copyValueOptionsDisplay('MD笔记')">MD笔记</span>
+            <span @click="() => {tips = true;customCopy(item.image)}" v-if="configure.customUrl.value1">自定义</span>
+            <span @click="deleteItem(item.id)">删除</span>
+            <span @click="openPicturePreview(item)">查看</span>
+            <span>{{ item.createTime }}</span>
+          </div>
+        </a-spin>
       </div>
     </div>
     <a-modal v-model="picturePreview.visible" :footer="null"
@@ -74,7 +81,7 @@
              width="98vh">
       <template #closeIcon></template>
       <div id="picturePreview">
-        <img  :src="picturePreview.src"/>
+        <img :src="picturePreview.src"/>
       </div>
     </a-modal>
   </div>
@@ -92,6 +99,7 @@ import {
 } from 'darkreader'
 import Utils from '@/js/Utils'
 import Pictures from '@/data/Pictures.json'
+
 const defaultPictureBed = '猫盒'
 export default {
   data () {
@@ -133,7 +141,10 @@ export default {
       }
       // 自动保存
       window.startAutoSaveData = () => {
-        const { enable = false, interval = 10 } = this.configure.autoSave
+        const {
+          enable = false,
+          interval = 10
+        } = this.configure.autoSave
         if (window.autoSaveTimer) {
           console.log('清理', window.autoSaveTimer)
           clearInterval(window.autoSaveTimer)
@@ -180,7 +191,12 @@ export default {
       window.saveALL()
     })
     // 进入插件
-    window.utools.onPluginEnter(({ code, type, payload, optional }) => {
+    window.utools.onPluginEnter(({
+      code,
+      type,
+      payload,
+      optional
+    }) => {
       this.$store.commit('clearInvalidImage')
       if (window.utools.isDarkColors()) {
         enableDarkMode({
@@ -329,14 +345,24 @@ export default {
         return
       }
       const id = nanoid() + '/' + Date.now()
-      this.image.data.unshift({ id, image: '', loading: true })
+      this.image.data.unshift({
+        id,
+        image: '',
+        loading: true
+      })
       // eslint-disable-next-line no-unused-vars
       if (selectFileMode === '腾讯云OSS') {
         await uploadImage(item, id, selectFileMode, {
           callback: (result) => {
             if (result.status === 200) {
-              const { url, id } = result
-              this.$store.commit('setImage', { url, id })
+              const {
+                url,
+                id
+              } = result
+              this.$store.commit('setImage', {
+                url,
+                id
+              })
               this.$message.success('上传成功')
               if (autoCopy) {
                 this.autoCopy(url)
@@ -350,11 +376,22 @@ export default {
         })
       } else {
         console.log('queue', this.uploadTaskQueue)
-        const { res: result = { status: 400, message: '未知错误' } } =
+        const {
+          res: result = {
+            status: 400,
+            message: '未知错误'
+          }
+        } =
           await this.uploadTaskQueue.put(() => uploadImage(item, id, selectFileMode, { path }))
         if (result.status === 200) {
-          const { url, id } = result
-          this.$store.commit('setImage', { url, id })
+          const {
+            url,
+            id
+          } = result
+          this.$store.commit('setImage', {
+            url,
+            id
+          })
           if (tips) {
             this.$message.success('上传成功')
           }
@@ -458,8 +495,10 @@ export default {
     },
     // MarkDown 复制
     mdCopy (url) {
+      // 获取 url 最后一个文件名
+      const paths = url.split('/')
       url = this.chineseHandler(url)
-      const text = `![](${url})`
+      const text = `![${paths[paths.length - 1]}](${url})`
       this.copy(text)
     },
     // 插件内文件拖动复制
@@ -485,84 +524,95 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  #file-area {
-    width: 100%;
-    height: 120px;
-    background: #FF707B;
-    margin-top: 10px;
-    border-radius: 12px;
-    transition: all .5s linear;
-    font-size: 48px;
-    text-align: center;
-    color: white;
-    line-height: 120px;
-    cursor: pointer;
+#file-area {
+  width: 100%;
+  height: 120px;
+  background: #FF707B;
+  margin-top: 10px;
+  border-radius: 12px;
+  transition: all .5s linear;
+  font-size: 48px;
+  text-align: center;
+  color: white;
+  line-height: 120px;
+  cursor: pointer;
+
   &:hover {
-     box-shadow: 0 3px 12px #FFC6CB;
-   }
+    box-shadow: 0 3px 12px #FFC6CB;
   }
-  .pictureBox {
-    margin-top: 10px;
-    display: grid;
-    gap: 10px;
-    grid-template-columns:repeat(auto-fit, 180px);
-    justify-content: center;
-    .item:hover .options {
-      display: block !important;
-    }
-    .item {
-      max-height: 180px;
-      min-width: 180px;
-      min-height: 180px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img {
-        width: auto;
-        max-width: 100%;
-        height: auto;
-      }
-    }
-    .options {
-      display: none;
-      position: absolute;
-      top: 50%;
-      //left: 50%;
-      //width: 160px;
-      transform: translate(0,-50%);
-      background: rgba(0,0,0,.4);
-      border-radius: 10px;
-      text-align: center;
-      color: white;
-      font-size: 14px;
-      cursor: pointer;
-      overflow: hidden;
-      span {
-        display: inline-block;
-        width: 100%;
-        border-bottom: 1px dashed #ccc;
-        &:last-child {
-          border-bottom: none;
-        }
-        &:hover{
-          background: rgba(0,0,0,.5);
-        }
-      }
-    }
+}
+
+.pictureBox {
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns:repeat(auto-fit, 180px);
+  justify-content: center;
+
+  .item:hover .options {
+    display: block !important;
   }
-  #picturePreview {
-    box-sizing: border-box;
+
+  .item {
+    max-height: 180px;
+    min-width: 180px;
+    min-height: 180px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 93vh;
-    width: 100%;
-    overflow-y: auto;
+
     img {
+      width: auto;
       max-width: 100%;
-      max-height: 92vh;
       height: auto;
-      overflow-y: auto;
     }
   }
+
+  .options {
+    display: none;
+    position: absolute;
+    top: 50%;
+    //left: 50%;
+    //width: 160px;
+    transform: translate(0, -50%);
+    background: rgba(0, 0, 0, .4);
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    overflow: hidden;
+
+    span {
+      display: inline-block;
+      width: 100%;
+      border-bottom: 1px dashed #ccc;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, .5);
+      }
+    }
+  }
+}
+
+#picturePreview {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 93vh;
+  width: 100%;
+  overflow-y: auto;
+
+  img {
+    max-width: 100%;
+    max-height: 92vh;
+    height: auto;
+    overflow-y: auto;
+  }
+}
 </style>
