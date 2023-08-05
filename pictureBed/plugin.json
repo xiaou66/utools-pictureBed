@@ -21,7 +21,7 @@
           "type": "files",
           "label": "上传到图床",
           "fileType": "file",
-          "match": "/.*(jpg|png|jpeg|gif)$/i",
+          "match": "/.*(jpg|png|jpeg|gif|webp)$/i",
           "minLength": 1,
           "maxLength": 10
         },
