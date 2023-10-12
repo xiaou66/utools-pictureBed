@@ -478,6 +478,7 @@ export default {
       this.$copyText(text).then(() => {
         if (this.tips) {
           this.$message.success('复制成功')
+          window.utools.hideMainWindow()
         }
       })
     },
