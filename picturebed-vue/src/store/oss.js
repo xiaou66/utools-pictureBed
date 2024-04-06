@@ -40,8 +40,10 @@ const oss = {
       url: ''
     },
     Hello: {
-      username: '',
-      password: ''
+      token: '',
+      permission: 0,
+      strategyId: 0,
+      albumId: ''
     },
     upyun: {
       // 服务名称

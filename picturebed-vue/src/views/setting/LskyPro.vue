@@ -8,7 +8,7 @@
         <a-input placeholder="请输入 API token" v-model="oss.lskyPro.token"></a-input>
       </a-form-item>
       <a-form-item label="存储策略" >
-        <a-input placeholder="请输入" v-model="oss.lskyPro.strategyId"></a-input>
+        <a-input placeholder="[可选]填存储策略的编号" v-model="oss.lskyPro.strategyId"></a-input>
       </a-form-item>
     </a-form>
     <a-row type="flex" justify="center">

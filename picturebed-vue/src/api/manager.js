@@ -42,7 +42,7 @@ export const usableSource = (uploadImageMode) => {
     case '又拍云':
       return store.state.oss.upyun.password && store.state.oss.upyun.username
     case 'Hello':
-      return store.state.oss.Hello.password
+      return store.state.oss.Hello.token
     case 'LskyPro':
       return store.state.oss.lskyPro.servicePath
     case 'imgUrlOrg':

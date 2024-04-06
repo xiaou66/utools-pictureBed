@@ -2,19 +2,24 @@ import store from '../store/index'
 function Hello () {}
 Hello.uploadImage = async (item, id) => {
   const formData = new FormData()
-  const { username, password } = store.state.oss.Hello
-  formData.append('source', item)
-  formData.append('login-subject', username)
-  formData.append('password', password)
-  return await fetch('https://www.helloimg.com/newapi/2/upload/?format=json', {
+  const { token, permission, strategyId } = store.state.oss.Hello
+  formData.append('file', item)
+  formData.append('permission', permission)
+  formData.append('strategy_id', strategyId)
+  return await fetch('https://pro.helloimg.com/api/v1/upload', {
     method: 'POST',
-    body: formData
+    body: formData,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json'
+    }
   }).then(res => res.json())
     .then(res => {
-      if (res.status_code !== 200) {
-        return { status: 403, message: res.error.message }
+      if (res.status !== true) {
+        return { status: 403, message: res.message }
       }
-      const { url } = res.image
+      const { url } = res.data.links
+      console.log('Hello', url)
       return { status: 200, url, id }
     }).catch(() => {
       return { status: 403, message: '上传失败' }

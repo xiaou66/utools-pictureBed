@@ -13,7 +13,7 @@ GitHub.uploadImage = (item, id) => {
     fr.onloadend = (e) => {
       const base64 = e.target.result.split(',')[1]
       const data = {
-        message: '图床',
+        message: '图床' + Date.now(),
         content: base64
       }
       if (branch) {
@@ -24,8 +24,8 @@ GitHub.uploadImage = (item, id) => {
       fetch(requestUrl, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Authorization: `token ${token}`
+          'X-GitHub-Api-Version': '2022-11-28',
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(data)
       })

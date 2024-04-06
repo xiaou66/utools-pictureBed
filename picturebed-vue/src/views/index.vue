@@ -1,7 +1,10 @@
 <template>
   <div style="padding: 20px;max-height: 100vh;overflow-y: auto;">
     <a-row type="flex" justify="center">
-      <div @click="openFiles" id="file-area" @dragenter.prevent @drop.prevent.stop="fileBoxDrag" @dragover.prevent
+      <div @click="openFiles" id="file-area"
+           @dragenter.prevent
+           @drop.prevent.stop="fileBoxDrag"
+           @dragover.prevent
            @dragleave.prevent>
         <a-icon type="cloud-upload"/>
       </div>
