@@ -1,5 +1,5 @@
 {
-  "fileModeKey": ["阿里云OSS", "腾讯云OSS", "七牛云", "又拍云",
+  "fileModeKey": ["s3","阿里云OSS", "腾讯云OSS", "七牛云", "又拍云",
     "GitHub", "Gitee", "onedrive", "chevereto", "LskyPro", "Hello",
     "猫盒", "imgUrlOrg", "smMs"]
 }

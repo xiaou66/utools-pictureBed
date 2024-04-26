@@ -11,6 +11,7 @@
     "@xiaou66/interconnect-client": "^1.0.0",
     "ali-oss": "^6.9.1",
     "ant-design-vue": "^1.6.3",
+    "aws-sdk": "^2.1607.0",
     "axios": "^0.25.0",
     "bobolink": "^3.0.0",
     "browser-image-compression": "^1.0.17",

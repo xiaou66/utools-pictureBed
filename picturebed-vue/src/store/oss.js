@@ -1,6 +1,15 @@
 import ossData from '@/data/oss_data.json'
 const oss = {
   state: {
+    s3: {
+      endpoint: '',
+      accessKeyId: '',
+      secretAccessKey: '',
+      region: '',
+      bucket: '',
+      version: '',
+      path: ''
+    },
     aliOss: {
       region: '',
       accessKeyId: '',

@@ -21,14 +21,16 @@ Utils.getImageSavePath = (formatPath, fileName, { timestamp = false } = {}) => {
    * 允许格式化的关键词
    * @type {string[]} Y-年 M-月 D-日 H-时 m-分 s-秒 rand-10位 随机字符串
    */
-  const enableKeywords = ['Y', 'M', 'D', 'H', 'm', 's', 'rand', 'ms', 'filename', 'suffix', 'since_millisecond', 'since_second']
+  const enableKeywords = ['Y', 'MM', 'M', 'D', 'DD', 'H', 'm', 's', 'rand', 'ms', 'filename', 'suffix', 'since_millisecond', 'since_second']
   const date = new Date()
   const suffix = path.extname(fileName).replace()
   const filename = path.basename(fileName).replace(suffix, '')
   const option = {
     Y: date.getFullYear().toString(),
     M: (date.getMonth() + 1).toString(),
+    MM: (date.getMonth() + 1).toString().padStart(2, '0'),
     D: date.getDate().toString(),
+    DD: date.getDate().toString().padStart(2, '0'),
     H: date.getHours().toString().padStart(2, '0'),
     m: date.getMinutes().toString().padStart(2, '0'),
     s: date.getSeconds().toString().padStart(2, '0'),

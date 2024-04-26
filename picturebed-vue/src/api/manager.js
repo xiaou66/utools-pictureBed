@@ -13,6 +13,7 @@ import Upyun from '@/api/upyun'
 import Gitee from '@/api/Gitee'
 import QiNiu from '@/api/QiNiu'
 import LskyPro from '@/api/LskyPro'
+import S3 from '@/api/s3'
 export const fileNameFormat = (uploadImageMode) => {
   const type = uploadImageMode || store.state.image.selectFileMode
   // const { } = store.state.oss
@@ -80,6 +81,8 @@ export const uploadImage = async (item, id, uploadImageMode, {
       return await Hello.uploadImage(item, id)
     case 'LskyPro':
       return await LskyPro.uploadImage(item, id)
+    case 's3':
+      return await S3.uploadImage(item, id)
   }
   if (type.includes('映画')) {
     const nodeName = type.split('/')[1]
