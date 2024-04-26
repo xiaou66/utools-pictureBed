@@ -31,7 +31,7 @@
           配置后需要保持文件唯一性如果不唯一则将会上传失败
           {Y}:年 {M}:月 {D}:日 {H}:时 {m}:分 {s}:秒 {ms}: 毫秒{rand}:随机字符串{filename}:文件名称{suffix}:文件后缀{since_millisecond}毫秒时间戳{since_second}秒时间戳
         </template>
-        <a-input placeholder="上传目录例如: abc/test/ {Y}:年 {M}:月 {D}:日 {H}:时 {m}:分 {s}:秒 {rand}:随机字符串 [可选]"
+        <a-input placeholder="上传目录例如: abc/test/ {Y}:年 {MM}:月 {DD}:日 {H}:时 {m}:分 {s}:秒 {rand}:随机字符串 [可选]"
                  v-model="oss.s3.path"></a-input>
       </a-tooltip>
     </a-form-item>
