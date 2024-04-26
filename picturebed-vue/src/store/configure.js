@@ -11,6 +11,10 @@ const configure = {
       enabled: false
     },
     timeStamp: false,
+    interconnect: {
+      port: 33438,
+      status: false
+    },
     // 服务
     webService: {
       port: 4126,

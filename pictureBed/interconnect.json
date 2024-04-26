@@ -10,23 +10,17 @@
           "paramName": "filePath",
           "desc": "上传的文件路径",
           "required": true
+        },
+        {
+          "paramName": "sourceName",
+          "desc": "选择上传源不区分大小写, 默认: 用户当前选择的源",
+          "required": false
         }
       ],
       "response": [
         {
           "paramName": "url",
           "desc": "上传后文件 URL"
-        }
-      ]
-    },
-    {
-      "funcCode": "upload2",
-      "funcName": "上传文件",
-      "body": [
-        {
-          "paramName": "filePath",
-          "desc": "上传的文件路径",
-          "required": true
         }
       ]
     }

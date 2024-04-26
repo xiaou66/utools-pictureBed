@@ -129,8 +129,6 @@ export default {
     window.onPluginReady(() => {
       // 版本检查
       uToolsUtils.isNewVersion()
-      // 数据读入
-      uToolsUtils.readAll()
       // webService 自启
       if (this.configure.webService.status) {
         const port = this.configure.webService.port
