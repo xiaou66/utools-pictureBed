@@ -1,0 +1,34 @@
+{
+  "id": "xiaou-pictureBed",
+  "name": "图床",
+  "messages": [
+    {
+      "funcCode": "upload",
+      "funcName": "上传文件",
+      "body": [
+        {
+          "paramName": "filePath",
+          "desc": "上传的文件路径",
+          "required": true
+        }
+      ],
+      "response": [
+        {
+          "paramName": "url",
+          "desc": "上传后文件 URL"
+        }
+      ]
+    },
+    {
+      "funcCode": "upload2",
+      "funcName": "上传文件",
+      "body": [
+        {
+          "paramName": "filePath",
+          "desc": "上传的文件路径",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

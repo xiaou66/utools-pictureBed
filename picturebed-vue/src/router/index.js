@@ -98,6 +98,16 @@ const routes = [
         path: 'catbox',
         name: 'catbox',
         component: () => import('../views/setting/catbox')
+      },
+      {
+        path: 'interconnectConfig',
+        name: 'interconnectConfig',
+        component: () => import('../views/setting/interconnectConfig')
+      },
+      {
+        path: 's3',
+        name: 's3Config',
+        component: () => import('../views/setting/s3Config.vue')
       }
     ]
   }

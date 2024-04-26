@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@xiaou66/interconnect-client": "^1.0.0",
     "ali-oss": "^6.9.1",
     "ant-design-vue": "^1.6.3",
     "axios": "^0.25.0",

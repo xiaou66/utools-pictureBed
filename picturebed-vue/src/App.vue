@@ -4,6 +4,24 @@
   </div>
 </template>
 
+<script>
+
+import { LinkWsClient } from '@xiaou66/interconnect-client'
+
+export default {
+  created () {
+    window.plugConnect = () => {
+      window.plugConnect = new LinkWsClient((e) => {
+        console.log(e)
+        window.plugConnect = null
+      }, 'xiaou-pictureBed')
+    }
+  },
+  methods: {
+  }
+}
+</script>
+
 <style lang="scss">
 *::-webkit-scrollbar-track, *::-webkit-scrollbar-track-piece {
   border-radius: 0;

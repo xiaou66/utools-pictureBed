@@ -20,6 +20,7 @@ export default {
   data () {
     return {
       tabsData: [
+        { name: 'S3', router: { name: 's3Config' } },
         { name: '阿里OSS', router: { name: 'aliOss' } },
         { name: '腾讯OSS', router: { name: 'tencentOss' } },
         { name: '七牛云', router: { name: 'QiNiu' } },
@@ -35,7 +36,8 @@ export default {
         { name: '猫盒', router: { name: 'catbox' } },
         { name: '通用', router: { name: 'general' } },
         { name: '服务', router: { name: 'webService' } },
-        { name: '数据', router: { name: 'imageData' } }
+        { name: '数据', router: { name: 'imageData' } },
+        { name: '插件互联', router: { name: 'interconnectConfig' } }
       ],
       currentTab: '阿里OSS'
     }
