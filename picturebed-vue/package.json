@@ -17,7 +17,7 @@
     "browser-image-compression": "^1.0.17",
     "core-js": "^3.6.5",
     "cos-js-sdk-v5": "^0.5.27",
-    "darkreader": "^4.9.40",
+    "darkreader": "^4.9.58",
     "nanoid": "^3.2.0",
     "node-cache": "^5.1.2",
     "vue": "^2.6.11",

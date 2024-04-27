@@ -96,10 +96,10 @@ import Bobolink from 'bobolink'
 import { nanoid } from 'nanoid'
 import { uploadImage, usableSource } from '@/api/manager'
 import uToolsUtils from '../js/uToolsUtils'
-// import {
-//   enable as enableDarkMode,
-//   disable as disableDarkMode
-// } from 'darkreader'
+import {
+  enable as enableDarkMode,
+  disable as disableDarkMode
+} from 'darkreader'
 import Utils from '@/js/Utils'
 import Pictures from '@/data/Pictures.json'
 
@@ -199,13 +199,13 @@ export default {
       optional
     }) => {
       this.$store.commit('clearInvalidImage')
-      // if (window.utools.isDarkColors()) {
-      //   enableDarkMode({
-      //     darkSchemeBackgroundColor: '#303133'
-      //   })
-      // } else {
-      //   disableDarkMode()
-      // }
+      if (window.utools.isDarkColors()) {
+        enableDarkMode({
+          darkSchemeBackgroundColor: '#303133'
+        })
+      } else {
+        disableDarkMode()
+      }
       console.log(payload)
       if (type === 'files') {
         console.log(payload)
