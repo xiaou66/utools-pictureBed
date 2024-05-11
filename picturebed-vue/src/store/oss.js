@@ -8,7 +8,8 @@ const oss = {
       region: '',
       bucket: '',
       version: '',
-      path: ''
+      path: '',
+      baseUrl: ''
     },
     aliOss: {
       region: '',

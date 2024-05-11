@@ -4,7 +4,7 @@ import Utils from '@/js/Utils'
 function s3 () {}
 s3.uploadImage = (item, id) => {
   return new Promise((resolve, reject) => {
-    const { endpoint, accessKeyId, secretAccessKey, region, bucket, version, path } = store.state.oss.s3
+    const { endpoint, accessKeyId, secretAccessKey, region, bucket, version, path, baseUrl = '' } = store.state.oss.s3
     const s3 = new AWS.S3()
     const config = {
       accessKeyId: accessKeyId,
@@ -23,10 +23,11 @@ s3.uploadImage = (item, id) => {
       Bucket: bucket,
       Body: item
     }, (err, data) => {
+      const url = baseUrl ? baseUrl + '/' + data.Key : data.Location
       if (err) {
         resolve({ status: 403, message: '上传失败: ' + err })
       } else {
-        resolve({ status: 200, url: data.Location, id })
+        resolve({ status: 200, url, id })
       }
     })
   })

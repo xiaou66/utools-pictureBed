@@ -21,6 +21,10 @@
       <a-input placeholder="bucket"
                v-model="oss.s3.bucket"></a-input>
     </a-form-item>
+    <a-form-item label="自定义域名" >
+      <a-input placeholder="bucket"
+               v-model="oss.s3.baseUrl"></a-input>
+    </a-form-item>
     <a-form-item label="version" >
       <a-input placeholder="api 版本号"
                v-model="oss.s3.version"></a-input>
