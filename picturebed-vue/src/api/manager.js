@@ -14,6 +14,7 @@ import Gitee from '@/api/Gitee'
 import QiNiu from '@/api/QiNiu'
 import LskyPro from '@/api/LskyPro'
 import S3 from '@/api/s3'
+import pan123 from '@/api/123Pan'
 export const fileNameFormat = (uploadImageMode) => {
   const type = uploadImageMode || store.state.image.selectFileMode
   // const { } = store.state.oss
@@ -24,6 +25,8 @@ export const fileNameFormat = (uploadImageMode) => {
 export const usableSource = (uploadImageMode) => {
   const type = uploadImageMode || store.state.image.selectFileMode
   switch (type) {
+    case '123云盘':
+      return store.state.oss.pan123.clientSecret && store.state.oss.pan123.clientID
     case '阿里云OSS':
       return store.state.oss.aliOss.accessKeySecret
     case '腾讯云OSS':
@@ -83,6 +86,8 @@ export const uploadImage = async (item, id, uploadImageMode, {
       return await LskyPro.uploadImage(item, id)
     case 's3':
       return await S3.uploadImage(item, id)
+    case '123云盘':
+      return await pan123.updateFile(item, id)
   }
   if (type.includes('映画')) {
     const nodeName = type.split('/')[1]

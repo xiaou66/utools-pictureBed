@@ -108,6 +108,11 @@ const routes = [
         path: 's3',
         name: 's3Config',
         component: () => import('../views/setting/s3Config.vue')
+      },
+      {
+        path: '123Pan',
+        name: '123Pan',
+        component: () => import('../views/setting/123Pan.vue')
       }
     ]
   }

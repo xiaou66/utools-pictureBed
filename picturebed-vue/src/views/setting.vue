@@ -26,6 +26,7 @@ export default {
         { name: '七牛云', router: { name: 'QiNiu' } },
         { name: '又拍云', router: { name: 'upyun' } },
         { name: 'GitHub', router: { name: 'GitHub' } },
+        { name: '123Pan', router: { name: '123Pan' } },
         { name: 'Gitee', router: { name: 'Gitee' } },
         { name: 'onedrive', router: { name: 'onedrive' } },
         { name: 'chevereto', router: { name: 'chevereto' } },

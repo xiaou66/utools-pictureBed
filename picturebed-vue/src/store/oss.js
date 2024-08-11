@@ -11,6 +11,11 @@ const oss = {
       path: '',
       baseUrl: ''
     },
+    pan123: {
+      clientID: '',
+      clientSecret: '',
+      parentFileID: ''
+    },
     aliOss: {
       region: '',
       accessKeyId: '',
