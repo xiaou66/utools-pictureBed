@@ -9,7 +9,8 @@ const oss = {
       bucket: '',
       version: '',
       path: '',
-      baseUrl: ''
+      baseUrl: '',
+      forcePathStyle: false
     },
     aliOss: {
       region: '',

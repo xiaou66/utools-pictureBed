@@ -12,7 +12,7 @@ const fileSuffixMap = {
 }
 s3.uploadImage = (item, id) => {
   return new Promise((resolve, reject) => {
-    const { endpoint, accessKeyId, secretAccessKey, region, bucket, version, path, baseUrl = '' } = store.state.oss.s3
+    const { endpoint, accessKeyId, secretAccessKey, region, bucket, version, path, forcePathStyle, baseUrl = '' } = store.state.oss.s3
     const s3 = new AWS.S3()
     const config = {
       accessKeyId: accessKeyId,
@@ -22,6 +22,9 @@ s3.uploadImage = (item, id) => {
     }
     if (version) {
       config.apiVersion = version
+    }
+    if (forcePathStyle) {
+      config.s3ForcePathStyle = forcePathStyle
     }
     s3.config.update({ ...config })
     const { name } = item

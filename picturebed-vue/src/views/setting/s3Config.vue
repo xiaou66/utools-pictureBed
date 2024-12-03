@@ -3,6 +3,9 @@
     <a-form-item label="endpoint" >
       <a-input placeholder="请输入 endpoint" v-model="oss.s3.endpoint"></a-input>
     </a-form-item>
+    <a-form-item label="endpoint 访问方式" >
+      <a-select v-model="oss.s3.forcePathStyle" :options="[{value: false,label: '虚拟主机(Virtual Hosted Style)'},{value:true,label:'路径访问(Path Style)'}]"></a-select>
+    </a-form-item>
     <a-form-item label="accessKeyId" >
       <a-input placeholder="请输入 accessKeyId"
                type="password"
